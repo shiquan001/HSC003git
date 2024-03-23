@@ -1,0 +1,12 @@
+﻿{
+    "specVersion": "1.0",
+    "fileName": "wenshi_V1.0.bin",
+    "packageType": "softwarePackage",
+    "version": "V1.0",
+    "deviceType": "MultiSensor",
+    "manufacturerName": "qianchen",
+    "model": "WS2019001",
+    "protocolType":"CoAP",
+    "description":"Update software package",
+    "date":"2019-10-31"
+}

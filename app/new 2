@@ -1,0 +1,12 @@
+{
+    "specVersion": "1.0",
+    "fileName": "ExamplePackage_V1.0.xx",
+    "packageType": "softwarePackage",
+    "version": "V1.0",
+    "deviceType": "BikeLock",
+    "manufacturerName": "ofo",
+    "model": "twx2",
+    "protocolType":"CoAP",
+    "description":"Test software package",
+    "date":"2019-10-31"
+}
