@@ -41,6 +41,7 @@
 /* USER CODE BEGIN Includes */
 #include "bsp.h"
 #include "app.h"
+#include "app_main.h"
 
 
 /* USER CODE END Includes */
@@ -120,6 +121,7 @@ int main(void)
     /* Configure the system clock */
     SystemClock_Config();
 
+
     /* USER CODE BEGIN SysInit */
      //DISABLE_INT();
     /* USER CODE END SysInit */
@@ -156,6 +158,8 @@ int main(void)
     print_reboot_flag();//需要先初始化spi flash的供电
     clear_reboot_flag();
   
+    app_tasks();//测试使用
+    
     #if 1
     App_caiji_report_Init_Var();
     g_caiji.start_gps = TRUE;

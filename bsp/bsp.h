@@ -85,7 +85,7 @@
 
 #define debug_handle huart5  //  µ÷ÊÔ´®¿Ú
 
-#include "delay.h"
+// #include "delay.h"
 #include "debug.h"
 
 #include "main.h"
