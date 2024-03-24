@@ -48,8 +48,8 @@
 #include "app_update_4g.h"
 
 
-#define VERSION_WENSHI_cur "V1.18"//
-#define VERSION_WENSHI_CODE 118//
+#define VERSION_WENSHI_cur "V1.19"//
+#define VERSION_WENSHI_CODE 119//
 
 #if 0
 #define VERSION_bootloarder_code  
@@ -65,8 +65,8 @@
 //#define ENABLE_TIANJING_PLC  //兼容设施所plc
 #define ENABLE_SHESHISUO_PLC //设施所plc 新
 
-//#define ALL_SENSORS // 原来的传感器
-#define ONLY_8SAME_AIRTHSENSOR // 1个控制器带5个：11、12、13、14、15；  1个控制器带3个；16、20、30；
+#define ALL_SENSORS // 原来的传感器
+// #define ONLY_8SAME_AIRTHSENSOR // 1个控制器带5个：11、12、13、14、15；  1个控制器带3个；16、20、30；
 
 /* COAP address config */
 #if 0
