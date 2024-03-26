@@ -226,7 +226,7 @@ void app_test_task(void)
         app_test_p400task();
         app_test_p500task();
         app_test_p401task();
-}
+    }
     
     #endif
 }
