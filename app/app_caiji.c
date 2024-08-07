@@ -1954,7 +1954,7 @@ void App_caiji_turang_Loop(void)
             if (App_485_rxModbusCmd(&gModbus)==1)
             {               
                 #ifdef SOIL_SENSOR_T_H_E//土壤温湿度传感器 顺序不一样 湿度温度EC
-                m_soil_T = ((uint16_t)gModbus.AppRxBuf[0] << 8 | gModbus.AppRxBuf[1]);              
+                m_soil_T = ((uint16_t)gModbus.AppRxBuf[2] << 8 | gModbus.AppRxBuf[3]);              
                 if(m_soil_T >=0.0)
                 {
                     g_wenshiCopy.m_soil_Symbol=1;   
@@ -1965,7 +1965,7 @@ void App_caiji_turang_Loop(void)
                     g_wenshiCopy.m_soil_Symbol=0;
                     g_wenshiCopy.m_soil_T = -m_soil_T;
                 }
-                g_wenshiCopy.m_soil_H = ((uint16_t)gModbus.AppRxBuf[2] << 8 | gModbus.AppRxBuf[3]);                             
+                g_wenshiCopy.m_soil_H = ((uint16_t)gModbus.AppRxBuf[0] << 8 | gModbus.AppRxBuf[1]);                             
                 g_wenshiCopy.m_soil_EC = ((uint16_t)gModbus.AppRxBuf[4] << 8 | gModbus.AppRxBuf[5]);
                 #else//土壤温湿度传感器 顺序不一样 温度湿度EC
                 m_soil_T = ((uint16_t)gModbus.AppRxBuf[0] << 8 | gModbus.AppRxBuf[1]);              
