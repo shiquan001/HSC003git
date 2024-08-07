@@ -21,7 +21,7 @@
 #include "bsp.h"
 #include "bsp_timer.h"
 
-#define TEST_ENABLE  //测试使能开关
+// #define TEST_ENABLE  //测试使能开关
 
 // 省略MX_GPIO_Init函数和SystemClock_Config函数的实现...
 void SystemClock_Config(void);
