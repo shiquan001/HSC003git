@@ -1544,7 +1544,7 @@ uint8_t curAirTHNum = 0;// 总共8个  0-7
 //    CMDError,
 //    HandShake,
 //    Telemetry,//閬ユ祴
-//    GetDeviceInformation,    //璁惧淇℃伅鑾峰彇鎸囦护
+//    GetDeviceInformation,    //璁惧?囦俊鎭?鑾峰彇鎸囦护
 //    
 //    GroupInfoGet,
 //};
@@ -1679,7 +1679,8 @@ void App_caiji_turang_Loop(void)
             g_caiji.soil_TH_start = FALSE;
             g_caiji.soil_TH_work_state = CAIJI_soil_TH_MAX;
             
-           /* :  数据变化上报 */
+    
+       /* :  数据变化上报 */
             if(App_data_report_process()&&(g_tConfig.report_changed))
             {
                 App_caiji_report_start();//
@@ -2297,7 +2298,8 @@ void App_caiji_turang_Loop(void)
             g_caiji.soil_TH_start = FALSE;
             g_caiji.soil_TH_work_state = CAIJI_soil_TH_MAX;
             
-           /* :  数据变化上报 */
+    
+       /* :  数据变化上报 */
             if(App_data_report_process()&&(g_tConfig.report_changed))
             {
                 App_caiji_report_start();//
@@ -2635,7 +2637,8 @@ void App_caiji_report_Loop(void)
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETTIME);//                              
                     p_info("REPORT_CAIJI_gettime发送数据");                     
-                }              
+                
+}              
             }
             if(g_caiji.timer_server_ask_ok==TRUE)
             {
@@ -2705,7 +2708,8 @@ void App_caiji_report_Loop(void)
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETINFO);//                              
                     p_info("REPORT_CAIJI_getinfo 发送数据");                        
-                }              
+                
+}              
             }
             if(g_caiji.info_server_ask_ok==TRUE)
             {
@@ -2738,7 +2742,8 @@ void App_caiji_report_Loop(void)
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETREPORT);//                            
                     p_info("REPORT_CAIJI_getreport 发送数据");                      
-                }              
+                
+}              
             }
             if(g_caiji.report_server_ask_ok==TRUE)
             {
@@ -2942,5 +2947,7 @@ static uint8_t Modbus_Protocolverification(uint8_t * start_index,uint8_t address
     return ret;     
 
 }
+
+
 
 

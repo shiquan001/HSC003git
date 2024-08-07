@@ -48,8 +48,8 @@
 #include "app_update_4g.h"
 
 
-#define VERSION_WENSHI_cur "V1.19"//
-#define VERSION_WENSHI_CODE 119//
+#define VERSION_WENSHI_cur "V1.20"//
+#define VERSION_WENSHI_CODE 120//
 
 #if 0
 #define VERSION_bootloarder_code  
@@ -66,6 +66,8 @@
 #define ENABLE_SHESHISUO_PLC //设施所plc 新
 
 #define ALL_SENSORS // 原来的传感器
+#define SOIL_SENSOR_T_H_E  //土壤温湿度电导率传感器26 顺序是湿度、温度、电导率
+
 // #define ONLY_8SAME_AIRTHSENSOR // 1个控制器带5个：11、12、13、14、15；  1个控制器带3个；16、20、30；
 
 /* COAP address config */
