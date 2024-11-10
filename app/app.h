@@ -48,8 +48,8 @@
 #include "app_update_4g.h"
 
 
-#define VERSION_WENSHI_cur "V1.19"//
-#define VERSION_WENSHI_CODE 119//
+#define VERSION_WENSHI_cur "V1.20"//
+#define VERSION_WENSHI_CODE 120//
 
 #if 0
 #define VERSION_bootloarder_code  
