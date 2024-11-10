@@ -1539,15 +1539,6 @@ void app_cai_airTHRx()
 uint8_t addressAirTh[8] = {11,12,13,14,15,16,20,30};//温湿度传感器modbus地址15
 uint8_t curAirTHNum = 0;// 总共8个  0-7
 
-//static const Ptr_CommExeFuc CommExeFuncArray[] =
-//{
-//    CMDError,
-//    HandShake,
-//    Telemetry,//閬ユ祴
-//    GetDeviceInformation,    //璁惧淇℃伅鑾峰彇鎸囦护
-//    
-//    GroupInfoGet,
-//};
 
 SensorAirTh_T airThSensor[8];// 总共8个  0-7
 
@@ -1679,7 +1670,8 @@ void App_caiji_turang_Loop(void)
             g_caiji.soil_TH_start = FALSE;
             g_caiji.soil_TH_work_state = CAIJI_soil_TH_MAX;
             
-           /* :  数据变化上报 */
+    
+       /* :  数据变化上报 */
             if(App_data_report_process()&&(g_tConfig.report_changed))
             {
                 App_caiji_report_start();//
@@ -2140,8 +2132,10 @@ void App_caiji_turang_Loop(void)
                 gModbus.address = ADDRESS_PLC_DISPLAY;
                 gModbus.function = FUNCTION_CODE_10;
                 gModbus.dataAddress= 0;
-                gModbus.dataLen = 0x06;
-                app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+                // gModbus.dataLen = 0x06;
+                // app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+                gModbus.dataLen = LED_NUM_REGISTER;
+                App_485_tx_led_display_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
                 comClearRxFifo(COM5);//COM5
                 bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
                 p_info("g_caiji tx PLC");               
@@ -2158,8 +2152,10 @@ void App_caiji_turang_Loop(void)
                 gModbus.address = ADDRESS_PLC_DISPLAY;
                 gModbus.function = FUNCTION_CODE_10;
                 gModbus.dataAddress= 0;
-                gModbus.dataLen = 0x06;
-                app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+                // gModbus.dataLen = 0x06;
+                // app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+                gModbus.dataLen = LED_NUM_REGISTER;
+                App_485_tx_led_display_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
                 comClearRxFifo(COM5);//COM5
                 bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
                 p_info("g_caiji tx PLC");               
@@ -2297,7 +2293,8 @@ void App_caiji_turang_Loop(void)
             g_caiji.soil_TH_start = FALSE;
             g_caiji.soil_TH_work_state = CAIJI_soil_TH_MAX;
             
-           /* :  数据变化上报 */
+    
+       /* :  数据变化上报 */
             if(App_data_report_process()&&(g_tConfig.report_changed))
             {
                 App_caiji_report_start();//
@@ -2635,7 +2632,8 @@ void App_caiji_report_Loop(void)
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETTIME);//                              
                     p_info("REPORT_CAIJI_gettime发送数据");                     
-                }              
+                
+}              
             }
             if(g_caiji.timer_server_ask_ok==TRUE)
             {
@@ -2705,7 +2703,8 @@ void App_caiji_report_Loop(void)
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETINFO);//                              
                     p_info("REPORT_CAIJI_getinfo 发送数据");                        
-                }              
+                
+}              
             }
             if(g_caiji.info_server_ask_ok==TRUE)
             {
@@ -2738,7 +2737,8 @@ void App_caiji_report_Loop(void)
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETREPORT);//                            
                     p_info("REPORT_CAIJI_getreport 发送数据");                      
-                }              
+                
+}              
             }
             if(g_caiji.report_server_ask_ok==TRUE)
             {

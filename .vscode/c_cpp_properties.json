@@ -1,0 +1,53 @@
+{
+    "configurations": [
+        {
+            "name": "ARM",
+            "includePath": [
+                "${workspaceFolder}/**",
+
+                "D:/SVN003/wenshi_code/HSC003gitt/bsp",
+                "D:/SVN003/wenshi_code/HSC003gitt/Inc",
+                "D:/SVN003/wenshi_code/HSC003gitt/Drivers/STM32L4xx_HAL_Driver/Inc",
+                "D:/SVN003/wenshi_code/HSC003gitt/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy",
+                "D:/SVN003/wenshi_code/HSC003gitt/Drivers/CMSIS/Device/ST/STM32L4xx/Include",
+                "D:/SVN003/wenshi_code/HSC003gitt/Drivers/CMSIS/Include",
+                "D:/SVN003/wenshi_code/HSC003gitt/Drivers/CMSIS/Include",
+                "D:/SVN003/wenshi_code/HSC003gitt/app",
+                                
+                "D:/SVN003/wenshi_code/HSC003gitt/NBxxModule",
+                "D:/SVN003/wenshi_code/HSC003gitt/bsp/UART_DMA_CFG",
+                "D:/SVN003/wenshi_code/HSC003gitt/GPS_Parse",
+                "D:/SVN003/wenshi_code/HSC003gitt/GY_JSON",
+
+                "D:/SVN003/wenshi_code/HSC003gitt/Drivers"               
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32L476xx",
+                "BOARD_PCA10056",
+                "FLOAT_ABI_HARD",
+                "INITIALIZE_USER_SECTIONS",
+                "NO_VTOR_CONFIG",
+                "NRF52840_XXAA",
+                "NRF_SD_BLE_API_VERSION=7",
+                "S140",
+                "SOFTDEVICE_PRESENT",
+                "BL_SETTINGS_ACCESS_ONLY",
+                "NRF_DFU_SVCI_ENABLED",
+                "NRF_DFU_TRANSPORT_BLE=1",
+                "CONFIG_NFCT_PINS_AS_GPIOS",
+                "CONFIG_GPIO_AS_PINRESET",                 
+                "_DEBUG",
+                "DEBUG",
+                "DEBUG_NRF",//debug模式
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/ti/ccs1031/ccs/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major-win32/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "c99",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
