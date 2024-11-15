@@ -1732,6 +1732,48 @@ void App_caiji_turang_Loop(void)
 
 
 #ifdef ALL_SENSORS// 原来的传感器
+
+/* 准备数据然后通过 485 发送数据给LED  屏幕*/
+static void app_caiji_485TxLedDisplay(void)
+{
+    bsp_DelayMS(50);//延时10ms 再发送
+    gModbus.address = ADDRESS_LED_DISPLAY;
+    gModbus.function = FUNCTION_CODE_10;
+    gModbus.dataAddress= 0;
+    gModbus.dataLen = LED_NUM_REGISTER;
+    app_caiji_sensorDataSync();//同步数据之后更新LED屏幕内容
+    App_485_tx_led_display_cmd(ADDRESS_LED_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+    comClearRxFifo(COM5);//COM5
+    bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//
+    p_info("g_caiji tx LED");     
+}
+/* 准备数据 然后通过485发送数据给PLC 屏幕 */
+static void app_caiji_485TxPlcDisplay(void)
+{
+    bsp_DelayMS(50);//延时10ms 再发送
+    gModbus.address = ADDRESS_PLC_DISPLAY;
+    gModbus.function = FUNCTION_CODE_10;
+    gModbus.dataAddress= 0;
+
+    gModbus.dataLen = LED_NUM_REGISTER;
+    app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+    comClearRxFifo(COM5);//COM5
+    bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
+    p_info("g_caiji tx PLC");     
+}
+// CAIJI_PLC_READCOIL
+static void app_caiji_485TxPlcCoil(void)
+{
+    bsp_DelayMS(50);//延时10ms 再发送
+    gModbus.address = ADDRESS_PLC_DISPLAY;
+    gModbus.function = FUNCTION_CODE_01;
+    gModbus.dataAddress= 0;
+    gModbus.dataLen = 0x06;
+    App_485_txModbusCmd(&gModbus);// 刷新数据
+    comClearRxFifo(COM5);//COM5
+    bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
+    p_info("g_caiji tx PLC COIL");     
+}
 void App_caiji_turang_Loop(void)
 {
     int16_t m_soil_T = 0;
@@ -2122,17 +2164,8 @@ void App_caiji_turang_Loop(void)
                 m_sensor_TXflag |= SENSOR_TX_SERVER_AIRTH;//发送给服务器数据传感器的标志
                 p_info("g_caiji airTH 2 ok");               
                 
-                bsp_DelayMS(50);//延时10ms 再发送
                 g_caiji.soil_TH_work_state = CAIJI_LED_DISPLAY;
-                gModbus.address = ADDRESS_LED_DISPLAY;
-                gModbus.function = FUNCTION_CODE_10;
-                gModbus.dataAddress= 0;
-                gModbus.dataLen = LED_NUM_REGISTER;
-                app_caiji_sensorDataSync();//同步数据之后更新LED屏幕内容
-                App_485_tx_led_display_cmd(ADDRESS_LED_DISPLAY,FUNCTION_CODE_10);// 刷新数据
-                comClearRxFifo(COM5);//COM5
-                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//5s 给ph开机时间
-                p_info("g_caiji tx LED");               
+                app_caiji_485TxLedDisplay();// 准备数据 然后通过 485 发送数据                  
             }       
             else
             {
@@ -2143,20 +2176,12 @@ void App_caiji_turang_Loop(void)
             if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
             {
                 p_err("g_caiji airTH 2timer out");          
-                bsp_DelayMS(50);//延时10ms 再发送
                 g_caiji.soil_TH_work_state = CAIJI_LED_DISPLAY;
-                gModbus.address = ADDRESS_LED_DISPLAY;
-                gModbus.function = FUNCTION_CODE_10;
-                gModbus.dataAddress= 0;
-                gModbus.dataLen = LED_NUM_REGISTER;
-                app_caiji_sensorDataSync();//同步数据之后更新LED屏幕内容
-                App_485_tx_led_display_cmd(ADDRESS_LED_DISPLAY,FUNCTION_CODE_10);// 刷新数据
-                comClearRxFifo(COM5);//COM5
-                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//
-                p_info("g_caiji tx LED");               
+                app_caiji_485TxLedDisplay();// 准备数据 然后通过 485 发送数据           
             }
         }       
-            break;          
+            break;        
+   
         case CAIJI_LED_DISPLAY :
         {   
             /*等待获得有效的m_soil_LUX 数据     */         
@@ -2167,17 +2192,8 @@ void App_caiji_turang_Loop(void)
                 m_sensor_TXflag |= SENSOR_TX_SERVER_LED_DISPLAY;//发送给服务器数据传感器的标志
                 p_info(" m_led_display:%d;;",g_wenshiCopy.m_led_display);                       
                 
-                bsp_DelayMS(50);//延时10ms 再发送
                 g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
-                gModbus.address = ADDRESS_PLC_DISPLAY;
-                gModbus.function = FUNCTION_CODE_10;
-                gModbus.dataAddress= 0;
-
-                gModbus.dataLen = LED_NUM_REGISTER;
-                app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
-                comClearRxFifo(COM5);//COM5
-                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
-                p_info("g_caiji tx PLC");               
+                app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据             
             }           
                 
             /*0.5s 超时退出的判断     */
@@ -2186,20 +2202,12 @@ void App_caiji_turang_Loop(void)
                 g_wenshiCopy.m_led_display = 0;
                 p_err("g_caiji CAIJI_LED_DISPLAY timer out");               
                 
-                bsp_DelayMS(50);//延时10ms 再发送
                 g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
-                gModbus.address = ADDRESS_PLC_DISPLAY;
-                gModbus.function = FUNCTION_CODE_10;
-                gModbus.dataAddress= 0;
-
-                gModbus.dataLen = LED_NUM_REGISTER;
-                app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
-                comClearRxFifo(COM5);//COM5
-                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
-                p_info("g_caiji tx PLC");               
+                app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据                  
             }
         }       
             break;          
+
         case CAIJI_PLC_DISPLAY :
         {   
             /*等待获得有效的m_soil_LUX 数据     */         
@@ -2209,16 +2217,9 @@ void App_caiji_turang_Loop(void)
                 g_wenshiCopy.mPlcFlag = 1;// 存在过 PLC
                 g_wenshiCopy.mPlcdisplay = 1;
                 p_info(" mPlcdisplay:%d;;",g_wenshiCopy.mPlcdisplay);                       
-                bsp_DelayMS(50);//延时10ms 再发送
+
                 g_caiji.soil_TH_work_state = CAIJI_PLC_READCOIL;
-                gModbus.address = ADDRESS_PLC_DISPLAY;
-                gModbus.function = FUNCTION_CODE_01;
-                gModbus.dataAddress= 0;
-                gModbus.dataLen = 0x06;
-                App_485_txModbusCmd(&gModbus);// 刷新数据
-                comClearRxFifo(COM5);//COM5
-                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
-                p_info("g_caiji tx PLC COIL");               
+                app_caiji_485TxPlcCoil();// 准备数据 然后通过 485 发送数据               
             }           
                 
             /*0.5s 超时退出的判断     */
@@ -2227,17 +2228,8 @@ void App_caiji_turang_Loop(void)
                 p_err("g_caiji CAIJI_PLC_DISPLAY timer out");               
                 g_wenshiCopy.mPlcdisplay = 0;
                 
-                bsp_DelayMS(50);//延时10ms 再发送
                 g_caiji.soil_TH_work_state = CAIJI_PLC_READCOIL;
-                gModbus.address = ADDRESS_PLC_DISPLAY;
-                gModbus.function = FUNCTION_CODE_01;
-                gModbus.dataAddress= 0;
-                gModbus.dataLen = 0x06;
-                App_485_txModbusCmd(&gModbus);// 刷新数据
-                comClearRxFifo(COM5);//COM5
-                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
-                
-                p_info("g_caiji tx PLC COIL");               
+                app_caiji_485TxPlcCoil();// 准备数据 然后通过 485 发送数据               
             }
         }       
             break;                  
