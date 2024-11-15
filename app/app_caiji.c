@@ -636,7 +636,7 @@ void app_485TxPlcDisplay_cmd(uint8_t address ,uint8_t function)
     
     buffer[buffer_lenth] = function;//功能码
     buffer_lenth++; 
-    
+
     buffer[buffer_lenth] = 0x00;//寄存器起始地址 2字节
     buffer_lenth++;         
     buffer[buffer_lenth] = 0x00;    
@@ -644,40 +644,47 @@ void app_485TxPlcDisplay_cmd(uint8_t address ,uint8_t function)
 
     buffer[buffer_lenth] = 0x00;//寄存器长度 2字节
     buffer_lenth++;         
-    buffer[buffer_lenth] = 0x06;    
+    buffer[buffer_lenth] = LED_NUM_REGISTER;    
     buffer_lenth++; 
 
-    buffer[buffer_lenth] = 12  ;    
+    buffer[buffer_lenth] = LED_NUM_REGISTER*2;    
     buffer_lenth++;     
+
 /*
-数据名称	地址位置	寄存器类型
-空气温度	00	寄存器
-空气湿度	01	寄存器
-土壤温度	02	寄存器
-土壤湿度	03	寄存器
-光照	    04 05	寄存器
-
+1、温度
+2、湿度
+3、液位
+4、CO2
+5、光照
+6、光照
+7、土壤温度
+8、土壤湿度
+9、土壤PH
+10、N
+11、P
+12、K
+13、湿球温度 0.1
 */
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT)>>8;    //0.01精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueT/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT)>>0;    
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueT/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;         
+    
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueH/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueH/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH)>>8;    //0.01精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueLevel)>>8;    //1精度给LED屏幕
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH)>>0;    
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueLevel)>>0;    //1精度给LED屏幕
+    buffer_lenth++;         
+
+    buffer[buffer_lenth] = (g_wenshi.m_co2_value)>>8; //co2
     buffer_lenth++; 
-
-    buffer[buffer_lenth] = (g_wenshi.m_soil_T*10)>>8;   //0.01精度给LED屏幕
-    buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.m_soil_T*10)>>0;   
-    buffer_lenth++;         
-
-    buffer[buffer_lenth] = (g_wenshi.m_soil_H*10)>>8;   //0.01精度给LED屏幕
-    buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.m_soil_H*10)>>0;   
+    buffer[buffer_lenth] = (g_wenshi.m_co2_value)>>0; //co2
     buffer_lenth++; 
-
+    
     buffer[buffer_lenth] = (g_wenshi.m_Lux)>>24; //，光照则直接显示原来的数据
     buffer_lenth++;         
     buffer[buffer_lenth] = (g_wenshi.m_Lux)>>16; 
@@ -686,6 +693,39 @@ void app_485TxPlcDisplay_cmd(uint8_t address ,uint8_t function)
     buffer_lenth++;         
     buffer[buffer_lenth] = (g_wenshi.m_Lux)>>0; 
     buffer_lenth++; 
+
+    buffer[buffer_lenth] = (g_wenshi.m_soil_T)>>8;   //0.1精度给LED屏幕
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.m_soil_T)>>0;   //0.1精度给LED屏幕
+    buffer_lenth++;         
+
+    buffer[buffer_lenth] = (g_wenshi.m_soil_H)>>8;   //0.1精度给LED屏幕
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.m_soil_H)>>0;   //0.1精度给LED屏幕
+    buffer_lenth++;         
+
+    buffer[buffer_lenth] = (g_wenshi.m_soil_PH)>>8; // 0.1 PH
+    buffer_lenth++;        
+    buffer[buffer_lenth] = (g_wenshi.m_soil_PH)>>0; // PH
+    buffer_lenth++;         
+        
+    buffer[buffer_lenth] = (g_wenshi.m_soil_N[0]*10)>>8; //N
+    buffer_lenth++; 
+    buffer[buffer_lenth] = (g_wenshi.m_soil_N[0]*10)>>0; //
+    buffer_lenth++; 
+    buffer[buffer_lenth] = (g_wenshi.m_soil_N[1]*10)>>8; //P
+    buffer_lenth++; 
+    buffer[buffer_lenth] = (g_wenshi.m_soil_N[1]*10)>>0; //
+    buffer_lenth++; 
+    buffer[buffer_lenth] = (g_wenshi.m_soil_N[2]*10)>>8; //
+    buffer_lenth++; 
+    buffer[buffer_lenth] = (g_wenshi.m_soil_N[2]*10)>>0; //K
+    buffer_lenth++; 
+
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueTwet/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;      
 
     /*crc 16*/
     crc1 = CRC16_Modbus(buffer, buffer_lenth);
@@ -2132,10 +2172,9 @@ void App_caiji_turang_Loop(void)
                 gModbus.address = ADDRESS_PLC_DISPLAY;
                 gModbus.function = FUNCTION_CODE_10;
                 gModbus.dataAddress= 0;
-                // gModbus.dataLen = 0x06;
-                // app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+
                 gModbus.dataLen = LED_NUM_REGISTER;
-                App_485_tx_led_display_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+                app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
                 comClearRxFifo(COM5);//COM5
                 bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
                 p_info("g_caiji tx PLC");               
@@ -2152,10 +2191,9 @@ void App_caiji_turang_Loop(void)
                 gModbus.address = ADDRESS_PLC_DISPLAY;
                 gModbus.function = FUNCTION_CODE_10;
                 gModbus.dataAddress= 0;
-                // gModbus.dataLen = 0x06;
-                // app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+
                 gModbus.dataLen = LED_NUM_REGISTER;
-                App_485_tx_led_display_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
+                app_485TxPlcDisplay_cmd(ADDRESS_PLC_DISPLAY,FUNCTION_CODE_10);// 刷新数据
                 comClearRxFifo(COM5);//COM5
                 bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , TIMER_SENSOR);//                
                 p_info("g_caiji tx PLC");               
