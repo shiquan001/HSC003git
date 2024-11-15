@@ -2163,9 +2163,10 @@ void App_caiji_turang_Loop(void)
 
                 m_sensor_TXflag |= SENSOR_TX_SERVER_AIRTH;//发送给服务器数据传感器的标志
                 p_info("g_caiji airTH 2 ok");               
-                
-                g_caiji.soil_TH_work_state = CAIJI_LED_DISPLAY;
-                app_caiji_485TxLedDisplay();// 准备数据 然后通过 485 发送数据                  
+               
+                g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
+                app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据                 
+              
             }       
             else
             {
@@ -2176,38 +2177,12 @@ void App_caiji_turang_Loop(void)
             if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
             {
                 p_err("g_caiji airTH 2timer out");          
-                g_caiji.soil_TH_work_state = CAIJI_LED_DISPLAY;
-                app_caiji_485TxLedDisplay();// 准备数据 然后通过 485 发送数据           
+                g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
+                app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据        
             }
         }       
             break;        
    
-        case CAIJI_LED_DISPLAY :
-        {   
-            /*等待获得有效的m_soil_LUX 数据     */         
-            if (App_485_rxModbusCmd(&gModbus)==1)
-            {               
-                g_wenshiCopy.mLedFlag = 1;// 存在过LED
-                g_wenshiCopy.m_led_display=1;                                   
-                m_sensor_TXflag |= SENSOR_TX_SERVER_LED_DISPLAY;//发送给服务器数据传感器的标志
-                p_info(" m_led_display:%d;;",g_wenshiCopy.m_led_display);                       
-                
-                g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
-                app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据             
-            }           
-                
-            /*0.5s 超时退出的判断     */
-            if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
-            {
-                g_wenshiCopy.m_led_display = 0;
-                p_err("g_caiji CAIJI_LED_DISPLAY timer out");               
-                
-                g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
-                app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据                  
-            }
-        }       
-            break;          
-
         case CAIJI_PLC_DISPLAY :
         {   
             /*等待获得有效的m_soil_LUX 数据     */         
@@ -2239,7 +2214,6 @@ void App_caiji_turang_Loop(void)
             if (App_485_rxModbusCmd(&gModbus)==1)
             {               
                 m_sensor_TXflag |= SENSOR_TX_SERVER_PLC_SHESHISUO;//发送给服务器数据传感器的标志
-                g_caiji.soil_TH_work_state = CAIJI_CLOSE;
 
                 g_wenshiCopy.mPlcCoil = gModbus.AppRxBuf[0];
                 /* 保温被 设备状态 分类 */
@@ -2257,17 +2231,46 @@ void App_caiji_turang_Loop(void)
                     g_wenshiCopy.mPlcStateRoofVentilation = Equipment_Stopped_STATE ;
                 else if((g_wenshiCopy.mPlcCoil>>5)&0x01)
                     g_wenshiCopy.mPlcStateRoofVentilation = Equipment_Closed_STATE;
+
+                g_caiji.soil_TH_work_state = CAIJI_LED_DISPLAY;
+                app_caiji_485TxLedDisplay();// 准备数据 然后通过 485 发送数据                      
             }           
                 
             /*0.5s 超时退出的判断     */
             if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
             {
-                g_caiji.soil_TH_work_state = CAIJI_CLOSE;
-                p_err("g_caiji CAIJI_PLC_READCOIL timer out");               
+                p_err("g_caiji CAIJI_PLC_READCOIL timer out");   
+                g_caiji.soil_TH_work_state = CAIJI_LED_DISPLAY;
+                app_caiji_485TxLedDisplay();// 准备数据 然后通过 485 发送数据                              
             }
 
         }
             break;
+
+        case CAIJI_LED_DISPLAY :
+        {   
+            /*等待获得有效的m_soil_LUX 数据     */         
+            if (App_485_rxModbusCmd(&gModbus)==1)
+            {               
+                g_wenshiCopy.mLedFlag = 1;// 存在过LED
+                g_wenshiCopy.m_led_display=1;                                   
+                m_sensor_TXflag |= SENSOR_TX_SERVER_LED_DISPLAY;//发送给服务器数据传感器的标志
+                p_info(" m_led_display:%d;;",g_wenshiCopy.m_led_display);                       
+                
+                g_caiji.soil_TH_work_state = CAIJI_CLOSE;
+            }           
+                
+            /*0.5s 超时退出的判断     */
+            if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
+            {
+                g_wenshiCopy.m_led_display = 0;
+                p_err("g_caiji CAIJI_LED_DISPLAY timer out");               
+                
+                g_caiji.soil_TH_work_state = CAIJI_CLOSE;
+            }
+        }       
+            break;          
+
         case CAIJI_PLC_WRITE_COIL://write PLC的线圈值
         {
 			/* 大于3次，退出*/
