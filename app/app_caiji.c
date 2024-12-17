@@ -421,7 +421,7 @@ void App_485_tx_turang_water_cmd(uint8_t address ,uint8_t function)
     RS485_SendOver();
 
 }
-#define LED_NUM_REGISTER 13//12 // led显示屏幕  显示 6个地址
+#define LED_NUM_REGISTER 17//13//12 // led显示屏幕  显示 6个地址
 #if 1
 /**************************************************************************************                      
 * 名    App_485_tx_led_display_cmd
@@ -540,6 +540,31 @@ void App_485_tx_led_display_cmd(uint8_t address ,uint8_t function)
     buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
     
+/*
+14	温度（二号）	0.1摄氏度	13	0x0d
+15	湿度（二号）	0.1%	14	0x0e
+16	液位（二号）	1精度	15	0x0f
+17	湿球温度 （二号）	0.1摄氏度	16	0x10
+*/
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueT/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueT/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;         
+    
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueH/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueH/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;         
+
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueLevel)>>8;    //1精度给LED屏幕
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueLevel)>>0;    //1精度给LED屏幕
+    buffer_lenth++;       
+
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueTwet/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;               
 #else
     buffer[buffer_lenth] = 0x00;//寄存器起始地址 2字节
     buffer_lenth++;         
@@ -726,6 +751,31 @@ void app_485TxPlcDisplay_cmd(uint8_t address ,uint8_t function)
     buffer_lenth++;         
     buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;      
+/*
+14	温度（二号）	0.1摄氏度	13	0x0d
+15	湿度（二号）	0.1%	14	0x0e
+16	液位（二号）	1精度	15	0x0f
+17	湿球温度 （二号）	0.1摄氏度	16	0x10
+*/
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueT/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueT/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;         
+    
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueH/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueH/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;         
+
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueLevel)>>8;    //1精度给LED屏幕
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueLevel)>>0;    //1精度给LED屏幕
+    buffer_lenth++;        
+
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueTwet/10)>>8; //
+    buffer_lenth++;         
+    buffer[buffer_lenth] = (g_wenshi.airTH[1].airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
+    buffer_lenth++;  
 
     /*crc 16*/
     crc1 = CRC16_Modbus(buffer, buffer_lenth);
