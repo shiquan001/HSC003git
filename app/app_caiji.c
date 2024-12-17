@@ -2164,13 +2164,86 @@ void App_caiji_turang_Loop(void)
                 m_sensor_TXflag |= SENSOR_TX_SERVER_AIRTH;//发送给服务器数据传感器的标志
                 p_info("g_caiji airTH 2 ok");               
                
+                g_caiji.soil_TH_work_state = CAIJI_AIRTH_DELAY_16;
+                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , 50);//              
+            }       
+            else
+            {
+                g_wenshiCopy.airTH[0].airTH = 0;             
+            }
+                
+            /*0.5s 超时退出的判断     */
+            if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
+            {
+                p_err("g_caiji airTH 2timer out");          
+                g_caiji.soil_TH_work_state = CAIJI_AIRTH_DELAY_16;
+                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , 50);//
+            }
+        }       
+            break;        
+
+        case CAIJI_AIRTH_DELAY_16 :
+        {   
+            /*soil_TH 的判断  */
+            if(bsp_CheckTimer(TMR_ID_caiji_soil_TH_refresh))
+            {           
+                /*开始  采集air温湿度数据*/    
+                gModbus.address = ADDRESS_AIR_TH_16;
+                gModbus.function = FUNCTION_CODE_03;
+                gModbus.dataAddress= 1;
+                gModbus.dataLen = 5;//20秒钟采集一次；一次性读取5个数据；
+                App_485_txModbusCmd(&gModbus);  
+                comClearRxFifo(COM5);//COM5
+                
+                bsp_StartTimer(TMR_ID_caiji_soil_TH_refresh , (TIMER_SENSOR+250));//
+                g_caiji.soil_TH_work_state = CAIJI_AIRTH_LOOP_16;
+        
+                p_info("g_caiji 发送查询命令 airTH");                 
+            }               
+        }       
+            break;      
+        case CAIJI_AIRTH_LOOP_16 :
+        {   
+            /*等待获得有效的TH_LUX 数据     */         
+            if (App_485_rxModbusCmd(&gModbus)==1)
+            {                               
+                g_wenshiCopy.airTH[1].airTH= 1;
+                
+                g_wenshiCopy.airTH[1].airTHvalueH = ((uint16_t)gModbus.AppRxBuf[0] << 8 | gModbus.AppRxBuf[1]);
+                p_info(" airH:%d;",g_wenshiCopy.airTH[1].airTHvalueH);                           
+                g_wenshiCopy.m_H = g_wenshiCopy.airTH[1].airTHvalueH/10;// 数据除以100得到真实的湿度数据
+
+                g_wenshiCopy.airTH[1].airTHvalueT = ((uint16_t)gModbus.AppRxBuf[2] << 8 | gModbus.AppRxBuf[3]);
+                p_info(" airT:%d;",g_wenshiCopy.airTH[1].airTHvalueT);                       
+                g_wenshiCopy.m_T = g_wenshiCopy.airTH[1].airTHvalueT/10;// 数据除以100得到真实的湿度数据
+
+                g_wenshiCopy.airTH[1].airTHvalueTwet= ((uint16_t)gModbus.AppRxBuf[4] << 8 | gModbus.AppRxBuf[5]);
+                p_info(" airTwet:%d;",g_wenshiCopy.airTH[1].airTHvalueTwet);                     
+
+                g_wenshiCopy.airTH[1].airTHvalueLevel= ((uint16_t)gModbus.AppRxBuf[6] << 8 | gModbus.AppRxBuf[7]);
+                if(g_wenshiCopy.airTH[1].airTHvalueLevel == 0xffff)//-1有水
+                {
+                    g_wenshiCopy.airTH[1].airTHvalueLevel = 1;// 1不缺水；
+                }
+                else//0无水
+                {
+                    g_wenshiCopy.airTH[1].airTHvalueLevel = 0;//0 缺水；
+                }
+                p_info(" airLevel:%d;",g_wenshiCopy.airTH[1].airTHvalueLevel);                       
+
+                g_wenshiCopy.airTH[1].airTHvalueHcal= ((uint16_t)gModbus.AppRxBuf[8] << 8 | gModbus.AppRxBuf[9]);
+                p_info(" airTHvalueHcal:%d;",g_wenshiCopy.airTH[1].airTHvalueHcal);                     
+
+                m_sensor_TXflag |= SENSOR_TX_SERVER_AIRTH_16;//发送给服务器数据传感器的标志
+                p_info("g_caiji airTH 2 ok");               
+               
                 g_caiji.soil_TH_work_state = CAIJI_PLC_DISPLAY;
                 app_caiji_485TxPlcDisplay();// 准备数据 然后通过 485 发送数据                 
               
             }       
             else
             {
-                g_wenshiCopy.airTH[0].airTH = 0;             
+                g_wenshiCopy.airTH[1].airTH = 0;             
             }
                 
             /*0.5s 超时退出的判断     */

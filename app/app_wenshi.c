@@ -1502,6 +1502,14 @@ void App_DataReport_SensorBasic(void)
         g_wenshi.airTH[0].airTHvalueTwet,g_wenshi.airTH[0].airTHvalueLevel,g_wenshi.airTH[0].airTHvalueHcal);  
         strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
     }   
+    /*扩展传感器 AIRTH 16*/
+    if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_AIRTH_16)
+    {
+        memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
+        sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d;",SENSOR_ID_AIRTH_SHESHISUO,ADDRESS_AIR_TH_16,g_wenshi.airTH[1].airTHvalueH,g_wenshi.airTH[1].airTHvalueT,
+        g_wenshi.airTH[1].airTHvalueTwet,g_wenshi.airTH[1].airTHvalueLevel,g_wenshi.airTH[1].airTHvalueHcal);  
+        strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
+    }       
     /*   LED屏幕 */
     if((g_wenshi.mLedFlag == 1))// 存在过LED 在线 离线 null 
     {

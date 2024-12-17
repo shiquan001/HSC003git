@@ -26,6 +26,7 @@
 #define  SENSOR_TX_SERVER_UV				(0X0001<<11) 
 #define  SENSOR_TX_SERVER_TURANG_PH 		(0X0001<<12) 
 #define  SENSOR_TX_SERVER_CO2				(0X0001<<13) 
+#define  SENSOR_TX_SERVER_AIRTH_16				(0X0001<<14) 
 
 
 #define  TURANG_HAS_WATER1 0x01 // 有雨水
@@ -39,6 +40,7 @@
 #define  ADDRESS_TURANG_TH 	26 //土壤温度传感器modbus地址26  電導率
 #define  ADDRESS_TURANG_LUX 	25 //光照传感器modbus地址25
 #define  ADDRESS_AIR_TH 	15 //温湿度传感器modbus地址15
+#define  ADDRESS_AIR_TH_16 	16 //温湿度传感器modbus地址 16
 
 #define  ADDRESS_WEATHER_STATION 	1 //默认寄存器地址是1
 #define  ADDRESS_TURANG_PH 	9//2  
@@ -124,7 +126,9 @@ typedef enum
 	CAIJI_soil_LUX_LOOP,//采集 光照传感器
 
 	CAIJI_AIRTH_DELAY2,
-	CAIJI_AIRTH_LOOP2,//采集CO2   2
+	CAIJI_AIRTH_LOOP2,//采集 
+	CAIJI_AIRTH_DELAY_16,
+	CAIJI_AIRTH_LOOP_16,//采集 ID16
 
 	CAIJI_LED_DISPLAY,//led显示
 
