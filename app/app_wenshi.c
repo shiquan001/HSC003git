@@ -1228,6 +1228,12 @@ void App_DataReport_SensorBasic(void)
     g_wenshi.airTH[0].airTHvalueTwet_last= g_wenshi.airTH[0].airTHvalueTwet;
     g_wenshi.airTH[0].airTHvalueLevel_last= g_wenshi.airTH[0].airTHvalueLevel;
 
+    g_wenshi.airTH[1].airTHvalueH_last= g_wenshi.airTH[1].airTHvalueH;
+    g_wenshi.airTH[1].airTH_last= g_wenshi.airTH[1].airTH;
+    g_wenshi.airTH[1].airTHvalueT_last= g_wenshi.airTH[1].airTHvalueT;
+    g_wenshi.airTH[1].airTHvalueTwet_last= g_wenshi.airTH[1].airTHvalueTwet;
+    g_wenshi.airTH[1].airTHvalueLevel_last= g_wenshi.airTH[1].airTHvalueLevel;
+
     /* Êý¾Ý×éÖ¡*/
     memset(&json_info,'0',sizeof(json_info));
     json_info.json_len = lenth;

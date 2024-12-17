@@ -1586,6 +1586,13 @@ void App_caiji_sensorExchange(void)
     g_wenshi.airTH[0].airTHvalueLevel = g_wenshiCopy.airTH[0].airTHvalueLevel;
     g_wenshi.airTH[0].airTHvalueHcal = g_wenshiCopy.airTH[0].airTHvalueHcal;
 
+    g_wenshi.airTH[1].airTH = g_wenshiCopy.airTH[1].airTH;
+    g_wenshi.airTH[1].airTHvalueH = g_wenshiCopy.airTH[1].airTHvalueH ;
+    g_wenshi.airTH[1].airTHvalueT  = g_wenshiCopy.airTH[1].airTHvalueT ;
+    g_wenshi.airTH[1].airTHvalueTwet = g_wenshiCopy.airTH[1].airTHvalueTwet;
+    g_wenshi.airTH[1].airTHvalueLevel = g_wenshiCopy.airTH[1].airTHvalueLevel;
+    g_wenshi.airTH[1].airTHvalueHcal = g_wenshiCopy.airTH[1].airTHvalueHcal;
+
     g_wenshi.m_led_display = g_wenshiCopy.m_led_display;                                   
     g_wenshi.mLedFlag  = g_wenshiCopy.mLedFlag ;// ´æÔÚ¹ýLED
 
