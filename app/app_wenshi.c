@@ -827,7 +827,7 @@ void App_DataReport_04(void)
     lenth= lenth + 1;       
 
     /*co2*/
-    json_info.json_buf[lenth] = g_wenshi.airTH;
+    json_info.json_buf[lenth] = g_wenshi.airTH[0].airTH;
     lenth= lenth + 1;       
 
     if(g_wenshi.m_flag_gps)
@@ -1222,11 +1222,11 @@ void App_DataReport_SensorBasic(void)
     g_wenshi.m_UV_last =        g_wenshi.m_UV;
     g_wenshi.m_UV_value_last= g_wenshi.m_UV_value;
     
-    g_wenshi.airTHvalueH_last= g_wenshi.airTHvalueH;
-    g_wenshi.airTH_last= g_wenshi.airTH;
-    g_wenshi.airTHvalueT_last= g_wenshi.airTHvalueT;
-    g_wenshi.airTHvalueTwet_last= g_wenshi.airTHvalueTwet;
-    g_wenshi.airTHvalueLevel_last= g_wenshi.airTHvalueLevel;
+    g_wenshi.airTH[0].airTHvalueH_last= g_wenshi.airTH[0].airTHvalueH;
+    g_wenshi.airTH[0].airTH_last= g_wenshi.airTH[0].airTH;
+    g_wenshi.airTH[0].airTHvalueT_last= g_wenshi.airTH[0].airTHvalueT;
+    g_wenshi.airTH[0].airTHvalueTwet_last= g_wenshi.airTH[0].airTHvalueTwet;
+    g_wenshi.airTH[0].airTHvalueLevel_last= g_wenshi.airTH[0].airTHvalueLevel;
 
     /* Êý¾Ý×éÖ¡*/
     memset(&json_info,'0',sizeof(json_info));
@@ -1498,8 +1498,8 @@ void App_DataReport_SensorBasic(void)
     if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_AIRTH)
     {
         memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
-        sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d;",SENSOR_ID_AIRTH_SHESHISUO,ADDRESS_AIR_TH,g_wenshi.airTHvalueH,g_wenshi.airTHvalueT,
-        g_wenshi.airTHvalueTwet,g_wenshi.airTHvalueLevel,g_wenshi.airTHvalueHcal);  
+        sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d;",SENSOR_ID_AIRTH_SHESHISUO,ADDRESS_AIR_TH,g_wenshi.airTH[0].airTHvalueH,g_wenshi.airTH[0].airTHvalueT,
+        g_wenshi.airTH[0].airTHvalueTwet,g_wenshi.airTH[0].airTHvalueLevel,g_wenshi.airTH[0].airTHvalueHcal);  
         strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
     }   
     /*   LEDÆÁÄ» */
@@ -1856,6 +1856,7 @@ void App_DataReport_SensorBasic(void)
         sprintf(SensorBasic_data_temp,"%d,%d,%d,%d;",SENSOR_ID_AIRTH_SHESHISUO,ADDRESS_AIR_TH,g_wenshi.airTH,g_wenshi.airTHvalueH); 
         strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
     }
+    
     if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_UV)
     {
         memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));

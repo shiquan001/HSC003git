@@ -17,7 +17,7 @@
 
 
 #define  SocketStatusReport 0x01 // 鎻掓帓鐘舵�?
-#define  DataReport 0x04	 // 璁惧鏁版嵁涓婃姤
+#define  DataReport 0x04	 // 璁惧?囨暟鎹?涓婃姤
 
 #define  CheckState 0x02	 //鎻掑骇鍛戒护涓嬪彂
 #define  DeviceUpdate 0x07	 //鎻掑骇鍛戒护涓嬪彂
@@ -30,7 +30,7 @@ typedef uint8_t  u8;
 
 typedef enum 
 {
-	WENSHI_INIT=0,// 鍒濆鍖栨�?
+	WENSHI_INIT=0,// 鍒濆?嬪寲鎬?
 	WENSHI_WAIT_3S_VALVE,
 	WENSHI_WAIT_3S_PUMP,
 		
@@ -50,6 +50,23 @@ typedef enum
 
 }ENUM_POWER;
 #define NPKsensor_NUM 3	
+// 定义一个结构体 空气温湿度盒子的传感器数据
+typedef struct
+{
+	uint8_t airTH;//是否存在
+	uint16_t airTHvalueH;//湿度 0.01
+	uint16_t airTHvalueT;// 干球温度 0.01
+	uint16_t airTHvalueTwet;//    湿球温度 0.01
+	uint16_t airTHvalueLevel;// 液位
+	uint16_t airTHvalueHcal;//    湿度05；直接计算湿度值  
+
+
+	uint8_t airTH_last;	
+	uint16_t airTHvalueH_last;
+	uint16_t airTHvalueT_last;// 干球温度
+	uint16_t airTHvalueTwet_last;//    湿球温度 
+	uint16_t airTHvalueLevel_last;// 液
+}AIRTH_t;
 struct WENSHI
 {
 	u8 version[3];
@@ -109,18 +126,8 @@ struct WENSHI
 	uint8_t m_UV;
 	uint16_t m_UV_value;//0-1500 mW/cm2
 
-	uint8_t airTH;//是否存在
-	uint16_t airTHvalueH;//湿度 0.01
-	uint16_t airTHvalueT;// 干球温度 0.01
-	uint16_t airTHvalueTwet;//    湿球温度 0.01
-	uint16_t airTHvalueLevel;// 液位
-	uint16_t airTHvalueHcal;//    湿度05；直接计算湿度值  
 
-	uint8_t airTH_last;	
-	uint16_t airTHvalueH_last;
-	uint16_t airTHvalueT_last;// 干球温度
-	uint16_t airTHvalueTwet_last;//    湿球温度 
-	uint16_t airTHvalueLevel_last;// 液
+	AIRTH_t airTH[2];//空气温湿度盒子的传感器数据
 
 	uint8_t m_flag_gps;
 	double m_longtitude;

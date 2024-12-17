@@ -478,19 +478,19 @@ void App_485_tx_led_display_cmd(uint8_t address ,uint8_t function)
 12、K
 13、湿球温度 0.1
 */
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT/10)>>8; //
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueT/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT/10)>>0;    //0.1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueT/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
     
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH/10)>>8; //
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueH/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH/10)>>0;    //0.1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueH/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueLevel)>>8;    //1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueLevel)>>8;    //1精度给LED屏幕
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueLevel)>>0;    //1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueLevel)>>0;    //1精度给LED屏幕
     buffer_lenth++;         
 
     buffer[buffer_lenth] = (g_wenshi.m_co2_value)>>8; //co2
@@ -535,9 +535,9 @@ void App_485_tx_led_display_cmd(uint8_t address ,uint8_t function)
     buffer[buffer_lenth] = (g_wenshi.m_soil_N[2]*10)>>0; //K
     buffer_lenth++; 
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueTwet/10)>>8; //
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueTwet/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
     
 #else
@@ -562,14 +562,14 @@ void App_485_tx_led_display_cmd(uint8_t address ,uint8_t function)
     02 65  光照。
     */
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT)>>8;    //0.01精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueT)>>8;    //0.01精度给LED屏幕
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT)>>0;    
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueT)>>0;    
     buffer_lenth++;         
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH)>>8;    //0.01精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueH)>>8;    //0.01精度给LED屏幕
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH)>>0;    
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueH)>>0;    
     buffer_lenth++; 
 
     buffer[buffer_lenth] = (g_wenshi.m_soil_T*10)>>8;   //0.01精度给LED屏幕
@@ -665,19 +665,19 @@ void app_485TxPlcDisplay_cmd(uint8_t address ,uint8_t function)
 12、K
 13、湿球温度 0.1
 */
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT/10)>>8; //
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueT/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueT/10)>>0;    //0.1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueT/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
     
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH/10)>>8; //
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueH/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueH/10)>>0;    //0.1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueH/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;         
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueLevel)>>8;    //1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueLevel)>>8;    //1精度给LED屏幕
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueLevel)>>0;    //1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueLevel)>>0;    //1精度给LED屏幕
     buffer_lenth++;         
 
     buffer[buffer_lenth] = (g_wenshi.m_co2_value)>>8; //co2
@@ -722,9 +722,9 @@ void app_485TxPlcDisplay_cmd(uint8_t address ,uint8_t function)
     buffer[buffer_lenth] = (g_wenshi.m_soil_N[2]*10)>>0; //K
     buffer_lenth++; 
 
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueTwet/10)>>8; //
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueTwet/10)>>8; //
     buffer_lenth++;         
-    buffer[buffer_lenth] = (g_wenshi.airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
+    buffer[buffer_lenth] = (g_wenshi.airTH[0].airTHvalueTwet/10)>>0;    //0.1精度给LED屏幕
     buffer_lenth++;      
 
     /*crc 16*/
@@ -1487,8 +1487,8 @@ void app_caiji_sensorDataSync(void)
     /* 空气温湿度 */
     g_wenshi.m_Symbol = 0x01;
 
-    g_wenshi.m_H = g_wenshi.airTHvalueH/10;// 数据除以100得到真实的湿度数据
-    g_wenshi.m_T = g_wenshi.airTHvalueT/10;// 数据除以100得到真实的湿度数据
+    g_wenshi.m_H = g_wenshi.airTH[0].airTHvalueH/10;// 数据除以100得到真实的湿度数据
+    g_wenshi.m_T = g_wenshi.airTH[0].airTHvalueT/10;// 数据除以100得到真实的湿度数据
 
     /* 土壤温湿度 */
     g_wenshi.m_soil_H = g_wenshi.m_soil_H;                             
@@ -1527,14 +1527,14 @@ void App_caiji_sensorExchange(void)
     g_wenshi.m_Lux  = g_wenshiCopy.m_Lux; // 10
 
 
-    g_wenshi.airTH = g_wenshiCopy.airTH;
-    g_wenshi.airTHvalueH = g_wenshiCopy.airTHvalueH ;
+    g_wenshi.airTH[0].airTH = g_wenshiCopy.airTH[0].airTH;
+    g_wenshi.airTH[0].airTHvalueH = g_wenshiCopy.airTH[0].airTHvalueH ;
     g_wenshi.m_H  = g_wenshiCopy.m_H  ;// 数据除以100得到真实的湿度数据
-    g_wenshi.airTHvalueT  = g_wenshiCopy.airTHvalueT ;
+    g_wenshi.airTH[0].airTHvalueT  = g_wenshiCopy.airTH[0].airTHvalueT ;
     g_wenshi.m_T   = g_wenshiCopy.m_T ;// 数据除以100得到真实的湿度数据
-    g_wenshi.airTHvalueTwet = g_wenshiCopy.airTHvalueTwet;
-    g_wenshi.airTHvalueLevel = g_wenshiCopy.airTHvalueLevel;
-    g_wenshi.airTHvalueHcal = g_wenshiCopy.airTHvalueHcal;
+    g_wenshi.airTH[0].airTHvalueTwet = g_wenshiCopy.airTH[0].airTHvalueTwet;
+    g_wenshi.airTH[0].airTHvalueLevel = g_wenshiCopy.airTH[0].airTHvalueLevel;
+    g_wenshi.airTH[0].airTHvalueHcal = g_wenshiCopy.airTH[0].airTHvalueHcal;
 
     g_wenshi.m_led_display = g_wenshiCopy.m_led_display;                                   
     g_wenshi.mLedFlag  = g_wenshiCopy.mLedFlag ;// 存在过LED
@@ -2134,32 +2134,32 @@ void App_caiji_turang_Loop(void)
             /*等待获得有效的TH_LUX 数据     */         
             if (App_485_rxModbusCmd(&gModbus)==1)
             {                               
-                g_wenshiCopy.airTH= 1;
+                g_wenshiCopy.airTH[0].airTH= 1;
                 
-                g_wenshiCopy.airTHvalueH = ((uint16_t)gModbus.AppRxBuf[0] << 8 | gModbus.AppRxBuf[1]);
-                p_info(" airH:%d;",g_wenshiCopy.airTHvalueH);                           
-                g_wenshiCopy.m_H = g_wenshiCopy.airTHvalueH/10;// 数据除以100得到真实的湿度数据
+                g_wenshiCopy.airTH[0].airTHvalueH = ((uint16_t)gModbus.AppRxBuf[0] << 8 | gModbus.AppRxBuf[1]);
+                p_info(" airH:%d;",g_wenshiCopy.airTH[0].airTHvalueH);                           
+                g_wenshiCopy.m_H = g_wenshiCopy.airTH[0].airTHvalueH/10;// 数据除以100得到真实的湿度数据
 
-                g_wenshiCopy.airTHvalueT = ((uint16_t)gModbus.AppRxBuf[2] << 8 | gModbus.AppRxBuf[3]);
-                p_info(" airT:%d;",g_wenshiCopy.airTHvalueT);                       
-                g_wenshiCopy.m_T = g_wenshiCopy.airTHvalueT/10;// 数据除以100得到真实的湿度数据
+                g_wenshiCopy.airTH[0].airTHvalueT = ((uint16_t)gModbus.AppRxBuf[2] << 8 | gModbus.AppRxBuf[3]);
+                p_info(" airT:%d;",g_wenshiCopy.airTH[0].airTHvalueT);                       
+                g_wenshiCopy.m_T = g_wenshiCopy.airTH[0].airTHvalueT/10;// 数据除以100得到真实的湿度数据
 
-                g_wenshiCopy.airTHvalueTwet= ((uint16_t)gModbus.AppRxBuf[4] << 8 | gModbus.AppRxBuf[5]);
-                p_info(" airTwet:%d;",g_wenshiCopy.airTHvalueTwet);                     
+                g_wenshiCopy.airTH[0].airTHvalueTwet= ((uint16_t)gModbus.AppRxBuf[4] << 8 | gModbus.AppRxBuf[5]);
+                p_info(" airTwet:%d;",g_wenshiCopy.airTH[0].airTHvalueTwet);                     
 
-                g_wenshiCopy.airTHvalueLevel= ((uint16_t)gModbus.AppRxBuf[6] << 8 | gModbus.AppRxBuf[7]);
-                if(g_wenshiCopy.airTHvalueLevel == 0xffff)//-1有水
+                g_wenshiCopy.airTH[0].airTHvalueLevel= ((uint16_t)gModbus.AppRxBuf[6] << 8 | gModbus.AppRxBuf[7]);
+                if(g_wenshiCopy.airTH[0].airTHvalueLevel == 0xffff)//-1有水
                 {
-                    g_wenshiCopy.airTHvalueLevel = 1;// 1不缺水；
+                    g_wenshiCopy.airTH[0].airTHvalueLevel = 1;// 1不缺水；
                 }
                 else//0无水
                 {
-                    g_wenshiCopy.airTHvalueLevel = 0;//0 缺水；
+                    g_wenshiCopy.airTH[0].airTHvalueLevel = 0;//0 缺水；
                 }
-                p_info(" airLevel:%d;",g_wenshiCopy.airTHvalueLevel);                       
+                p_info(" airLevel:%d;",g_wenshiCopy.airTH[0].airTHvalueLevel);                       
 
-                g_wenshiCopy.airTHvalueHcal= ((uint16_t)gModbus.AppRxBuf[8] << 8 | gModbus.AppRxBuf[9]);
-                p_info(" airTHvalueHcal:%d;",g_wenshiCopy.airTHvalueHcal);                     
+                g_wenshiCopy.airTH[0].airTHvalueHcal= ((uint16_t)gModbus.AppRxBuf[8] << 8 | gModbus.AppRxBuf[9]);
+                p_info(" airTHvalueHcal:%d;",g_wenshiCopy.airTH[0].airTHvalueHcal);                     
 
                 m_sensor_TXflag |= SENSOR_TX_SERVER_AIRTH;//发送给服务器数据传感器的标志
                 p_info("g_caiji airTH 2 ok");               
@@ -2170,7 +2170,7 @@ void App_caiji_turang_Loop(void)
             }       
             else
             {
-                g_wenshiCopy.airTH = 0;             
+                g_wenshiCopy.airTH[0].airTH = 0;             
             }
                 
             /*0.5s 超时退出的判断     */
