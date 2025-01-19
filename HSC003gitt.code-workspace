@@ -8,6 +8,10 @@
 		"files.encoding": "gb2312",
 		"cSpell.languageSettings": [
 
-		]
+		],
+		"files.associations": {
+			"type_traits": "c",
+			"app_caiji.h": "c"
+		}
 	}
 }

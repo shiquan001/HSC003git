@@ -153,44 +153,51 @@ void App_sheshisuoni_dataExchange_statusEquipment(void)
 	uint8_t res = FALSE;
 	#if 0
 	if(NULL != memcmp(&g_mRegister,&g_mRegisterCopy,sizeof(g_mRegister)))
-	{												
+	{										
+		
 		res = TRUE;
 	}
 	memcpy(&g_mRegisterCopy,&g_mRegister,sizeof(g_mRegister)); 
 	
 	/* 对比数据是否有变化 */
 	if(NULL != memcmp(&g_dRegister,&g_dRegisterCopy,sizeof(g_dRegister)))
-	{												
+	{										
+		
 		res = TRUE;
 	}	
 	memcpy(&g_dRegisterCopy,&g_dRegister,sizeof(g_dRegister)); 
 	#endif
 	if(NULL != memcmp(&g_statusEquipment,&g_statusEquipmentCopy,sizeof(g_statusEquipment)))
-	{												
+	{										
+		
 		res = TRUE;
 	}
 	memcpy(&g_statusEquipmentCopy,&g_statusEquipment,sizeof(g_statusEquipment)); 
 
 	if(NULL != memcmp(&g_FacilitiesAccumulateData,&g_FacilitiesAccumulateDataCopy,sizeof(g_FacilitiesAccumulateData)))
-	{												
+	{										
+		
 		res = TRUE;
 	}
 	memcpy(&g_FacilitiesAccumulateDataCopy,&g_FacilitiesAccumulateData,sizeof(g_FacilitiesAccumulateData)); 
 	
 	if(NULL != memcmp(&g_SensorRealTimeData,&g_SensorRealTimeDataCopy,sizeof(g_SensorRealTimeData)))
-	{												
+	{										
+		
 		res = TRUE;
 	}
 	memcpy(&g_SensorRealTimeDataCopy,&g_SensorRealTimeData,sizeof(g_SensorRealTimeData)); 
 
 	if(NULL != memcmp(&g_AbnormalAlarm,&g_AbnormalAlarmCopy,sizeof(g_AbnormalAlarm)))
-	{												
+	{										
+		
 		res = TRUE;
 	}
 	memcpy(&g_AbnormalAlarmCopy,&g_AbnormalAlarm,sizeof(g_AbnormalAlarm)); 
 
 	if(NULL != memcmp(&g_strategyControl,&g_strategyControlCopy,sizeof(g_strategyControl)))
-	{												
+	{										
+		
 		res = TRUE;
 	}
 	memcpy(&g_strategyControlCopy,&g_strategyControl,sizeof(g_strategyControl)); 
@@ -1308,7 +1315,8 @@ void App_sheshisuo_PLC_Loop(void)
 					#if 0
 					/* 对比数据是否有变化 */
 					if(NULL != memcmp(&g_sheshisuoPLC,&g_sheshisuoPLC_copy,M_REGISTER_NUM_all))
-					{												
+					{										
+		
 						if((g_tConfig.report_changed))
 						{
 							App_caiji_report_start();//
@@ -2166,4 +2174,5 @@ void App_sheshisuo_PLC_Dinfo_Data_process(uint8_t pos,char* msg)
 	}
 #endif
 }
+
 
