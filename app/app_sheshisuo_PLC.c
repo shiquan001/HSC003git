@@ -47,10 +47,12 @@ strategyControl_st g_strategyControlCopy;
 static uint8_t rx_data_PLC[PLC_RX_DATA_LENTH];
 
 uint8_t g_m400Register;
-M_REGISTER_un g_mRegister;
+M_REGISTER70_un g_mRegister70;//70个字节
+M_REGISTER8_un g_mRegister8;//8个字节
+
 D_REGISTER_un g_dRegister;
 #if 0
-M_REGISTER_un g_mRegisterCopy;
+M_REGISTER70_un g_mRegisterCopy;
 D_REGISTER_un g_dRegisterCopy;
 #endif
 static uint8_t buffer[16];
@@ -97,10 +99,10 @@ void App_sheshisuo_PLC_Init_Var(void)
 	g_sheshisuoPLC.PLC_work_state = SHESHISUO_PLC_OPEN;
 
 
-	memset(&g_mRegister,0,sizeof(g_mRegister));	
+	memset(&g_mRegister70,0,sizeof(g_mRegister70));	
 	memset(&g_dRegister,0,sizeof(g_dRegister)); 
 	#if 0
-	memcpy(&g_mRegisterCopy,&g_mRegister,sizeof(g_mRegister));	
+	memcpy(&g_mRegisterCopy,&g_mRegister70,sizeof(g_mRegister70));	
 	memcpy(&g_dRegisterCopy,&g_dRegister,sizeof(g_dRegister));	
 	#endif
 
@@ -119,42 +121,42 @@ void App_sheshisuo_PLC_Init_Var(void)
 void App_sheshisuoni_dataExchange_statusEquipment(void)
 {	
 	/*工作模式 workMode	状态：1=手动、2=自动*/
-	g_statusEquipment.workMode = g_mRegister.mRegister.M0+1;
+	g_statusEquipment.workMode = g_mRegister70.mRegister.M0+1;
 	
-	g_statusEquipment.insulationCover = (g_mRegister.mRegister.M1<<1)|(g_mRegister.mRegister.M2<<0);
+	g_statusEquipment.insulationCover = (g_mRegister70.mRegister.M1<<1)|(g_mRegister70.mRegister.M2<<0);
 	g_statusEquipment.insulationCover_forwardTimer= g_dRegister.dRegister.D350_378[376-D350];
 	g_statusEquipment.insulationCover_reverseTimer= g_dRegister.dRegister.D350_378[377-D350];
 	g_statusEquipment.insulationCover_position = g_dRegister.dRegister.D350_378[378-D350];;// D378
 
-	g_statusEquipment.topVentilation= (g_mRegister.mRegister.M3<<1)|(g_mRegister.mRegister.M4<<0);
+	g_statusEquipment.topVentilation= (g_mRegister70.mRegister.M3<<1)|(g_mRegister70.mRegister.M4<<0);
 	g_statusEquipment.topVentilation_forwardTimer= g_dRegister.dRegister.D350_378[370-D350];
 	g_statusEquipment.topVentilation_reverseTimer= g_dRegister.dRegister.D350_378[371-D350];
 	g_statusEquipment.topVentilation_position= g_dRegister.dRegister.D350_378[372-D350];
 
-	g_statusEquipment.bottomVentilation= (g_mRegister.mRegister.M5<<1)|(g_mRegister.mRegister.M6<<0);
+	g_statusEquipment.bottomVentilation= (g_mRegister70.mRegister.M5<<1)|(g_mRegister70.mRegister.M6<<0);
 	g_statusEquipment.bottomVentilation_forwardTimer= g_dRegister.dRegister.D350_378[373-D350];
 	g_statusEquipment.bottomVentilation_reverseTimer= g_dRegister.dRegister.D350_378[374-D350];
 	g_statusEquipment.bottomVentilation_position= g_dRegister.dRegister.D350_378[375-D350];
 
-	g_statusEquipment.manureSpreader= g_mRegister.mRegister.M7;
-	g_statusEquipment.wetSpray= g_mRegister.mRegister.M8;
-	g_statusEquipment.fan= g_mRegister.mRegister.M9;
-	g_statusEquipment.wetCurtain= g_mRegister.mRegister.M10;
+	g_statusEquipment.manureSpreader= g_mRegister70.mRegister.M7;
+	g_statusEquipment.wetSpray= g_mRegister70.mRegister.M8;
+	g_statusEquipment.fan= g_mRegister70.mRegister.M9;
+	g_statusEquipment.wetCurtain= g_mRegister70.mRegister.M10;
 
-	g_statusEquipment.fillLight= g_mRegister.mRegister.M11;
-	g_statusEquipment.circulatingFan= g_mRegister.mRegister.M12;
-	g_statusEquipment.ReserveOne= g_mRegister.mRegister.M13;
-	g_statusEquipment.ReserveTwo= g_mRegister.mRegister.M14;
+	g_statusEquipment.fillLight= g_mRegister70.mRegister.M11;
+	g_statusEquipment.circulatingFan= g_mRegister70.mRegister.M12;
+	g_statusEquipment.ReserveOne= g_mRegister70.mRegister.M13;
+	g_statusEquipment.ReserveTwo= g_mRegister70.mRegister.M14;
 
 	/* 对比数据是否有变化 */
 	uint8_t res = FALSE;
 	#if 0
-	if(NULL != memcmp(&g_mRegister,&g_mRegisterCopy,sizeof(g_mRegister)))
+	if(NULL != memcmp(&g_mRegister70,&g_mRegisterCopy,sizeof(g_mRegister70)))
 	{										
 		
 		res = TRUE;
 	}
-	memcpy(&g_mRegisterCopy,&g_mRegister,sizeof(g_mRegister)); 
+	memcpy(&g_mRegisterCopy,&g_mRegister70,sizeof(g_mRegister70)); 
 	
 	/* 对比数据是否有变化 */
 	if(NULL != memcmp(&g_dRegister,&g_dRegisterCopy,sizeof(g_dRegister)))
@@ -308,21 +310,21 @@ void App_sheshisuoni_strategyControl_dataExchange(void)
 	}
 	//for(i=0;i<RELAY_NUM;i++)
 	{
-		g_strategyControl.RelayPointRemoteControl[0]= g_mRegister.mRegister.M30;
-		g_strategyControl.RelayPointRemoteControl[1]= g_mRegister.mRegister.M31;
-		g_strategyControl.RelayPointRemoteControl[2]= g_mRegister.mRegister.M32;
-		g_strategyControl.RelayPointRemoteControl[3]= g_mRegister.mRegister.M33;
-		g_strategyControl.RelayPointRemoteControl[4]= g_mRegister.mRegister.M34;
-		g_strategyControl.RelayPointRemoteControl[5]= g_mRegister.mRegister.M35;
-		g_strategyControl.RelayPointRemoteControl[6]= g_mRegister.mRegister.M36;
-		g_strategyControl.RelayPointRemoteControl[7]= g_mRegister.mRegister.M37;
-		g_strategyControl.RelayPointRemoteControl[8]= g_mRegister.mRegister.M38;
-		g_strategyControl.RelayPointRemoteControl[9]= g_mRegister.mRegister.M39;
-		g_strategyControl.RelayPointRemoteControl[10]= g_mRegister.mRegister.M40;		
+		g_strategyControl.RelayPointRemoteControl[0]= g_mRegister70.mRegister.M30;
+		g_strategyControl.RelayPointRemoteControl[1]= g_mRegister70.mRegister.M31;
+		g_strategyControl.RelayPointRemoteControl[2]= g_mRegister70.mRegister.M32;
+		g_strategyControl.RelayPointRemoteControl[3]= g_mRegister70.mRegister.M33;
+		g_strategyControl.RelayPointRemoteControl[4]= g_mRegister70.mRegister.M34;
+		g_strategyControl.RelayPointRemoteControl[5]= g_mRegister70.mRegister.M35;
+		g_strategyControl.RelayPointRemoteControl[6]= g_mRegister70.mRegister.M36;
+		g_strategyControl.RelayPointRemoteControl[7]= g_mRegister70.mRegister.M37;
+		g_strategyControl.RelayPointRemoteControl[8]= g_mRegister70.mRegister.M38;
+		g_strategyControl.RelayPointRemoteControl[9]= g_mRegister70.mRegister.M39;
+		g_strategyControl.RelayPointRemoteControl[10]= g_mRegister70.mRegister.M40;		
 
-		g_strategyControl.RelayPointRemoteControl[11]= g_mRegister.mRegister.M41;		
-		g_strategyControl.RelayPointRemoteControl[12]= g_mRegister.mRegister.M42;		
-		g_strategyControl.RelayPointRemoteControl[13]= g_mRegister.mRegister.M43;		
+		g_strategyControl.RelayPointRemoteControl[11]= g_mRegister70.mRegister.M41;		
+		g_strategyControl.RelayPointRemoteControl[12]= g_mRegister70.mRegister.M42;		
+		g_strategyControl.RelayPointRemoteControl[13]= g_mRegister70.mRegister.M43;		
 
 		g_strategyControl.RelayPointRemoteControl[14]= g_m400Register;
 	}
@@ -388,21 +390,21 @@ void App_sheshisuoni_SensorRealTimeData_dataExchange(void)
 */
 void App_sheshisuoni_AbnormalAlarm_dataExchange(void)
 {
-	g_AbnormalAlarm.HighTemperatureAlarm= g_mRegister.mRegister.M70;		
-	g_AbnormalAlarm.LowTemperatureWarning= g_mRegister.mRegister.M71;		
-	g_AbnormalAlarm.HighHumidityAlarm= g_mRegister.mRegister.M72;		
-	g_AbnormalAlarm.LowWetAlarm= g_mRegister.mRegister.M73;		
+	g_AbnormalAlarm.HighTemperatureAlarm= g_mRegister70.mRegister.M70;		
+	g_AbnormalAlarm.LowTemperatureWarning= g_mRegister70.mRegister.M71;		
+	g_AbnormalAlarm.HighHumidityAlarm= g_mRegister70.mRegister.M72;		
+	g_AbnormalAlarm.LowWetAlarm= g_mRegister70.mRegister.M73;		
 
-	g_AbnormalAlarm.RainAlarm= g_mRegister.mRegister.M74;		
-	g_AbnormalAlarm.StrongWindAlarm= g_mRegister.mRegister.M75;		
-	g_AbnormalAlarm.LightIsTooStrongToAlarm= g_mRegister.mRegister.M76;		
-	g_AbnormalAlarm.TooLowCO2ConcentrationAlarm= g_mRegister.mRegister.M77;		
+	g_AbnormalAlarm.RainAlarm= g_mRegister70.mRegister.M74;		
+	g_AbnormalAlarm.StrongWindAlarm= g_mRegister70.mRegister.M75;		
+	g_AbnormalAlarm.LightIsTooStrongToAlarm= g_mRegister70.mRegister.M76;		
+	g_AbnormalAlarm.TooLowCO2ConcentrationAlarm= g_mRegister70.mRegister.M77;		
 
-	g_AbnormalAlarm.SoilTemperatureAlarmIsTooLow= g_mRegister.mRegister.M78;		
-	g_AbnormalAlarm.SoilTemperatureExcessiveAlarm= g_mRegister.mRegister.M79;		
-	g_AbnormalAlarm.SoilMoistureAlarmIsTooLow= g_mRegister.mRegister.M80;		
-	g_AbnormalAlarm.SoilMoistureAlarmIsTooHigh= g_mRegister.mRegister.M81;	
-	g_AbnormalAlarm.SmokeSenseAlarm= g_mRegister.mRegister.M82;	
+	g_AbnormalAlarm.SoilTemperatureAlarmIsTooLow= g_mRegister70.mRegister.M78;		
+	g_AbnormalAlarm.SoilTemperatureExcessiveAlarm= g_mRegister70.mRegister.M79;		
+	g_AbnormalAlarm.SoilMoistureAlarmIsTooLow= g_mRegister70.mRegister.M80;		
+	g_AbnormalAlarm.SoilMoistureAlarmIsTooHigh= g_mRegister70.mRegister.M81;	
+	g_AbnormalAlarm.SmokeSenseAlarm= g_mRegister70.mRegister.M82;	
 
 	g_AbnormalAlarm.HighTemperatureAlarmValue = g_dRegister.dRegister.D350_378[350-D350];	
 	g_AbnormalAlarm.LowTemperatureAlarmValue = g_dRegister.dRegister.D350_378[351-D350];	
@@ -1241,7 +1243,7 @@ void App_sheshisuo_PLC_Loop(void)
 					#if 1
 					if(g_sheshisuoPLC.PLC_indexState == INDEX_M1400_1467_REGITER)
 					{
-						memcpy(&g_mRegister,&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
+						memcpy(&g_mRegister70,&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 					}
 					if(g_sheshisuoPLC.PLC_indexState == INDEX_D200_285_REGITER)
 					{
