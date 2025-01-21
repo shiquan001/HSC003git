@@ -11,7 +11,8 @@
 		],
 		"files.associations": {
 			"type_traits": "c",
-			"app_caiji.h": "c"
+			"app_caiji.h": "c",
+			"app_nb.h": "c"
 		}
 	}
 }

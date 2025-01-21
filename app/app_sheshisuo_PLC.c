@@ -16,16 +16,13 @@ typedef enum VALUETYPE_EM
 
 typedef enum INDEX_EM
 {
-	INDEX_M_REGITER =0,
-	INDEX_D0_32_REGITER ,	
-	
-	INDEX_D128_155_REGITER ,
-	INDEX_D180_211_REGITER ,
-	INDEX_D212_243_REGITER ,
-
-	INDEX_D350_378_REGITER,
-	INDEX_M400_REGITER
-	
+	INDEX_M1400_1467_REGITER =0,// M1400-M1467 传感器定义 \设备定义
+	INDEX_D200_285_REGITER ,	//D200-D285	 设备控制参数 
+	INDEX_D286_297_REGITER ,//D286-D297x  报警值设置
+	INDEX_D590_595_REGITER,// D590-D595  限位开关数量定义
+	INDEX_D100_106_REGITER,// D100-D106 PLC时间校准
+	INDEX_D0_47_REGITER ,//D0-D47  传感器数据	
+	INDEX_M0_557_REGITER//M0-M557 限位开关反馈\设备报警\传感器值报警\开关量反馈\设备控制
 }INDEX_em;
 
 
@@ -1069,7 +1066,7 @@ static uint8_t PLC_485FIFO_Protocolverification(uint8_t * start_index,uint8_t ad
 void App_sheshisuo_PLC_rxIndexLoop(void)
 {
 	g_sheshisuoPLC.PLC_indexState++;
-	if(g_sheshisuoPLC.PLC_indexState<= INDEX_M400_REGITER)
+	if(g_sheshisuoPLC.PLC_indexState<= INDEX_M0_557_REGITER)
 	{
 		g_sheshisuoPLC.PLC_work_state = SHESHISUO_PLC_TX_READ_MREGISTER;
 	}
@@ -1145,7 +1142,7 @@ void App_sheshisuo_PLC_Loop(void)
 			if(bsp_CheckTimer(TMR_ID_sheshisuo_PLC_refresh))
 			{
 				g_sheshisuoPLC.PLC_work_state = SHESHISUO_PLC_TX_READ_MREGISTER;
-				g_sheshisuoPLC.PLC_indexState = INDEX_M_REGITER;
+				g_sheshisuoPLC.PLC_indexState = INDEX_M1400_1467_REGITER;
 				p_info("SHESHISUO_PLC_DELAY");				
 			}
 			else
@@ -1242,11 +1239,11 @@ void App_sheshisuo_PLC_Loop(void)
 					//p_info("g_sheshisuoPLC PLC ok:%d",g_sheshisuoPLC.PLC_indexState);
 					g_wenshi.m_sensor_TXflag |= SENSOR_TX_SERVER_PLC_SHESHISUO;//发送给服务器数据传感器的标志
 					#if 1
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_M_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_M1400_1467_REGITER)
 					{
 						memcpy(&g_mRegister,&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 					}
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_D0_32_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_D200_285_REGITER)
 					{
 						memcpy(&g_dRegister.data[0],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 
@@ -1259,7 +1256,7 @@ void App_sheshisuo_PLC_Loop(void)
 							g_dRegister.data[1+i*2] = temp;	
 						}						
 					}	
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_D128_155_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_D286_297_REGITER)
 					{
 						memcpy(&g_dRegister.data[0+NUM33*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
@@ -1271,7 +1268,7 @@ void App_sheshisuo_PLC_Loop(void)
 							g_dRegister.data[NUM33*2+1+i*2] = temp;	
 						}						
 					}
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_D180_211_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_D100_106_REGITER)
 					{
 						memcpy(&g_dRegister.data[0+(NUM33+52)*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
@@ -1283,7 +1280,7 @@ void App_sheshisuo_PLC_Loop(void)
 							g_dRegister.data[(NUM33+52)*2+1+i*2] = temp;	
 						}						
 					}
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_D212_243_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_D0_47_REGITER)
 					{
 						memcpy(&g_dRegister.data[0+(NUM33+84)*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
@@ -1295,7 +1292,7 @@ void App_sheshisuo_PLC_Loop(void)
 							g_dRegister.data[(NUM33+84)*2+1+i*2] = temp;	
 						}						
 					}					
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_D350_378_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_D590_595_REGITER)
 					{
 						memcpy(&g_dRegister.data[(0+NUM33+NUM116)*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
@@ -1307,7 +1304,7 @@ void App_sheshisuo_PLC_Loop(void)
 							g_dRegister.data[(NUM33+NUM116)*2+1+i*2] = temp;	
 						}	
 					}	
-					if(g_sheshisuoPLC.PLC_indexState == INDEX_M400_REGITER)
+					if(g_sheshisuoPLC.PLC_indexState == INDEX_M0_557_REGITER)
 					{
 						memcpy(&g_m400Register,&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 					}						
