@@ -842,7 +842,53 @@ typedef union D_REGISTER_UN
 	D_REGISTER_st dRegister;
 
 }D_REGISTER_un;
+//D0-D47
+typedef union D0_47_REGISTER_UN
+{
+	int8_t data[(48)*2];
 
+	struct
+	{
+		int16_t D0_32[48];
+	}dRegister;
+
+}D0_47_REGISTER_un;
+// D100-D106 PLC时间校准
+typedef union D100_106_UN
+{
+	int8_t data[(7)*2];
+	struct
+	{
+		int16_t D100_106[7];
+	}dRegister;
+}D100_106_REGISTER_un;
+//D200-D285	 设备控制参数 
+typedef union D200_285_UN
+{
+	int8_t data[(86)*2];
+	struct
+	{
+		int16_t D200_285[86];
+	}dRegister;
+}D200_285_REGISTER_un;
+//D286-D297x  报警值设置
+typedef union D286_297_UN
+{
+	int8_t data[(12)*2];
+	struct
+	{
+		int16_t D286_297[12];
+	}dRegister;	
+}D286_297_REGISTER_un;
+// D590-D595  限位开关数量定义
+typedef union D590_595_UN
+{
+	int8_t data[(6)*2];
+	struct
+	{
+		int16_t D590_595[6];
+	}dRegister;
+}D590_595_REGISTER_un;
 typedef enum SHESHISUO_PLC_E
 {		
 	SHESHISUO_PLC_OPEN=0x00,	

@@ -68,7 +68,7 @@
 
 #define  REPORT_CAIJI_gettime_count 5//2//3//次数  校时很重要
 
-#define  ADDRESS_PLC_200 30//设施所
+#define  ADDRESS_PLC_200 1//设施所 国产PLC 20250122
 #define  ADDRESS_PLC_201 201//天津
 
 typedef enum 
