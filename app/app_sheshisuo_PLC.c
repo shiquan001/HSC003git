@@ -106,8 +106,9 @@ void App_sheshisuo_PLC_Init_Var(void)
 	g_sheshisuoPLC.PLC_work_state = SHESHISUO_PLC_OPEN;
 
 
-	memset(&g_mRegister70,0,sizeof(g_mRegister70));	
-	memset(&g_dRegister,0,sizeof(g_dRegister)); 
+	memset(&g_mRegister8,0,sizeof(g_mRegister8));	//8个字节初始化M寄存器
+	memset(&g_mRegister70,0,sizeof(g_mRegister70));	//70个字节初始化M寄存器
+	memset(&g_dRegister,0,sizeof(g_dRegister)); //D寄存器初始化
 	#if 0
 	memcpy(&g_mRegisterCopy,&g_mRegister70,sizeof(g_mRegister70));	
 	memcpy(&g_dRegisterCopy,&g_dRegister,sizeof(g_dRegister));	

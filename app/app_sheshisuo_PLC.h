@@ -590,8 +590,9 @@ typedef struct  app_sheshisuo_PLC_M_REGISTER_128_183_ST
 	uint8_t M183:1 ;
 }app_sheshisuo_PLC_M128_183_REGISTER_st;
 //M457-M480
-typedef struct app_sheshisuo_PLC_M_REGISTER_457_480_ST
+typedef struct app_sheshisuo_PLC_M_REGISTER_456_479_ST
 {
+	uint8_t M456:1 ;//456
 	uint8_t M457:1 ;
 	uint8_t M458:1 ;
 	uint8_t M459:1 ;
@@ -617,11 +618,12 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_457_480_ST
 	uint8_t M477:1 ;
 	uint8_t M478:1 ;
 	uint8_t M479:1 ;
-	uint8_t M480:1 ;
-}app_sheshisuo_PLC_M457_480_REGISTER_st;
+	// uint8_t M480:1 ;
+}app_sheshisuo_PLC_M456_479_REGISTER_st;
 //M481-M560
-typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
+typedef struct app_sheshisuo_PLC_M_REGISTER_480_559_ST
 {
+	uint8_t M480:1 ;
 	uint8_t M481:1 ;
 	uint8_t M482:1 ;
 	uint8_t M483:1 ;
@@ -629,8 +631,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M485:1 ;
 	uint8_t M486:1 ;
 	uint8_t M487:1 ;
-	uint8_t M488:1 ;
 
+	uint8_t M488:1 ;
 	uint8_t M489:1 ;
 	uint8_t M490:1 ;
 	uint8_t M491:1 ;
@@ -638,8 +640,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M493:1 ;
 	uint8_t M494:1 ;
 	uint8_t M495:1 ;
-	uint8_t M496:1 ;
 
+	uint8_t M496:1 ;
 	uint8_t M497:1 ;
 	uint8_t M498:1 ;
 	uint8_t M499:1 ;
@@ -647,17 +649,17 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M501:1 ;
 	uint8_t M502:1 ;
 	uint8_t M503:1 ;
-	uint8_t M504:1 ;
 
+	uint8_t M504:1 ;
 	uint8_t M505:1 ;
 	uint8_t M506:1 ;
 	uint8_t M507:1 ;
 	uint8_t M508:1 ;
 	uint8_t M509:1 ;
 	uint8_t M510:1 ;
-	uint8_t M511:1 ;
-	uint8_t M512:1 ;
+	uint8_t M511:1 ;	
 
+	uint8_t M512:1 ;
 	uint8_t M513:1 ;
 	uint8_t M514:1 ;
 	uint8_t M515:1 ;
@@ -665,8 +667,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M517:1 ;
 	uint8_t M518:1 ;
 	uint8_t M519:1 ;
-	uint8_t M520:1 ;
 
+	uint8_t M520:1 ;
 	uint8_t M521:1 ;
 	uint8_t M522:1 ;
 	uint8_t M523:1 ;
@@ -674,8 +676,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M525:1 ;
 	uint8_t M526:1 ;
 	uint8_t M527:1 ;
-	uint8_t M528:1 ;
 
+	uint8_t M528:1 ;
 	uint8_t M529:1 ;
 	uint8_t M530:1 ;
 	uint8_t M531:1 ;
@@ -683,8 +685,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M533:1 ;
 	uint8_t M534:1 ;
 	uint8_t M535:1 ;
-	uint8_t M536:1 ;
 
+	uint8_t M536:1 ;
 	uint8_t M537:1 ;
 	uint8_t M538:1 ;
 	uint8_t M539:1 ;
@@ -692,8 +694,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M541:1 ;	
 	uint8_t M542:1 ;
 	uint8_t M543:1 ;
-	uint8_t M544:1 ;
 
+	uint8_t M544:1 ;
 	uint8_t M545:1 ;
 	uint8_t M546:1 ;
 	uint8_t M547:1 ;
@@ -701,8 +703,8 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M549:1 ;
 	uint8_t M550:1 ;
 	uint8_t M551:1 ;
-	uint8_t M552:1 ;
 
+	uint8_t M552:1 ;
 	uint8_t M553:1 ;
 	uint8_t M554:1 ;
 	uint8_t M555:1 ;
@@ -710,18 +712,20 @@ typedef struct app_sheshisuo_PLC_M_REGISTER_481_560_ST
 	uint8_t M557:1 ;
 	uint8_t M558:1 ;
 	uint8_t M559:1 ;
-	uint8_t M560:1 ;
-}app_sheshisuo_PLC_M481_560_REGISTER_st;
+
+}app_sheshisuo_PLC_M480_559_REGISTER_st;
 
 typedef struct M_REGISTER_ST
 {
-	app_sheshisuo_PLC_M0_39_REGISTER_st m0_39;//M36 M37M38M39 不用
-	app_sheshisuo_PLC_M40_79_REGISTER_st m40_79;//不用
-	app_sheshisuo_PLC_M80_95_REGISTER_st m80_95;//不用
-	app_sheshisuo_PLC_M96_127_REGISTER_st m96_127;//M96-M99 不用
-	app_sheshisuo_PLC_M128_183_REGISTER_st m128_183;// M179M180M181M182M183 不用
-	M_data[34];	//M184-456 不用
-	app_sheshisuo_PLC_M481_560_REGISTER_st m481_560;//M482-M511不用M558 M559 M560 不用
+	app_sheshisuo_PLC_M0_39_REGISTER_st m0_39;//M36 M37M38M39 不用= 5个byte
+	app_sheshisuo_PLC_M40_79_REGISTER_st m40_79;//不用 = 5个byte
+	app_sheshisuo_PLC_M80_95_REGISTER_st m80_95;//不用 = 2个byte
+	app_sheshisuo_PLC_M96_127_REGISTER_st m96_127;//M96-M99 不用 = 4个byte
+	app_sheshisuo_PLC_M128_183_REGISTER_st m128_183;// M179M180M181M182M183 不用 = 7个byte
+	M_data[34];	//M184-455 不用 = 34个byte
+	app_sheshisuo_PLC_M_REGISTER_456_479_ST m456_479;//M457-M480不用 = 3个byte
+
+	app_sheshisuo_PLC_M480_559_REGISTER_st m480_559;//M482-M511不用M558 M559 M560 不用 = 10个byte
 
 }M_REGISTER_st;
 typedef union M_REGISTER_UN
