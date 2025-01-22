@@ -1564,7 +1564,7 @@ void App_DataReport_SensorBasic(void)
 #endif
 
 
-#if 0
+#if 1
 /*
 *********************************************************************************************************
 *   函 数 名: App_DataReport_SensorBasic
@@ -1612,9 +1612,9 @@ void App_DataReport_SensorBasic(void)
     g_wenshi.m_voltage_level_last = g_wenshi.m_voltage_level;
 
     g_wenshi.m_soil_LUX_last = g_wenshi.m_soil_LUX;
-    g_wenshi.m_soil_N_last = g_wenshi.m_soil_N;
-    g_wenshi.m_soil_P_last = g_wenshi.m_soil_P;
-    g_wenshi.m_soil_K_last = g_wenshi.m_soil_K;
+    g_wenshi.m_soil_N_last = g_wenshi.m_soil_N[0];
+    g_wenshi.m_soil_P_last = g_wenshi.m_soil_N[1];
+    g_wenshi.m_soil_K_last = g_wenshi.m_soil_N[2];
     g_wenshi.m_soil_Water_last = g_wenshi.m_soil_Water;
     g_wenshi.m_camera_last = g_wenshi.m_camera;
 
@@ -1630,11 +1630,11 @@ void App_DataReport_SensorBasic(void)
     g_wenshi.m_UV_last =        g_wenshi.m_UV;
     g_wenshi.m_UV_value_last= g_wenshi.m_UV_value;
     
-    g_wenshi.airTHvalueH_last= g_wenshi.airTHvalueH;
-    g_wenshi.airTH_last= g_wenshi.airTH;
-    g_wenshi.airTHvalueT_last= g_wenshi.airTHvalueT;
-    g_wenshi.airTHvalueTwet_last= g_wenshi.airTHvalueTwet;
-    g_wenshi.airTHvalueLevel_last= g_wenshi.airTHvalueLevel;
+    g_wenshi.airTH[0].airTHvalueH_last= g_wenshi.airTH[0].airTHvalueH;
+    g_wenshi.airTH[0].airTH_last= g_wenshi.airTH[0].airTH;
+    g_wenshi.airTH[0].airTHvalueT_last= g_wenshi.airTH[0].airTHvalueT;
+    g_wenshi.airTH[0].airTHvalueTwet_last= g_wenshi.airTH[0].airTHvalueTwet;
+    g_wenshi.airTH[0].airTHvalueLevel_last= g_wenshi.airTH[0].airTHvalueLevel;
 
 
     /* 数据组帧*/
@@ -1831,7 +1831,7 @@ void App_DataReport_SensorBasic(void)
     if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_TURANG_NPK)
     {
         memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
-        sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d;",SENSOR_ID_SOIL_NPK,ADDRESS_TURANG_NPK,g_wenshi.m_soil_N,g_wenshi.m_soil_P,g_wenshi.m_soil_K);   
+        sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d;",SENSOR_ID_SOIL_NPK,ADDRESS_TURANG_NPK,g_wenshi.m_soil_N[0],g_wenshi.m_soil_N[1],g_wenshi.m_soil_N[2]);   
         strcat(SensorBasic_data_tx,SensorBasic_data_temp);          
     }
     if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_TURANG_WATER)
@@ -1852,24 +1852,24 @@ void App_DataReport_SensorBasic(void)
         sprintf(SensorBasic_data_temp,"%d,%d,%d;",SENSOR_ID_LED_DISPLAY,ADDRESS_LED_DISPLAY ,g_wenshi.m_led_display);   
         strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
     }   
-    if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PT100)
-    {
-        memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
-        sprintf(SensorBasic_data_temp,"%d,%d,%d;",SENSOR_ID_PT100,ADDRESS_PT100,g_wenshi.m_pt100_value);    
-        strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
-    }   
+    // if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PT100)
+    // {
+    //     memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
+    //     sprintf(SensorBasic_data_temp,"%d,%d,%d;",SENSOR_ID_PT100,ADDRESS_PT100,g_wenshi.m_pt100_value);    
+    //     strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
+    // }   
     if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_TH_LUX)
     {
         memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
         sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d;",SENSOR_ID_TH_LUX,ADDRESS_TH_LUX,g_wenshi.m_TH_LUX,g_wenshi.m_TH_LUX_h_value,g_wenshi.m_TH_LUX_t_value,g_wenshi.m_TH_LUX_lux_value);  
         strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
     }
-    if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_AIRTH)
-    {
-        memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
-        sprintf(SensorBasic_data_temp,"%d,%d,%d,%d;",SENSOR_ID_AIRTH_SHESHISUO,ADDRESS_AIR_TH,g_wenshi.airTH,g_wenshi.airTHvalueH); 
-        strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
-    }
+    // if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_AIRTH)
+    // {
+    //     memset(SensorBasic_data_temp,0,sizeof(SensorBasic_data_temp));
+    //     sprintf(SensorBasic_data_temp,"%d,%d,%d,%d;",SENSOR_ID_AIRTH_SHESHISUO,ADDRESS_AIR_TH,g_wenshi.airTH,g_wenshi.airTHvalueH); 
+    //     strcat(SensorBasic_data_tx,SensorBasic_data_temp);  
+    // }
     
     if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_UV)
     {
@@ -3507,7 +3507,12 @@ void App_wenshi_Loop(void)
                 }
                 else//(g_tConfig.PLC_Type == PLC_NULL)
                 {
+                    #ifdef ALL_SENSORS
                     App_caiji_turang_Loop();
+                    #endif
+                    #ifdef ONLY_8SAME_AIRTHSENSOR
+                    App_caiji_turang_Loop();
+                    #endif
                 }
             }   
             else

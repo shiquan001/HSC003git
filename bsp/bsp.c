@@ -91,24 +91,23 @@ void bsp_test(void)
 
 	while(1)
 	{
-		App_key_process();
+		
+		App_key_process();
 		bsp_Idle();
 		
 		/*关机了*/
 		if(g_wenshi.power_onoff == POWER_OFF)
 		{
-			App_caiji_turang_Loop();
-					
-		
+			// App_caiji_turang_Loop();							
 		}
 		else
 		{
-#if 1
+			#if 1
 			/* NB模块的函数处理*/
 			MX_TimerPoll();// NB的专用定时器
 			HAL_UART_Poll();// 串口数据通过回调函数进行解析。NB和 GPS
 			NBModule_Main(&nb_config);
-#endif
+			#endif
 		
 			App_nb_Loop();	  //nb 通信		
 			App_caiji_gps_Loop();//gps 定位
