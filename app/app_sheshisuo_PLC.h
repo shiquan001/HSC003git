@@ -722,8 +722,8 @@ typedef struct M_REGISTER_ST
 	app_sheshisuo_PLC_M80_95_REGISTER_st m80_95;//不用 = 2个byte
 	app_sheshisuo_PLC_M96_127_REGISTER_st m96_127;//M96-M99 不用 = 4个byte
 	app_sheshisuo_PLC_M128_183_REGISTER_st m128_183;// M179M180M181M182M183 不用 = 7个byte
-	M_data[34];	//M184-455 不用 = 34个byte
-	app_sheshisuo_PLC_M_REGISTER_456_479_ST m456_479;//M457-M480不用 = 3个byte
+	uint8_t M_data[34];	//M184-455 不用 = 34个byte
+	app_sheshisuo_PLC_M456_479_REGISTER_st m456_479;//M457-M480不用 = 3个byte
 
 	app_sheshisuo_PLC_M480_559_REGISTER_st m480_559;//M482-M511不用M558 M559 M560 不用 = 10个byte
 
@@ -817,7 +817,7 @@ typedef struct M_REGISTER_1400_1467_ST
 	uint8_t M1467:1 ;
 }M_REGISTER_1440_1467st;
 
-typedef union M_REGISTER_UN
+typedef union M_REGISTER8_UN
 {
 	uint8_t data[8];
 

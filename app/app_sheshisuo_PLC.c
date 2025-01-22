@@ -90,7 +90,7 @@ uint16_t startAddress[READ_COUNT]=
 #define NUM48 (48u)
 #define NUM64 (64u)
 
-uint8_t txByters[READ_COUNT]=
+uint16_t txByters[READ_COUNT]=
 {558,NUM98,NUM12,NUM6,NUM7,NUM48,64};
 
 uint8_t rxByters[READ_COUNT]=
@@ -117,6 +117,13 @@ void App_sheshisuo_PLC_Init_Var(void)
 
 	memset(&g_mRegister8,0,sizeof(g_mRegister8));	//8个字节初始化M寄存器
 	memset(&g_mRegister70,0,sizeof(g_mRegister70));	//70个字节初始化M寄存器
+
+	memset(&g_dRegister0_47,0,sizeof(g_dRegister0_47));	//D0-D47  传感器数据初始化
+	memset(&g_dRegister100_106,0,sizeof(g_dRegister100_106));	//D100-D106 PLC时间校准初始化
+	memset(&g_dRegister200_285,0,sizeof(g_dRegister200_285));	//D200-D285	 设备控制参数初始化
+	memset(&g_dRegister286_297,0,sizeof(g_dRegister286_297));	//D286-D297x  报警值设置初始化
+	memset(&g_dRegister590_595,0,sizeof(g_dRegister590_595));	//D590-D595  限位开关数量定义初始化
+
 	memset(&g_dRegister,0,sizeof(g_dRegister)); //D寄存器初始化
 	#if 0
 	memcpy(&g_mRegisterCopy,&g_mRegister70,sizeof(g_mRegister70));	
@@ -137,33 +144,33 @@ void App_sheshisuo_PLC_Init_Var(void)
 */
 void App_sheshisuoni_dataExchange_statusEquipment(void)
 {	
-	/*工作模式 workMode	状态：1=手动、2=自动*/
-	g_statusEquipment.workMode = g_mRegister70.mRegister.M0+1;
+	// /*工作模式 workMode	状态：1=手动、2=自动*/
+	// g_statusEquipment.workMode = g_mRegister70.mRegister.M0+1;
 	
-	g_statusEquipment.insulationCover = (g_mRegister70.mRegister.M1<<1)|(g_mRegister70.mRegister.M2<<0);
-	g_statusEquipment.insulationCover_forwardTimer= g_dRegister.dRegister.D350_378[376-D350];
-	g_statusEquipment.insulationCover_reverseTimer= g_dRegister.dRegister.D350_378[377-D350];
-	g_statusEquipment.insulationCover_position = g_dRegister.dRegister.D350_378[378-D350];;// D378
+	// g_statusEquipment.insulationCover = (g_mRegister70.mRegister.M1<<1)|(g_mRegister70.mRegister.M2<<0);
+	// g_statusEquipment.insulationCover_forwardTimer= g_dRegister.dRegister.D350_378[376-D350];
+	// g_statusEquipment.insulationCover_reverseTimer= g_dRegister.dRegister.D350_378[377-D350];
+	// g_statusEquipment.insulationCover_position = g_dRegister.dRegister.D350_378[378-D350];;// D378
 
-	g_statusEquipment.topVentilation= (g_mRegister70.mRegister.M3<<1)|(g_mRegister70.mRegister.M4<<0);
-	g_statusEquipment.topVentilation_forwardTimer= g_dRegister.dRegister.D350_378[370-D350];
-	g_statusEquipment.topVentilation_reverseTimer= g_dRegister.dRegister.D350_378[371-D350];
-	g_statusEquipment.topVentilation_position= g_dRegister.dRegister.D350_378[372-D350];
+	// g_statusEquipment.topVentilation= (g_mRegister70.mRegister.M3<<1)|(g_mRegister70.mRegister.M4<<0);
+	// g_statusEquipment.topVentilation_forwardTimer= g_dRegister.dRegister.D350_378[370-D350];
+	// g_statusEquipment.topVentilation_reverseTimer= g_dRegister.dRegister.D350_378[371-D350];
+	// g_statusEquipment.topVentilation_position= g_dRegister.dRegister.D350_378[372-D350];
 
-	g_statusEquipment.bottomVentilation= (g_mRegister70.mRegister.M5<<1)|(g_mRegister70.mRegister.M6<<0);
-	g_statusEquipment.bottomVentilation_forwardTimer= g_dRegister.dRegister.D350_378[373-D350];
-	g_statusEquipment.bottomVentilation_reverseTimer= g_dRegister.dRegister.D350_378[374-D350];
-	g_statusEquipment.bottomVentilation_position= g_dRegister.dRegister.D350_378[375-D350];
+	// g_statusEquipment.bottomVentilation= (g_mRegister70.mRegister.M5<<1)|(g_mRegister70.mRegister.M6<<0);
+	// g_statusEquipment.bottomVentilation_forwardTimer= g_dRegister.dRegister.D350_378[373-D350];
+	// g_statusEquipment.bottomVentilation_reverseTimer= g_dRegister.dRegister.D350_378[374-D350];
+	// g_statusEquipment.bottomVentilation_position= g_dRegister.dRegister.D350_378[375-D350];
 
-	g_statusEquipment.manureSpreader= g_mRegister70.mRegister.M7;
-	g_statusEquipment.wetSpray= g_mRegister70.mRegister.M8;
-	g_statusEquipment.fan= g_mRegister70.mRegister.M9;
-	g_statusEquipment.wetCurtain= g_mRegister70.mRegister.M10;
+	// g_statusEquipment.manureSpreader= g_mRegister70.mRegister.M7;
+	// g_statusEquipment.wetSpray= g_mRegister70.mRegister.M8;
+	// g_statusEquipment.fan= g_mRegister70.mRegister.M9;
+	// g_statusEquipment.wetCurtain= g_mRegister70.mRegister.M10;
 
-	g_statusEquipment.fillLight= g_mRegister70.mRegister.M11;
-	g_statusEquipment.circulatingFan= g_mRegister70.mRegister.M12;
-	g_statusEquipment.ReserveOne= g_mRegister70.mRegister.M13;
-	g_statusEquipment.ReserveTwo= g_mRegister70.mRegister.M14;
+	// g_statusEquipment.fillLight= g_mRegister70.mRegister.M11;
+	// g_statusEquipment.circulatingFan= g_mRegister70.mRegister.M12;
+	// g_statusEquipment.ReserveOne= g_mRegister70.mRegister.M13;
+	// g_statusEquipment.ReserveTwo= g_mRegister70.mRegister.M14;
 
 	/* 对比数据是否有变化 */
 	uint8_t res = FALSE;
@@ -327,23 +334,23 @@ void App_sheshisuoni_strategyControl_dataExchange(void)
 	}
 	//for(i=0;i<RELAY_NUM;i++)
 	{
-		g_strategyControl.RelayPointRemoteControl[0]= g_mRegister70.mRegister.M30;
-		g_strategyControl.RelayPointRemoteControl[1]= g_mRegister70.mRegister.M31;
-		g_strategyControl.RelayPointRemoteControl[2]= g_mRegister70.mRegister.M32;
-		g_strategyControl.RelayPointRemoteControl[3]= g_mRegister70.mRegister.M33;
-		g_strategyControl.RelayPointRemoteControl[4]= g_mRegister70.mRegister.M34;
-		g_strategyControl.RelayPointRemoteControl[5]= g_mRegister70.mRegister.M35;
-		g_strategyControl.RelayPointRemoteControl[6]= g_mRegister70.mRegister.M36;
-		g_strategyControl.RelayPointRemoteControl[7]= g_mRegister70.mRegister.M37;
-		g_strategyControl.RelayPointRemoteControl[8]= g_mRegister70.mRegister.M38;
-		g_strategyControl.RelayPointRemoteControl[9]= g_mRegister70.mRegister.M39;
-		g_strategyControl.RelayPointRemoteControl[10]= g_mRegister70.mRegister.M40;		
+		// g_strategyControl.RelayPointRemoteControl[0]= g_mRegister70.mRegister.M30;
+		// g_strategyControl.RelayPointRemoteControl[1]= g_mRegister70.mRegister.M31;
+		// g_strategyControl.RelayPointRemoteControl[2]= g_mRegister70.mRegister.M32;
+		// g_strategyControl.RelayPointRemoteControl[3]= g_mRegister70.mRegister.M33;
+		// g_strategyControl.RelayPointRemoteControl[4]= g_mRegister70.mRegister.M34;
+		// g_strategyControl.RelayPointRemoteControl[5]= g_mRegister70.mRegister.M35;
+		// g_strategyControl.RelayPointRemoteControl[6]= g_mRegister70.mRegister.M36;
+		// g_strategyControl.RelayPointRemoteControl[7]= g_mRegister70.mRegister.M37;
+		// g_strategyControl.RelayPointRemoteControl[8]= g_mRegister70.mRegister.M38;
+		// g_strategyControl.RelayPointRemoteControl[9]= g_mRegister70.mRegister.M39;
+		// g_strategyControl.RelayPointRemoteControl[10]= g_mRegister70.mRegister.M40;		
 
-		g_strategyControl.RelayPointRemoteControl[11]= g_mRegister70.mRegister.M41;		
-		g_strategyControl.RelayPointRemoteControl[12]= g_mRegister70.mRegister.M42;		
-		g_strategyControl.RelayPointRemoteControl[13]= g_mRegister70.mRegister.M43;		
+		// g_strategyControl.RelayPointRemoteControl[11]= g_mRegister70.mRegister.M41;		
+		// g_strategyControl.RelayPointRemoteControl[12]= g_mRegister70.mRegister.M42;		
+		// g_strategyControl.RelayPointRemoteControl[13]= g_mRegister70.mRegister.M43;		
 
-		g_strategyControl.RelayPointRemoteControl[14]= g_m400Register;
+		// g_strategyControl.RelayPointRemoteControl[14]= g_m400Register;
 	}
 
 }
@@ -407,21 +414,21 @@ void App_sheshisuoni_SensorRealTimeData_dataExchange(void)
 */
 void App_sheshisuoni_AbnormalAlarm_dataExchange(void)
 {
-	g_AbnormalAlarm.HighTemperatureAlarm= g_mRegister70.mRegister.M70;		
-	g_AbnormalAlarm.LowTemperatureWarning= g_mRegister70.mRegister.M71;		
-	g_AbnormalAlarm.HighHumidityAlarm= g_mRegister70.mRegister.M72;		
-	g_AbnormalAlarm.LowWetAlarm= g_mRegister70.mRegister.M73;		
+	// g_AbnormalAlarm.HighTemperatureAlarm= g_mRegister70.mRegister.M70;		
+	// g_AbnormalAlarm.LowTemperatureWarning= g_mRegister70.mRegister.M71;		
+	// g_AbnormalAlarm.HighHumidityAlarm= g_mRegister70.mRegister.M72;		
+	// g_AbnormalAlarm.LowWetAlarm= g_mRegister70.mRegister.M73;		
 
-	g_AbnormalAlarm.RainAlarm= g_mRegister70.mRegister.M74;		
-	g_AbnormalAlarm.StrongWindAlarm= g_mRegister70.mRegister.M75;		
-	g_AbnormalAlarm.LightIsTooStrongToAlarm= g_mRegister70.mRegister.M76;		
-	g_AbnormalAlarm.TooLowCO2ConcentrationAlarm= g_mRegister70.mRegister.M77;		
+	// g_AbnormalAlarm.RainAlarm= g_mRegister70.mRegister.M74;		
+	// g_AbnormalAlarm.StrongWindAlarm= g_mRegister70.mRegister.M75;		
+	// g_AbnormalAlarm.LightIsTooStrongToAlarm= g_mRegister70.mRegister.M76;		
+	// g_AbnormalAlarm.TooLowCO2ConcentrationAlarm= g_mRegister70.mRegister.M77;		
 
-	g_AbnormalAlarm.SoilTemperatureAlarmIsTooLow= g_mRegister70.mRegister.M78;		
-	g_AbnormalAlarm.SoilTemperatureExcessiveAlarm= g_mRegister70.mRegister.M79;		
-	g_AbnormalAlarm.SoilMoistureAlarmIsTooLow= g_mRegister70.mRegister.M80;		
-	g_AbnormalAlarm.SoilMoistureAlarmIsTooHigh= g_mRegister70.mRegister.M81;	
-	g_AbnormalAlarm.SmokeSenseAlarm= g_mRegister70.mRegister.M82;	
+	// g_AbnormalAlarm.SoilTemperatureAlarmIsTooLow= g_mRegister70.mRegister.M78;		
+	// g_AbnormalAlarm.SoilTemperatureExcessiveAlarm= g_mRegister70.mRegister.M79;		
+	// g_AbnormalAlarm.SoilMoistureAlarmIsTooLow= g_mRegister70.mRegister.M80;		
+	// g_AbnormalAlarm.SoilMoistureAlarmIsTooHigh= g_mRegister70.mRegister.M81;	
+	// g_AbnormalAlarm.SmokeSenseAlarm= g_mRegister70.mRegister.M82;	
 
 	g_AbnormalAlarm.HighTemperatureAlarmValue = g_dRegister.dRegister.D350_378[350-D350];	
 	g_AbnormalAlarm.LowTemperatureAlarmValue = g_dRegister.dRegister.D350_378[351-D350];	
@@ -476,10 +483,20 @@ void App_sheshisuo_PLC_txReadMRegisterCmd(uint8_t address ,uint8_t function,uint
 	buffer[buffer_lenth] = (uint8_t)startAddress[index];// 
 	buffer_lenth++; 				
 
-	buffer[buffer_lenth] = 0x00;//寄存器长度 2字节
-	buffer_lenth++; 		
-	buffer[buffer_lenth] = txByters[index]; //M0-M82
-	buffer_lenth++; 
+	if(txByters[index] >255)// 读取的字节数 大于255
+	{
+		buffer[buffer_lenth] = txByters[index]>>8;//寄存器长度 2字节
+		buffer_lenth++; 		
+		buffer[buffer_lenth] = (uint8_t)txByters[index];// 
+		buffer_lenth++; 			
+	}
+	else
+	{
+		buffer[buffer_lenth] = 0x00;//寄存器长度 2字节
+		buffer_lenth++; 			
+		buffer[buffer_lenth] = txByters[index]; //M0-M82
+		buffer_lenth++; 
+	}
 
 	crc1 = CRC16_Modbus(buffer, buffer_lenth);
 
@@ -1268,7 +1285,7 @@ void App_sheshisuo_PLC_Loop(void)
 
 						/* 高低字节互换 */
 						uint8_t temp=0;
-						for(i = 0;i<(sizeof(g_dRegister200_285)/2));i++)
+						for(i = 0;i<(sizeof(g_dRegister200_285)/2);i++)
 						{
 							temp = g_dRegister200_285.data[0+i*2];	
 							g_dRegister200_285.data[0+i*2] = g_dRegister200_285.data[1+i*2];	
@@ -1277,10 +1294,10 @@ void App_sheshisuo_PLC_Loop(void)
 					}	
 					if(g_sheshisuoPLC.PLC_indexState == INDEX_D286_297_REGITER)
 					{
-						memcpy(&g_dRegister286_297.data[0+NUM33*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
+						memcpy(&g_dRegister286_297.data[0],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
 						uint8_t temp=0;
-						for(i = 0;i<(sizeof(g_dRegister286_297)/2));i++)
+						for(i = 0;i<(sizeof(g_dRegister286_297)/2);i++)
 						{
 							temp = g_dRegister286_297.data[0+i*2];	
 							g_dRegister286_297.data[0+i*2] = g_dRegister286_297.data[1+i*2];	
@@ -1289,10 +1306,10 @@ void App_sheshisuo_PLC_Loop(void)
 					}
 					if(g_sheshisuoPLC.PLC_indexState == INDEX_D590_595_REGITER)
 					{
-						memcpy(&g_dRegister590_595.data[0+(NUM33+52)*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
+						memcpy(&g_dRegister590_595.data[0],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
 						uint8_t temp=0;
-						for(i = 0;i<(sizeof(g_dRegister590_595)/2));i++)
+						for(i = 0;i<(sizeof(g_dRegister590_595)/2);i++)
 						{
 							temp = g_dRegister590_595.data[0+i*2];	
 							g_dRegister590_595.data[0+i*2] = g_dRegister590_595.data[1+i*2];	
@@ -1301,10 +1318,10 @@ void App_sheshisuo_PLC_Loop(void)
 					}
 					if(g_sheshisuoPLC.PLC_indexState == INDEX_D100_106_REGITER)
 					{
-						memcpy(&g_dRegister100_106.data[0+(NUM33+84)*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
+						memcpy(&g_dRegister100_106.data[0],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
 						uint8_t temp=0;
-						for(i = 0;i<(sizeof(g_dRegister100_106)/2));i++)
+						for(i = 0;i<(sizeof(g_dRegister100_106)/2);i++)
 						{
 							temp = g_dRegister100_106.data[0+i*2];	
 							g_dRegister100_106.data[0+i*2] = g_dRegister100_106.data[1+i*2];	
@@ -1313,10 +1330,10 @@ void App_sheshisuo_PLC_Loop(void)
 					}					
 					if(g_sheshisuoPLC.PLC_indexState == INDEX_D0_47_REGITER)
 					{
-						memcpy(&g_dRegister0_47.data[(0+NUM33+NUM116)*2],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
+						memcpy(&g_dRegister0_47.data[0],&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 						/* 高低字节互换 */
 						uint8_t temp=0;
-						for(i = 0;i<(sizeof(g_dRegister0_47)/2));i++)
+						for(i = 0;i<(sizeof(g_dRegister0_47)/2);i++)
 						{
 							temp = g_dRegister0_47.data[0+i*2];	
 							g_dRegister0_47.data[0+i*2] = g_dRegister0_47.data[1+i*2];	
