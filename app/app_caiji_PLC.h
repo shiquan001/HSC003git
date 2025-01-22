@@ -38,7 +38,7 @@ typedef enum
 {
 	PLC_NULL = 0,
 	PLC_TIANJIN = 11,// 天津
-	PLC_SHESHISUO =22,	//设施所
+	PLC_SHESHISUO =22,	//设施所 国产plc
 }PLC_TYPE;
 
 typedef enum 

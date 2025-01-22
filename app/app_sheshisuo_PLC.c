@@ -82,8 +82,8 @@ uint16_t startAddress[READ_COUNT]=
 #define NUM116 (116u)
 #define NUM28 (28u)
 #define NUM29 (29u)
-// NUM98 NUM12  NUM6  NUM7  NUM48  NUM64
-#define NUM98 (98u)
+// NUM86 NUM12  NUM6  NUM7  NUM48  NUM64
+#define NUM86 (86u)
 #define NUM12 (12u)
 #define NUM6 (6u)
 #define NUM7 (7u)
@@ -91,10 +91,10 @@ uint16_t startAddress[READ_COUNT]=
 #define NUM64 (64u)
 
 uint16_t txByters[READ_COUNT]=
-{558,NUM98,NUM12,NUM6,NUM7,NUM48,64};
+{64,NUM86,NUM12,NUM6,NUM7,NUM48,558};
 
 uint8_t rxByters[READ_COUNT]=
-{70,NUM98*2,NUM12*2,NUM6*2,NUM7*2,NUM48*2,8};
+{8,NUM86*2,NUM12*2,NUM6*2,NUM7*2,NUM48*2,70};
 
 void App_sheshisuo_PLC_writer_ask(void);
 
