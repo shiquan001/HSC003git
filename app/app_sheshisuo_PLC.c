@@ -59,13 +59,13 @@ static uint8_t buffer[16];
 
 uint8_t m_flagCmdAsk = FALSE;//调整cmd应答的优先级，先应答命令，在回答数据
 
-//读取的次数
+//读取的次数 7组数据
 #define READ_COUNT 7
 uint8_t functionCode[READ_COUNT]=
 {FUNCTION_CODE_01,FUNCTION_CODE_03,FUNCTION_CODE_03,FUNCTION_CODE_03,FUNCTION_CODE_03,FUNCTION_CODE_03,FUNCTION_CODE_01};
 
 uint16_t startAddress[READ_COUNT]=
-{0,0,128,180,212,350,400};
+{3448,4296,4382,4686,4196,4096,2048};
 //10.页面右上角控制柜的模式应该可以切换（m400，常闭为手动，常开为自动）
 
 #define NUM32 (32u)
@@ -73,12 +73,19 @@ uint16_t startAddress[READ_COUNT]=
 #define NUM116 (116u)
 #define NUM28 (28u)
 #define NUM29 (29u)
+// NUM98 NUM12  NUM6  NUM7  NUM48  NUM64
+#define NUM98 (98u)
+#define NUM12 (12u)
+#define NUM6 (6u)
+#define NUM7 (7u)
+#define NUM48 (48u)
+#define NUM64 (64u)
 
 uint8_t txByters[READ_COUNT]=
-{83,NUM33,NUM28,NUM32,NUM32,NUM28,1};
+{558,NUM98,NUM12,NUM6,NUM7,NUM48,64};
 
 uint8_t rxByters[READ_COUNT]=
-{11,NUM33*2,NUM28*2,NUM32*2,NUM32*2,NUM28*2,1};
+{70,NUM98*2,NUM12*2,NUM6*2,NUM7*2,NUM48*2,8};
 
 void App_sheshisuo_PLC_writer_ask(void);
 
