@@ -1894,6 +1894,71 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 			g_dRegister100_106.dRegister.D100_106[2],g_dRegister100_106.dRegister.D100_106[3],g_dRegister100_106.dRegister.D100_106[4],
 			g_dRegister100_106.dRegister.D100_106[5],g_dRegister100_106.dRegister.D100_106[6]);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		/*5、设备开关量反馈 
+		M457 M458 M459 M460 M461 M462 M463 M464 
+		M465 M466 M467 M468 M469 M470 M471 M472 
+		M473 M474 M475 M476 M477 M478 M479 M480 M481
+		*/
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,5);	// 5、设备开关量反馈,分组信息5
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m456_479.M457,g_mRegister70.mRegister.m456_479.M458,
+			g_mRegister70.mRegister.m456_479.M459,g_mRegister70.mRegister.m456_479.M460,g_mRegister70.mRegister.m456_479.M461,g_mRegister70.mRegister.m456_479.M462,
+			g_mRegister70.mRegister.m456_479.M463,g_mRegister70.mRegister.m456_479.M464);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m456_479.M465,g_mRegister70.mRegister.m456_479.M466,
+			g_mRegister70.mRegister.m456_479.M467,g_mRegister70.mRegister.m456_479.M468,g_mRegister70.mRegister.m456_479.M469,g_mRegister70.mRegister.m456_479.M470,
+			g_mRegister70.mRegister.m456_479.M471,g_mRegister70.mRegister.m456_479.M472);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister70.mRegister.m456_479.M473,g_mRegister70.mRegister.m456_479.M474,
+			g_mRegister70.mRegister.m456_479.M475,g_mRegister70.mRegister.m456_479.M476,g_mRegister70.mRegister.m456_479.M477,g_mRegister70.mRegister.m456_479.M478,
+			g_mRegister70.mRegister.m456_479.M479,g_mRegister70.mRegister.m480_559.M480,g_mRegister70.mRegister.m480_559.M481);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		/*6、设备控制 
+		M512 M513 M514 M515 M516 M517 M518 M519
+		M520 M521 M522 M523 M524 M525 M526 M527
+		M528 M529 M530 M531 M532 M533 M534 M535
+		M536 M537 M538 M539 M540 M541 M542 M543
+		M544 M545 M546 M547 M548 M549 M550 M551
+		M552 M553 M554 M555 M556 M557
+		*/
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,6);	// 6、设备控制,分组信息6
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m480_559.M512,g_mRegister70.mRegister.m480_559.M513,
+			g_mRegister70.mRegister.m480_559.M514,g_mRegister70.mRegister.m480_559.M515,g_mRegister70.mRegister.m480_559.M516,g_mRegister70.mRegister.m480_559.M517,
+			g_mRegister70.mRegister.m480_559.M518,g_mRegister70.mRegister.m480_559.M519);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m480_559.M520,g_mRegister70.mRegister.m480_559.M521,
+			g_mRegister70.mRegister.m480_559.M522,g_mRegister70.mRegister.m480_559.M523,g_mRegister70.mRegister.m480_559.M524,g_mRegister70.mRegister.m480_559.M525,
+			g_mRegister70.mRegister.m480_559.M526,g_mRegister70.mRegister.m480_559.M527);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m480_559.M528,g_mRegister70.mRegister.m480_559.M529,
+			g_mRegister70.mRegister.m480_559.M530,g_mRegister70.mRegister.m480_559.M531,g_mRegister70.mRegister.m480_559.M532,g_mRegister70.mRegister.m480_559.M533,
+			g_mRegister70.mRegister.m480_559.M534,g_mRegister70.mRegister.m480_559.M535);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m480_559.M536,g_mRegister70.mRegister.m480_559.M537,
+			g_mRegister70.mRegister.m480_559.M538,g_mRegister70.mRegister.m480_559.M539,g_mRegister70.mRegister.m480_559.M540,g_mRegister70.mRegister.m480_559.M541,
+			g_mRegister70.mRegister.m480_559.M542,g_mRegister70.mRegister.m480_559.M543);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m480_559.M544,g_mRegister70.mRegister.m480_559.M545,
+			g_mRegister70.mRegister.m480_559.M546,g_mRegister70.mRegister.m480_559.M547,g_mRegister70.mRegister.m480_559.M548,g_mRegister70.mRegister.m480_559.M549,
+			g_mRegister70.mRegister.m480_559.M550,g_mRegister70.mRegister.m480_559.M551);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d;",g_mRegister70.mRegister.m480_559.M552,g_mRegister70.mRegister.m480_559.M553,
+			g_mRegister70.mRegister.m480_559.M554,g_mRegister70.mRegister.m480_559.M555,g_mRegister70.mRegister.m480_559.M556,g_mRegister70.mRegister.m480_559.M557);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		
 	}
 	else
 	{
