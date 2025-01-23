@@ -1865,12 +1865,12 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,2);	// 2设备定义,分组信息2
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 2.1设备定义 8个bit
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1452,g_mRegister8.mRegister.M1453,
 			g_mRegister8.mRegister.M1454,g_mRegister8.mRegister.M1455,g_mRegister8.mRegister.M1456,g_mRegister8.mRegister.M1457,
 			g_mRegister8.mRegister.M1458,g_mRegister8.mRegister.M1459);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 2.1设备定义 8个bit
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1460,g_mRegister8.mRegister.M1461,
 			g_mRegister8.mRegister.M1462,g_mRegister8.mRegister.M1463,g_mRegister8.mRegister.M1464,g_mRegister8.mRegister.M1465,
 			g_mRegister8.mRegister.M1466,g_mRegister8.mRegister.M1467);
@@ -1880,9 +1880,20 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,3);	// 3、限位开关数量定义,分组信息3
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,",g_dRegister590_595.dRegister.D590_595[0],g_dRegister590_595.dRegister.D590_595[1],
 			g_dRegister590_595.dRegister.D590_595[2],g_dRegister590_595.dRegister.D590_595[3],g_dRegister590_595.dRegister.D590_595[4],
 			g_dRegister590_595.dRegister.D590_595[5]);
+		
+		/*4、PLC时间校准 D100 D101 D102 D103 D104 D105 D106 */
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,4);	// 4、PLC时间校准,分组信息4
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,",g_dRegister100_106.dRegister.D100_106[0],g_dRegister100_106.dRegister.D100_106[1],
+			g_dRegister100_106.dRegister.D100_106[2],g_dRegister100_106.dRegister.D100_106[3],g_dRegister100_106.dRegister.D100_106[4],
+			g_dRegister100_106.dRegister.D100_106[5],g_dRegister100_106.dRegister.D100_106[6]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 	}
 	else
 	{
