@@ -872,9 +872,9 @@ void App_DataReport_04(void)
     json_info.json_len = lenth;
 }
 
-#define LENTH_TEMP (256u)
-static char SensorBasic_data_tx[482];
-static char SensorBasic_data_temp[LENTH_TEMP];
+
+static char SensorBasic_data_tx[482];// 482+512 = 994  最大支持1024
+static char SensorBasic_data_temp[256];
 
 #ifdef ONLY_8SAME_AIRTHSENSOR // 8传感器
 extern uint8_t addressAirTh[8];

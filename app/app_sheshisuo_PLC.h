@@ -849,7 +849,7 @@ typedef union D0_47_REGISTER_UN
 
 	struct
 	{
-		int16_t D0_32[48];
+		int16_t D0_47[48];
 	}dRegister;
 
 }D0_47_REGISTER_un;
