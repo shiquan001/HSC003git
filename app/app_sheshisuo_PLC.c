@@ -1796,7 +1796,9 @@ void App_sheshisuo_PLC_writer_ask(void)
 	
 	json_len = lenth;
 
-	app_fifo_NB_CoapST_Put(json_buf,&json_len);
+	// app_fifo_NB_CoapST_Put(json_buf,&json_len);
+    if(gUpdate4G.updateStart == FALSE)//升级过程中，不再发送数据给4g模块
+        app_4G_sendData(json_info.json_buf,&json_info.json_len);	
 }
 
 
@@ -1881,16 +1883,17 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,3);	// 3、限位开关数量定义,分组信息3
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,",g_dRegister590_595.dRegister.D590_595[0],g_dRegister590_595.dRegister.D590_595[1],
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d;",g_dRegister590_595.dRegister.D590_595[0],g_dRegister590_595.dRegister.D590_595[1],
 			g_dRegister590_595.dRegister.D590_595[2],g_dRegister590_595.dRegister.D590_595[3],g_dRegister590_595.dRegister.D590_595[4],
 			g_dRegister590_595.dRegister.D590_595[5]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		
 		/*4、PLC时间校准 D100 D101 D102 D103 D104 D105 D106 */
 		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,4);	// 4、PLC时间校准,分组信息4
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,",g_dRegister100_106.dRegister.D100_106[0],g_dRegister100_106.dRegister.D100_106[1],
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d;",g_dRegister100_106.dRegister.D100_106[0],g_dRegister100_106.dRegister.D100_106[1],
 			g_dRegister100_106.dRegister.D100_106[2],g_dRegister100_106.dRegister.D100_106[3],g_dRegister100_106.dRegister.D100_106[4],
 			g_dRegister100_106.dRegister.D100_106[5],g_dRegister100_106.dRegister.D100_106[6]);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
@@ -2146,7 +2149,9 @@ void  App_sheshisuo_PLC_DataReport_SensorExtend(void)
 		}
 
 		json_info.json_len = lenth;
-		app_fifo_NB_CoapST_Put(json_info.json_buf,&json_info.json_len);	
+		// app_fifo_NB_CoapST_Put(json_info.json_buf,&json_info.json_len);	
+    	if(gUpdate4G.updateStart == FALSE)//升级过程中，不再发送数据给4g模块
+        	app_4G_sendData(json_info.json_buf,&json_info.json_len);		
 	}		
 #endif
 }

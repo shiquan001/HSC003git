@@ -1568,7 +1568,7 @@ void App_DataReport_SensorBasic(void)
 /*
 *********************************************************************************************************
 *   函 数 名: App_DataReport_SensorBasic
-*   功能说明: 
+*   功能说明:  国产plc398个字节，数据包;最多支持512字节；
 *   形   参：无
 *   返 回 值: 无
 
@@ -1638,14 +1638,28 @@ void App_DataReport_SensorBasic(void)
 
 
     /* 数据组帧*/
-
     memset(&json_info,'0',sizeof(json_info));
     json_info.json_len = lenth;
     
-    json_info.json_buf[lenth] = messageId_SensorBasic>>8;//基础传感器  SensorBasic 0x0002
+    json_info.json_buf[0] = APP4G_MSG_DATAUP;//上行数据帧头0x02
     lenth= lenth + 1;
-    json_info.json_buf[lenth] = (u8)messageId_SensorBasic;
+
+    json_info.json_buf[lenth] = 0X00;//上行数据长度 2
     lenth= lenth + 1;   
+    json_info.json_buf[lenth] = 0X00;//上行数据长度 2
+    lenth= lenth + 1;   
+
+    msgid++;
+    json_info.json_buf[lenth] = msgid>>8;
+    lenth= lenth + 1;
+    json_info.json_buf[lenth] = msgid;
+    lenth= lenth + 1;
+
+    json_info.json_buf[lenth] = APP4G_SERVICEID_SensorBasic>>8;
+    lenth= lenth + 1;
+    json_info.json_buf[lenth] = APP4G_SERVICEID_SensorBasic;
+    lenth= lenth + 1;   
+
     /*空气温度*/
     if(g_wenshi.m_Symbol >= 0x01)
     {
@@ -1892,7 +1906,7 @@ void App_DataReport_SensorBasic(void)
     {
 
     }
-#ifdef ENABLE_TIANJING_PLC  
+    #ifdef ENABLE_TIANJING_PLC  
     else if(g_tConfig.PLC_Type == PLC_TIANJIN)
     {
         if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PLC_TIANJING)
@@ -1937,10 +1951,13 @@ void App_DataReport_SensorBasic(void)
         strcpy(&json_info.json_buf[lenth],SensorBasic_data_tx);// 高字节在低位地址；大端模式；
         lenth= lenth + sensor_data_lenth;   
     }
-
-    json_info.json_len = lenth;
-    app_fifo_NB_CoapST_Put(json_info.json_buf,&json_info.json_len);
+    json_info.json_buf[CTWING_DATALENTH_INDEX1] =(lenth-3)>>8;// 高字节在低位地址；大端模式；
+    json_info.json_buf[CTWING_DATALENTH_INDEX2] = (lenth-3);// 高字节在低位地址；大端模式；
     
+    json_info.json_len = lenth;
+    // app_fifo_NB_CoapST_Put(json_info.json_buf,&json_info.json_len);
+    if(gUpdate4G.updateStart == FALSE)//升级过程中，不再发送数据给4g模块
+        app_4G_sendData(json_info.json_buf,&json_info.json_len);    
 }
 #endif
 
