@@ -2158,6 +2158,62 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m96_127.M100,g_mRegister70.mRegister.m96_127.M101,
 			g_mRegister70.mRegister.m96_127.M102,g_mRegister70.mRegister.m96_127.M103,g_mRegister70.mRegister.m96_127.M104,g_mRegister70.mRegister.m96_127.M105,
 			g_mRegister70.mRegister.m96_127.M106,g_mRegister70.mRegister.m96_127.M107);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m96_127.M108,g_mRegister70.mRegister.m96_127.M109,
+			g_mRegister70.mRegister.m96_127.M110,g_mRegister70.mRegister.m96_127.M111,g_mRegister70.mRegister.m96_127.M112,g_mRegister70.mRegister.m96_127.M113,
+			g_mRegister70.mRegister.m96_127.M114,g_mRegister70.mRegister.m96_127.M115);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m96_127.M116,g_mRegister70.mRegister.m96_127.M117,
+			g_mRegister70.mRegister.m96_127.M118,g_mRegister70.mRegister.m96_127.M119,g_mRegister70.mRegister.m96_127.M120,g_mRegister70.mRegister.m96_127.M121,
+			g_mRegister70.mRegister.m96_127.M122,g_mRegister70.mRegister.m96_127.M123);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m96_127.M124,g_mRegister70.mRegister.m96_127.M125,
+			g_mRegister70.mRegister.m96_127.M126,g_mRegister70.mRegister.m96_127.M127,g_mRegister70.mRegister.m128_183.M128,g_mRegister70.mRegister.m128_183.M129,
+			g_mRegister70.mRegister.m128_183.M130,g_mRegister70.mRegister.m128_183.M131);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d",g_mRegister70.mRegister.m128_183.M132,g_mRegister70.mRegister.m128_183.M133,
+			g_mRegister70.mRegister.m128_183.M134,g_mRegister70.mRegister.m128_183.M135,g_mRegister70.mRegister.m128_183.M136,g_mRegister70.mRegister.m128_183.M137,
+			g_mRegister70.mRegister.m128_183.M138,g_mRegister70.mRegister.m128_183.M139);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d;",g_mRegister70.mRegister.m128_183.M140,g_mRegister70.mRegister.m128_183.M141,
+			g_mRegister70.mRegister.m128_183.M142,g_mRegister70.mRegister.m128_183.M143,g_mRegister70.mRegister.m128_183.M144,g_mRegister70.mRegister.m128_183.M145,
+			g_mRegister70.mRegister.m128_183.M146);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		/* 12、传感器值报警 
+		M147 M148 M149 M150 M151 M152 M153 M154
+		M155 M156 M157 M158 M159 M160 M161 M162
+		M163 M164 M165 M166 M167 M168 M169 M170
+		M171 M172 M173 M174 M175 M176 M177 M178
+		*/
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,12);	// 12、传感器值报警,分组信息12
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m128_183.M147,g_mRegister70.mRegister.m128_183.M148,
+			g_mRegister70.mRegister.m128_183.M149,g_mRegister70.mRegister.m128_183.M150,g_mRegister70.mRegister.m128_183.M151,g_mRegister70.mRegister.m128_183.M152,
+			g_mRegister70.mRegister.m128_183.M153,g_mRegister70.mRegister.m128_183.M154);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m128_183.M155,g_mRegister70.mRegister.m128_183.M156,
+			g_mRegister70.mRegister.m128_183.M157,g_mRegister70.mRegister.m128_183.M158,g_mRegister70.mRegister.m128_183.M159,g_mRegister70.mRegister.m128_183.M160,
+			g_mRegister70.mRegister.m128_183.M161,g_mRegister70.mRegister.m128_183.M162);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m128_183.M163,g_mRegister70.mRegister.m128_183.M164,
+			g_mRegister70.mRegister.m128_183.M165,g_mRegister70.mRegister.m128_183.M166,g_mRegister70.mRegister.m128_183.M167,g_mRegister70.mRegister.m128_183.M168,
+			g_mRegister70.mRegister.m128_183.M169,g_mRegister70.mRegister.m128_183.M170);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister70.mRegister.m128_183.M171,g_mRegister70.mRegister.m128_183.M172,
+			g_mRegister70.mRegister.m128_183.M173,g_mRegister70.mRegister.m128_183.M174,g_mRegister70.mRegister.m128_183.M175,g_mRegister70.mRegister.m128_183.M176,
+			g_mRegister70.mRegister.m128_183.M177,g_mRegister70.mRegister.m128_183.M178);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
 
 	}
 	else
