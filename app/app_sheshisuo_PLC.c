@@ -1814,115 +1814,75 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 #ifdef ENABLE_SHESHISUO_PLC 
 	if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PLC_SHESHISUO)
 	{
-		/* 1.1.设备运行状态、97个字节*/
+		/* 1.传感器定义、
+		M1400M1401\M1402\M1403\M1404\M1405\M1406\M1407\
+		M1408\M1409\M1410\M1411\M1412\M1413\M1414\M1415\
+		M1416\M1417\M1418\M1419\M1420\M1421\M1422\M1423\
+		M1424\M1425\M1426\M1427\M1428\M1429\M1430\M1431\
+		M1432\M1433\M1434\M1435\M1436\M1437\M1438\M1439\
+		M1444\M1445\M1446\M1447\M1448\M1449\M1450\M1451\
+		48个bit*/
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,1);	
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,1);	// 1.传感器定义,分组信息1
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,",g_statusEquipment.workMode,g_statusEquipment.insulationCover,
-				g_statusEquipment.insulationCover_forwardTimer,g_statusEquipment.insulationCover_reverseTimer,g_statusEquipment.insulationCover_position); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_statusEquipment.topVentilation,g_statusEquipment.topVentilation_forwardTimer,
-				g_statusEquipment.topVentilation_reverseTimer,g_statusEquipment.topVentilation_position);	
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_statusEquipment.bottomVentilation,g_statusEquipment.bottomVentilation_forwardTimer,
-				g_statusEquipment.bottomVentilation_reverseTimer,g_statusEquipment.bottomVentilation_position); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_statusEquipment.manureSpreader,g_statusEquipment.wetSpray,
-				g_statusEquipment.fan,g_statusEquipment.wetCurtain);	
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d;",g_statusEquipment.fillLight,g_statusEquipment.circulatingFan,
-				g_statusEquipment.ReserveOne,g_statusEquipment.ReserveTwo); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}
-		/* 1.2.设施积累数据 */
+		
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1400,g_mRegister8.mRegister.M1401,
+			g_mRegister8.mRegister.M1402,g_mRegister8.mRegister.M1403,g_mRegister8.mRegister.M1404,g_mRegister8.mRegister.M1405,
+			g_mRegister8.mRegister.M1406,g_mRegister8.mRegister.M1407);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1408,g_mRegister8.mRegister.M1409,
+			g_mRegister8.mRegister.M1410,g_mRegister8.mRegister.M1411,g_mRegister8.mRegister.M1412,g_mRegister8.mRegister.M1413,
+			g_mRegister8.mRegister.M1414,g_mRegister8.mRegister.M1415);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1416,g_mRegister8.mRegister.M1417,
+			g_mRegister8.mRegister.M1418,g_mRegister8.mRegister.M1419,g_mRegister8.mRegister.M1420,g_mRegister8.mRegister.M1421,
+			g_mRegister8.mRegister.M1422,g_mRegister8.mRegister.M1423);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1424,g_mRegister8.mRegister.M1425,
+			g_mRegister8.mRegister.M1426,g_mRegister8.mRegister.M1427,g_mRegister8.mRegister.M1428,g_mRegister8.mRegister.M1429,
+			g_mRegister8.mRegister.M1430,g_mRegister8.mRegister.M1431);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1432,g_mRegister8.mRegister.M1433,
+			g_mRegister8.mRegister.M1434,g_mRegister8.mRegister.M1435,g_mRegister8.mRegister.M1436,g_mRegister8.mRegister.M1437,
+			g_mRegister8.mRegister.M1438,g_mRegister8.mRegister.M1439);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1444,g_mRegister8.mRegister.M1445,
+			g_mRegister8.mRegister.M1446,g_mRegister8.mRegister.M1447,g_mRegister8.mRegister.M1448,g_mRegister8.mRegister.M1449,
+			g_mRegister8.mRegister.M1450,g_mRegister8.mRegister.M1451);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		
+		/*2\设备定义
+		M1452 M1453 M1454 M1455 M1456 M1457 M1458 M1459
+		M1460 M1461 M1462 M1463 M1464 M1465 M1466 M1467
+		*/	
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,2);	
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_FacilitiesAccumulateData.TotalIrrigationFlow,g_FacilitiesAccumulateData.flow,
-				g_FacilitiesAccumulateData.flowFertileIrrigation ,g_FacilitiesAccumulateData.flowSingleFertilizerAndWaterIrrigation ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_FacilitiesAccumulateData.totalRunningTimeOfTheHumidificationSpray,g_FacilitiesAccumulateData.singleRunningTimeOfHumidificationSpray,
-				g_FacilitiesAccumulateData.totalRunningTimeOfTheFan ,g_FacilitiesAccumulateData.singleRunningTimeOfTheFan); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}		
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_FacilitiesAccumulateData.totalRunningTimeOfTheWetCurtain,g_FacilitiesAccumulateData.singleRunningTimeOfTheWetCurtain,
-				g_FacilitiesAccumulateData.totalRunningTimeOfTheFillLightIsTurnedOn ,g_FacilitiesAccumulateData.SingleRunningTimeOfTheFillLightIsTurnedOn); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}			
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d;",g_FacilitiesAccumulateData.totalRunningTimeOfTheCirculatingFan,g_FacilitiesAccumulateData.SingleRunningTimeOfTheCirculatingFan);
-//				g_FacilitiesAccumulateData.totalRunningTimeOfTheFillLightIsTurnedOn ,g_FacilitiesAccumulateData.SingleRunningTimeOfTheFillLightIsTurnedOn); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		/*  1.3.传感器实时数据   */
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,2);	// 2设备定义,分组信息2
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 2.1设备定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1452,g_mRegister8.mRegister.M1453,
+			g_mRegister8.mRegister.M1454,g_mRegister8.mRegister.M1455,g_mRegister8.mRegister.M1456,g_mRegister8.mRegister.M1457,
+			g_mRegister8.mRegister.M1458,g_mRegister8.mRegister.M1459);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 2.1设备定义 8个bit
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1460,g_mRegister8.mRegister.M1461,
+			g_mRegister8.mRegister.M1462,g_mRegister8.mRegister.M1463,g_mRegister8.mRegister.M1464,g_mRegister8.mRegister.M1465,
+			g_mRegister8.mRegister.M1466,g_mRegister8.mRegister.M1467);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		
+		/*3、限位开关数量定义D590 D591 D592 D593 D594 D595			*/
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,3);	
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_SensorRealTimeData.RealTimeOutdoorTemperature,g_SensorRealTimeData.RealTimeOutdoorHumidity,
-				g_SensorRealTimeData.RealTimeOutdoorLighting ,g_SensorRealTimeData.RealTimeOutdoorWindSpeed ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_SensorRealTimeData.RealTimeOutdoorWindDirection,g_SensorRealTimeData.RealTimeOutdoorCO2,
-				g_SensorRealTimeData.AccumulatedOutdoorRainfall ,g_SensorRealTimeData.CurrentOutdoorRainfall ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_SensorRealTimeData.OutdoorInstantaneousRainfall,g_SensorRealTimeData.OutdoorAtmosphericPressure,
-				g_SensorRealTimeData.OutdoorRealTimeRainAndSnowState ,g_SensorRealTimeData.RealTimeIndoorTemperature1 ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_SensorRealTimeData.RealTimeIndoorHumidity1,g_SensorRealTimeData.RealTimeIndoorIllumination1,
-				g_SensorRealTimeData.RealTimeIndoorCO21 ,g_SensorRealTimeData.RealTimeIndoorSoilTemperature1 ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_SensorRealTimeData.RealTimeIndoorSoilHumidity1,g_SensorRealTimeData.RealTimeIndoorTemperature2,
-				g_SensorRealTimeData.RealTimeIndoorHumidity2 ,g_SensorRealTimeData.RealTimeIndoorIllumination2 ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,",g_SensorRealTimeData.RealTimeIndoorCO22,g_SensorRealTimeData.RealTimeIndoorSoilTemperature2,
-				g_SensorRealTimeData.RealTimeIndoorSoilHumidity2 ,g_SensorRealTimeData.RealTimeIndoorTemperature3 ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-		{
-			memset(SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d",g_SensorRealTimeData.RealTimeIndoorHumidity3,g_SensorRealTimeData.RealTimeIndoorIllumination3,
-				g_SensorRealTimeData.RealTimeIndoorCO23 ,g_SensorRealTimeData.RealTimeIndoorSoilTemperature3,g_SensorRealTimeData.RealTimeIndoorSoilHumidity3 ); 
-			strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		}	
-	
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,3);	// 3、限位开关数量定义,分组信息3
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,",g_dRegister590_595.dRegister.D590_595[0],g_dRegister590_595.dRegister.D590_595[1],
+			g_dRegister590_595.dRegister.D590_595[2],g_dRegister590_595.dRegister.D590_595[3],g_dRegister590_595.dRegister.D590_595[4],
+			g_dRegister590_595.dRegister.D590_595[5]);
 	}
 	else
 	{
