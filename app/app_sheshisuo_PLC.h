@@ -948,7 +948,9 @@ extern strategyControl_st g_strategyControl;
 extern void App_sheshisuo_PLC_Init_Var(void);
 extern void App_sheshisuo_PLC_Loop(void);
 extern void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *SensorBasic_data_temp);
-extern void  App_sheshisuo_PLC_DataReport_SensorExtend(void);
+
+extern void App_sheshisuo_PLC_DataReport_SensorExtend(char *SensorBasic_data_tx, char *SensorBasic_data_temp) ;
+
 extern void App_sheshisuo_PLC_Dinfo_Data_process(uint8_t pos,char* msg);
 extern void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,int32_t value);
 

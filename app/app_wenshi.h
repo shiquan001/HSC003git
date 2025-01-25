@@ -323,5 +323,7 @@ extern void app_deviceState_updateResult(void);
 extern void app_deviceState_eventReport(EVENT_REPORT_E eventType);
 extern void App_DeviceState_cmdAsk( CMD_ASK_TYPE_E asktype);
 
-
+extern uint8_t g_dataReportType;
+extern char SensorBasic_data_tx[482];// 482+512 = 994  最大支持1024
+extern char SensorBasic_data_temp[256];
 #endif

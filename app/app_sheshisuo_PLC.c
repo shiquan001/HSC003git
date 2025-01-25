@@ -1898,6 +1898,132 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 			g_dRegister100_106.dRegister.D100_106[5],g_dRegister100_106.dRegister.D100_106[6]);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 
+
+		/*9、设备控制参数
+		D200 D201 D202 D203 D204 D205 D206 D207
+		D208 D209 D210 D211 D212 D213 D214 D215
+		D216 D217 D218 D219 D220 D221 D222 D223
+		D224 D225 D226 D227 D228 D229 D230 D231
+		D232 D233 D234 D235 D236 D237 D238 D239
+		D240 D241 D242 D243 D244 D245 D246 D247
+		D248 D249 D250 D251 D252 D253 D254 D255
+		D256 D257 D258 D259 D260 D261 D262 D263
+		D264 D265 D266 D267 D268 D269 D270 D271
+		D272 D273 D274 D275 D276 D277 D278 D279
+		D280 D281 D282 D283 D284 D285
+		*/
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,9);	// 9、设备控制参数,分组信息9
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[0],g_dRegister200_285.dRegister.D200_285[1],
+			g_dRegister200_285.dRegister.D200_285[2],g_dRegister200_285.dRegister.D200_285[3],g_dRegister200_285.dRegister.D200_285[4],g_dRegister200_285.dRegister.D200_285[5],
+			g_dRegister200_285.dRegister.D200_285[6],g_dRegister200_285.dRegister.D200_285[7]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[8],g_dRegister200_285.dRegister.D200_285[9],
+			g_dRegister200_285.dRegister.D200_285[10],g_dRegister200_285.dRegister.D200_285[11],g_dRegister200_285.dRegister.D200_285[12],g_dRegister200_285.dRegister.D200_285[13],
+			g_dRegister200_285.dRegister.D200_285[14],g_dRegister200_285.dRegister.D200_285[15]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[16],g_dRegister200_285.dRegister.D200_285[17],
+			g_dRegister200_285.dRegister.D200_285[18],g_dRegister200_285.dRegister.D200_285[19],g_dRegister200_285.dRegister.D200_285[20],g_dRegister200_285.dRegister.D200_285[21],
+			g_dRegister200_285.dRegister.D200_285[22],g_dRegister200_285.dRegister.D200_285[23]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[24],g_dRegister200_285.dRegister.D200_285[25],
+			g_dRegister200_285.dRegister.D200_285[26],g_dRegister200_285.dRegister.D200_285[27],g_dRegister200_285.dRegister.D200_285[28],g_dRegister200_285.dRegister.D200_285[29],
+			g_dRegister200_285.dRegister.D200_285[30],g_dRegister200_285.dRegister.D200_285[31]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[32],g_dRegister200_285.dRegister.D200_285[33],
+			g_dRegister200_285.dRegister.D200_285[34],g_dRegister200_285.dRegister.D200_285[35],g_dRegister200_285.dRegister.D200_285[36],g_dRegister200_285.dRegister.D200_285[37],
+			g_dRegister200_285.dRegister.D200_285[38],g_dRegister200_285.dRegister.D200_285[39]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[40],g_dRegister200_285.dRegister.D200_285[41],
+			g_dRegister200_285.dRegister.D200_285[42],g_dRegister200_285.dRegister.D200_285[43],g_dRegister200_285.dRegister.D200_285[44],g_dRegister200_285.dRegister.D200_285[45],
+			g_dRegister200_285.dRegister.D200_285[46],g_dRegister200_285.dRegister.D200_285[47]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[48],g_dRegister200_285.dRegister.D200_285[49],
+			g_dRegister200_285.dRegister.D200_285[50],g_dRegister200_285.dRegister.D200_285[51],g_dRegister200_285.dRegister.D200_285[52],g_dRegister200_285.dRegister.D200_285[53],
+			g_dRegister200_285.dRegister.D200_285[54],g_dRegister200_285.dRegister.D200_285[55]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[56],g_dRegister200_285.dRegister.D200_285[57],
+			g_dRegister200_285.dRegister.D200_285[58],g_dRegister200_285.dRegister.D200_285[59],g_dRegister200_285.dRegister.D200_285[60],g_dRegister200_285.dRegister.D200_285[61],
+			g_dRegister200_285.dRegister.D200_285[62],g_dRegister200_285.dRegister.D200_285[63]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[64],g_dRegister200_285.dRegister.D200_285[65],
+			g_dRegister200_285.dRegister.D200_285[66],g_dRegister200_285.dRegister.D200_285[67],g_dRegister200_285.dRegister.D200_285[68],g_dRegister200_285.dRegister.D200_285[69],
+			g_dRegister200_285.dRegister.D200_285[70],g_dRegister200_285.dRegister.D200_285[71]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[72],g_dRegister200_285.dRegister.D200_285[73],
+			g_dRegister200_285.dRegister.D200_285[74],g_dRegister200_285.dRegister.D200_285[75],g_dRegister200_285.dRegister.D200_285[76],g_dRegister200_285.dRegister.D200_285[77],
+			g_dRegister200_285.dRegister.D200_285[78],g_dRegister200_285.dRegister.D200_285[79]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d;",g_dRegister200_285.dRegister.D200_285[80],g_dRegister200_285.dRegister.D200_285[81],
+			g_dRegister200_285.dRegister.D200_285[82],g_dRegister200_285.dRegister.D200_285[83],g_dRegister200_285.dRegister.D200_285[84],g_dRegister200_285.dRegister.D200_285[85]
+		 );
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+		/*10、报警值设置
+		D286 D287 D288 D289 D290 D291 D292 D293
+		D294 D295 D296 D297
+		*/
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,10);	// 10、报警值设置,分组信息10
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister286_297.dRegister.D286_297[0],g_dRegister286_297.dRegister.D286_297[1],
+			g_dRegister286_297.dRegister.D286_297[2],g_dRegister286_297.dRegister.D286_297[3],g_dRegister286_297.dRegister.D286_297[4],g_dRegister286_297.dRegister.D286_297[5],
+			g_dRegister286_297.dRegister.D286_297[6],g_dRegister286_297.dRegister.D286_297[7]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d;",g_dRegister286_297.dRegister.D286_297[8],g_dRegister286_297.dRegister.D286_297[9],
+			g_dRegister286_297.dRegister.D286_297[10],g_dRegister286_297.dRegister.D286_297[11]);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+
+	}
+	else
+	{
+		memset(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,0);	
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);						
+	}		
+#endif			
+
+}
+
+#ifdef ENABLE_SHESHISUO_PLC 
+/*
+*********************************************************************************************************
+*	函 数 名: App_sheshisuo_PLC_DataReport_SensorBasic
+*	功能说明: 
+*	形	  参：无
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+void App_sheshisuo_PLC_DataReport_SensorExtend(char *SensorBasic_data_tx, char *SensorBasic_data_temp)
+{
+
+	if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PLC_SHESHISUO)
+	{
+
 		/*5、设备开关量反馈 
 		M457 M458 M459 M460 M461 M462 M463 M464 
 		M465 M466 M467 M468 M469 M470 M471 M472 
@@ -2042,106 +2168,7 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister0_47.dRegister.D0_47[40],g_dRegister0_47.dRegister.D0_47[41],
 			g_dRegister0_47.dRegister.D0_47[42],g_dRegister0_47.dRegister.D0_47[43],g_dRegister0_47.dRegister.D0_47[44],g_dRegister0_47.dRegister.D0_47[45],
 			g_dRegister0_47.dRegister.D0_47[46],g_dRegister0_47.dRegister.D0_47[47]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		/*9、设备控制参数
-		D200 D201 D202 D203 D204 D205 D206 D207
-		D208 D209 D210 D211 D212 D213 D214 D215
-		D216 D217 D218 D219 D220 D221 D222 D223
-		D224 D225 D226 D227 D228 D229 D230 D231
-		D232 D233 D234 D235 D236 D237 D238 D239
-		D240 D241 D242 D243 D244 D245 D246 D247
-		D248 D249 D250 D251 D252 D253 D254 D255
-		D256 D257 D258 D259 D260 D261 D262 D263
-		D264 D265 D266 D267 D268 D269 D270 D271
-		D272 D273 D274 D275 D276 D277 D278 D279
-		D280 D281 D282 D283 D284 D285
-		*/
-		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,9);	// 9、设备控制参数,分组信息9
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[0],g_dRegister200_285.dRegister.D200_285[1],
-			g_dRegister200_285.dRegister.D200_285[2],g_dRegister200_285.dRegister.D200_285[3],g_dRegister200_285.dRegister.D200_285[4],g_dRegister200_285.dRegister.D200_285[5],
-			g_dRegister200_285.dRegister.D200_285[6],g_dRegister200_285.dRegister.D200_285[7]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[8],g_dRegister200_285.dRegister.D200_285[9],
-			g_dRegister200_285.dRegister.D200_285[10],g_dRegister200_285.dRegister.D200_285[11],g_dRegister200_285.dRegister.D200_285[12],g_dRegister200_285.dRegister.D200_285[13],
-			g_dRegister200_285.dRegister.D200_285[14],g_dRegister200_285.dRegister.D200_285[15]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[16],g_dRegister200_285.dRegister.D200_285[17],
-			g_dRegister200_285.dRegister.D200_285[18],g_dRegister200_285.dRegister.D200_285[19],g_dRegister200_285.dRegister.D200_285[20],g_dRegister200_285.dRegister.D200_285[21],
-			g_dRegister200_285.dRegister.D200_285[22],g_dRegister200_285.dRegister.D200_285[23]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[24],g_dRegister200_285.dRegister.D200_285[25],
-			g_dRegister200_285.dRegister.D200_285[26],g_dRegister200_285.dRegister.D200_285[27],g_dRegister200_285.dRegister.D200_285[28],g_dRegister200_285.dRegister.D200_285[29],
-			g_dRegister200_285.dRegister.D200_285[30],g_dRegister200_285.dRegister.D200_285[31]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[32],g_dRegister200_285.dRegister.D200_285[33],
-			g_dRegister200_285.dRegister.D200_285[34],g_dRegister200_285.dRegister.D200_285[35],g_dRegister200_285.dRegister.D200_285[36],g_dRegister200_285.dRegister.D200_285[37],
-			g_dRegister200_285.dRegister.D200_285[38],g_dRegister200_285.dRegister.D200_285[39]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[40],g_dRegister200_285.dRegister.D200_285[41],
-			g_dRegister200_285.dRegister.D200_285[42],g_dRegister200_285.dRegister.D200_285[43],g_dRegister200_285.dRegister.D200_285[44],g_dRegister200_285.dRegister.D200_285[45],
-			g_dRegister200_285.dRegister.D200_285[46],g_dRegister200_285.dRegister.D200_285[47]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[48],g_dRegister200_285.dRegister.D200_285[49],
-			g_dRegister200_285.dRegister.D200_285[50],g_dRegister200_285.dRegister.D200_285[51],g_dRegister200_285.dRegister.D200_285[52],g_dRegister200_285.dRegister.D200_285[53],
-			g_dRegister200_285.dRegister.D200_285[54],g_dRegister200_285.dRegister.D200_285[55]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[56],g_dRegister200_285.dRegister.D200_285[57],
-			g_dRegister200_285.dRegister.D200_285[58],g_dRegister200_285.dRegister.D200_285[59],g_dRegister200_285.dRegister.D200_285[60],g_dRegister200_285.dRegister.D200_285[61],
-			g_dRegister200_285.dRegister.D200_285[62],g_dRegister200_285.dRegister.D200_285[63]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[64],g_dRegister200_285.dRegister.D200_285[65],
-			g_dRegister200_285.dRegister.D200_285[66],g_dRegister200_285.dRegister.D200_285[67],g_dRegister200_285.dRegister.D200_285[68],g_dRegister200_285.dRegister.D200_285[69],
-			g_dRegister200_285.dRegister.D200_285[70],g_dRegister200_285.dRegister.D200_285[71]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister200_285.dRegister.D200_285[72],g_dRegister200_285.dRegister.D200_285[73],
-			g_dRegister200_285.dRegister.D200_285[74],g_dRegister200_285.dRegister.D200_285[75],g_dRegister200_285.dRegister.D200_285[76],g_dRegister200_285.dRegister.D200_285[77],
-			g_dRegister200_285.dRegister.D200_285[78],g_dRegister200_285.dRegister.D200_285[79]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d;",g_dRegister200_285.dRegister.D200_285[80],g_dRegister200_285.dRegister.D200_285[81],
-			g_dRegister200_285.dRegister.D200_285[82],g_dRegister200_285.dRegister.D200_285[83],g_dRegister200_285.dRegister.D200_285[84],g_dRegister200_285.dRegister.D200_285[85]
-		 );
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-		/*10、报警值设置
-		D286 D287 D288 D289 D290 D291 D292 D293
-		D294 D295 D296 D297
-		*/
-		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,10);	// 10、报警值设置,分组信息10
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_dRegister286_297.dRegister.D286_297[0],g_dRegister286_297.dRegister.D286_297[1],
-			g_dRegister286_297.dRegister.D286_297[2],g_dRegister286_297.dRegister.D286_297[3],g_dRegister286_297.dRegister.D286_297[4],g_dRegister286_297.dRegister.D286_297[5],
-			g_dRegister286_297.dRegister.D286_297[6],g_dRegister286_297.dRegister.D286_297[7]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d;",g_dRegister286_297.dRegister.D286_297[8],g_dRegister286_297.dRegister.D286_297[9],
-			g_dRegister286_297.dRegister.D286_297[10],g_dRegister286_297.dRegister.D286_297[11]);
-		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
+		strcat(SensorBasic_data_tx,SensorBasic_data_temp);		
 
 		/*11、设备报警
 		M100 M101 M102 M103 M104 M105 M106 M107
@@ -2213,204 +2240,16 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 			g_mRegister70.mRegister.m128_183.M173,g_mRegister70.mRegister.m128_183.M174,g_mRegister70.mRegister.m128_183.M175,g_mRegister70.mRegister.m128_183.M176,
 			g_mRegister70.mRegister.m128_183.M177,g_mRegister70.mRegister.m128_183.M178);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-
-
 	}
 	else
 	{
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,0);	
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);						
-	}		
-#endif			
+	}
 
 }
-char l_SensorBasic_data_tx[482];
-char l_SensorBasic_data_temp[LENTH_TEMP];
-
-/*
-*********************************************************************************************************
-*	函 数 名: App_sheshisuo_PLC_DataReport_SensorExtend
-*	功能说明: 
-*	形	  参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void  App_sheshisuo_PLC_DataReport_SensorExtend(void)
-{
-#if 1
-	u16 lenth = 0;
-	u16 sensor_data_lenth = 0;
-	
-	unsigned long l_long = 0;
-	unsigned long l_long_s = 0;
-	uint8_t i = 0;
-
-	if(g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PLC_SHESHISUO)
-	{
-		/* 数据组帧*/
-		memset(&json_info,'0',sizeof(json_info));
-		json_info.json_len = lenth;
-		
-		json_info.json_buf[lenth] = messageId_SensorExtend>>8;//基础传感器	SensorBasic 0x0002
-		lenth= lenth + 1;
-		json_info.json_buf[lenth] = (u8)messageId_SensorExtend;
-		lenth= lenth + 1;
-
-		/*时间*/
-		l_long = mktime_second(g_Date.Year,g_Date.Month,g_Date.Date,g_Time.Hours,g_Time.Minutes,g_Time.Seconds);
-		l_long_s = mktime_second(18,1,1,0,0,0);
-		if(l_long>=l_long_s)
-		{
-			json_info.json_buf[lenth] = (l_long-l_long_s)>>24;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = (l_long-l_long_s)>>16;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = (l_long-l_long_s)>>8;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = (l_long-l_long_s)>>0;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-		}
-		else
-		{
-			json_info.json_buf[lenth] = (0)>>24;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = (0)>>16;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = (0)>>8;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = (0)>>0;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-		}
-		/*sensor_data_lenth*/
-		//lenth= lenth + 1;
-		//lenth= lenth + 1;
-		memset(l_SensorBasic_data_tx,0,sizeof(l_SensorBasic_data_tx));//先清零
-		
-		/*	1.4.异常报警   */
-		memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(l_SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,4);	
-		strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);	
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d,%d,%d,",g_AbnormalAlarm.HighTemperatureAlarm,g_AbnormalAlarm.LowTemperatureWarning ,
-				g_AbnormalAlarm.HighHumidityAlarm ,g_AbnormalAlarm.LowWetAlarm ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}	
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d,%d,%d,",g_AbnormalAlarm.RainAlarm,g_AbnormalAlarm.StrongWindAlarm ,
-				g_AbnormalAlarm.LightIsTooStrongToAlarm ,g_AbnormalAlarm.TooLowCO2ConcentrationAlarm ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}	
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d,%d,%d,",g_AbnormalAlarm.SoilTemperatureAlarmIsTooLow,g_AbnormalAlarm.SoilTemperatureExcessiveAlarm ,
-				g_AbnormalAlarm.SoilMoistureAlarmIsTooLow ,g_AbnormalAlarm.SoilMoistureAlarmIsTooHigh ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}	
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d,%d,%d,",g_AbnormalAlarm.SmokeSenseAlarm,g_AbnormalAlarm.HighTemperatureAlarmValue ,
-				g_AbnormalAlarm.LowTemperatureAlarmValue ,g_AbnormalAlarm.HighHumidityAlarmValue ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}	
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d,%d,%d,",g_AbnormalAlarm.LowWetAlarmValue,g_AbnormalAlarm.RainAlarmValue ,
-				g_AbnormalAlarm.StrongWindAlarmValue ,g_AbnormalAlarm.TheCO2ConcentrationIsTooLowAlarmValue ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}	
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d,%d,%d,",g_AbnormalAlarm.LightIntensityIsTooLowForTheAlarmValue,g_AbnormalAlarm.SoilTemperatureAlarmValueIsTooLow ,
-				g_AbnormalAlarm.SoilTemperatureIsTooHighAlarmValue ,g_AbnormalAlarm.SoilMoistureAlarmValueIsTooLow ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}
-		{
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d,%d;",g_AbnormalAlarm.TooHighSoilHumidityAlarmValue,g_AbnormalAlarm.SmokeAlarmValue);// ,
-			//	g_AbnormalAlarm.SoilTemperatureIsTooHighAlarmValue ,g_AbnormalAlarm.SoilMoistureAlarmValueIsTooLow ); 
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-		}	
-		/*	1.5.策略控制   */
-		memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-		sprintf(l_SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,5);	
-		strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);	
-		{
-			for( i=0;i<POINT_NUM;i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d:%d,",g_strategyControl.TimePoint[i].HH,g_strategyControl.TimePoint[i].MM );
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}
-			for( i=0;i<POINT_NUM;i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d,",g_strategyControl.TemperaturePoint[i]);
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}
-			for( i=0;i<POINT_NUM;i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d,",g_strategyControl.TemperatureErrorPoint[i]);
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}
-			for( i=0;i<POINT_NUM;i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d,",g_strategyControl.HumidityPoint[i]);
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}	
-			for( i=0;i<POINT_NUM;i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d,",g_strategyControl.HumidityErrorPoint[i]);
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}
-			for( i=0;i<POINT_NUM;i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d,",g_strategyControl.LightStrongPoint[i]);
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}	
-			for( i=0;i<(RELAY_NUM-1);i++)
-			{
-				memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-				sprintf(l_SensorBasic_data_temp,"%d,",g_strategyControl.RelayPointRemoteControl[i]);
-				strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);
-			}		
-			memset(l_SensorBasic_data_temp,0,LENTH_TEMP);
-			sprintf(l_SensorBasic_data_temp,"%d",g_strategyControl.RelayPointRemoteControl[(RELAY_NUM-1)]);
-			strcat(l_SensorBasic_data_tx,l_SensorBasic_data_temp);		
-		}	
-
-		/*扩展传感器 有数据就上传 */
-		sensor_data_lenth = strlen(l_SensorBasic_data_tx);
-		if(sensor_data_lenth >0)
-		{
-			//if(sensor_data_lenth >=1)	
-			//	sensor_data_lenth=sensor_data_lenth-1;//去掉字符串的结尾0
-			
-			json_info.json_buf[lenth] =sensor_data_lenth>>8;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			json_info.json_buf[lenth] = sensor_data_lenth;// 高字节在低位地址；大端模式；
-			lenth= lenth + 1;
-			
-			strcpy(&json_info.json_buf[lenth],l_SensorBasic_data_tx);// 高字节在低位地址；大端模式；
-			lenth= lenth + sensor_data_lenth;	
-		}
-
-		json_info.json_len = lenth;
-		// app_fifo_NB_CoapST_Put(json_info.json_buf,&json_info.json_len);	
-    	if(gUpdate4G.updateStart == FALSE)//升级过程中，不再发送数据给4g模块
-        	app_4G_sendData(json_info.json_buf,&json_info.json_len);		
-	}		
 #endif
-}
-
-
-
 
 
 /*

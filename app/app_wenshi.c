@@ -873,8 +873,8 @@ void App_DataReport_04(void)
 }
 
 
-static char SensorBasic_data_tx[482];// 482+512 = 994  最大支持1024
-static char SensorBasic_data_temp[256];
+char SensorBasic_data_tx[482];// 482+512 = 994  最大支持1024
+char SensorBasic_data_temp[256];
 
 #ifdef ONLY_8SAME_AIRTHSENSOR // 8传感器
 extern uint8_t addressAirTh[8];
@@ -1564,7 +1564,9 @@ void App_DataReport_SensorBasic(void)
 #endif
 
 
-#if 1
+#ifdef ENABLE_SHESHISUO_PLC
+uint8_t g_dataReportType = FALSE;// 0 为基础数据上报，1为扩展数据上报
+
 /*
 *********************************************************************************************************
 *   函 数 名: App_DataReport_SensorBasic
@@ -1932,7 +1934,10 @@ void App_DataReport_SensorBasic(void)
     #endif
     else if(g_tConfig.PLC_Type == PLC_SHESHISUO)
     {
-        App_sheshisuo_PLC_DataReport_SensorBasic(SensorBasic_data_tx,SensorBasic_data_temp);
+        if(g_dataReportType == FALSE)
+            App_sheshisuo_PLC_DataReport_SensorBasic(SensorBasic_data_tx,SensorBasic_data_temp);
+        else
+            App_sheshisuo_PLC_DataReport_SensorExtend(SensorBasic_data_tx,SensorBasic_data_temp);
     }
 
     

@@ -2817,10 +2817,12 @@ void App_caiji_report_Loop(void)
             {
                 bsp_StartTimer(TMR_ID_report_refresh,TMR_DELAY_10S);                
 
+                g_dataReportType = FALSE;
                 App_DataReport_SensorBasic();
                 
                 #ifdef ENABLE_SHESHISUO_PLC 
-                App_sheshisuo_PLC_DataReport_SensorExtend();
+                    g_dataReportType = TRUE;
+                    App_DataReport_SensorBasic();// 扩展数据
                 #endif                            
                 //APP_STATE = NB_CoAP_ST;   //发送数据
                 p_info("POWER_ON开始发送数据");                   
@@ -3006,12 +3008,14 @@ void App_caiji_report_Loop(void)
                     #if 0
                     App_DataReport_04();//
                     #else
+                    g_dataReportType = FALSE;
                     App_DataReport_SensorBasic();
                     #if ENABLE_WATCHDOG 
                     HAL_IWDG_Refresh(&hiwdg) ;/* --- 喂狗 */
                     #endif                  
                     #ifdef ENABLE_SHESHISUO_PLC 
-                    App_sheshisuo_PLC_DataReport_SensorExtend();
+                    g_dataReportType = TRUE;
+                    App_DataReport_SensorBasic();// 扩展数据
                     #endif                      
                     #endif 
                     //APP_STATE = NB_CoAP_ST;   //发送数据
