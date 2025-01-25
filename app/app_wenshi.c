@@ -873,8 +873,8 @@ void App_DataReport_04(void)
 }
 
 
-char SensorBasic_data_tx[482];// 482+512 = 994  最大支持1024
-char SensorBasic_data_temp[256];
+char SensorBasic_data_tx[482+256];// 482+512 = 994  最大支持1024
+char SensorBasic_data_temp[128];
 
 #ifdef ONLY_8SAME_AIRTHSENSOR // 8传感器
 extern uint8_t addressAirTh[8];
