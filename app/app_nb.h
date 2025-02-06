@@ -18,7 +18,7 @@
 #define  NB_SEQ_COAP_SERVER 0x08
 
 
-#define JSON_BUF_LEN    (512+256)
+#define JSON_BUF_LEN    (512+128)
   
  //管理json数据
  typedef struct
