@@ -736,8 +736,8 @@ typedef union M_REGISTER_UN
 }M_REGISTER70_un;
 
 
-//M1400 M1467
-typedef struct M_REGISTER_1400_1467_ST
+//M1400 M1463
+typedef struct M_REGISTER_1400_1463_ST
 {
 	uint8_t M1400:1 ;
 	uint8_t M1401:1 ;
@@ -783,11 +783,11 @@ typedef struct M_REGISTER_1400_1467_ST
 	uint8_t M1437:1 ;
 	uint8_t M1438:1 ;
 	uint8_t M1439:1 ;
-// }M_REGISTER_1400_1439_st;
 
-//M1444 - M1467
-// typedef struct M_REGISTER_1444_1467_ST
-
+	uint8_t M1440:1 ;
+	uint8_t M1441:1 ;
+	uint8_t M1442:1 ;
+	uint8_t M1443:1 ;
 	uint8_t M1444:1 ;
 	uint8_t M1445:1 ;
 	uint8_t M1446:1 ;
@@ -811,17 +811,13 @@ typedef struct M_REGISTER_1400_1467_ST
 	uint8_t M1462:1 ;
 	uint8_t M1463:1 ;
 
-	uint8_t M1464:1 ;
-	uint8_t M1465:1 ;
-	uint8_t M1466:1 ;
-	uint8_t M1467:1 ;
-}M_REGISTER_1440_1467st;
+}M_REGISTER_1440_1463st;
 
 typedef union M_REGISTER8_UN
 {
 	uint8_t data[8];
 
-	M_REGISTER_1440_1467st mRegister;
+	M_REGISTER_1440_1463st mRegister;
 }M_REGISTER8_un;
 
 #define D0 	(0u)

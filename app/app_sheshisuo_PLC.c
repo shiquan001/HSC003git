@@ -1822,7 +1822,7 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 		M1416\M1417\M1418\M1419\M1420\M1421\M1422\M1423\
 		M1424\M1425\M1426\M1427\M1428\M1429\M1430\M1431\
 		M1432\M1433\M1434\M1435\M1436\M1437\M1438\M1439\
-		M1444\M1445\M1446\M1447\M1448\M1449\M1450\M1451\
+		M1440\M1441\M1442\M1433\M1444\M1445\M1446\M1447\
 		48个bit*/
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,1);	// 1.传感器定义,分组信息1
@@ -1853,29 +1853,30 @@ void App_sheshisuo_PLC_DataReport_SensorBasic(char *SensorBasic_data_tx, char *S
 			g_mRegister8.mRegister.M1434,g_mRegister8.mRegister.M1435,g_mRegister8.mRegister.M1436,g_mRegister8.mRegister.M1437,
 			g_mRegister8.mRegister.M1438,g_mRegister8.mRegister.M1439);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
-		memset(SensorBasic_data_temp,0,LENTH_TEMP);// 1.1.传感器定义 8个bit
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1444,g_mRegister8.mRegister.M1445,
-			g_mRegister8.mRegister.M1446,g_mRegister8.mRegister.M1447,g_mRegister8.mRegister.M1448,g_mRegister8.mRegister.M1449,
-			g_mRegister8.mRegister.M1450,g_mRegister8.mRegister.M1451);
+		mem_set(SensorBasic_data_temp,0,LENTH_TEMP);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1440,g_mRegister8.mRegister.M1441,
+			g_mRegister8.mRegister.M1442,g_mRegister8.mRegister.M1443,g_mRegister8.mRegister.M1444,g_mRegister8.mRegister.M1445,
+			g_mRegister8.mRegister.M1446,g_mRegister8.mRegister.M1447);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		
 		/*2\设备定义
-		M1452 M1453 M1454 M1455 M1456 M1457 M1458 M1459
-		M1460 M1461 M1462 M1463 M1464 M1465 M1466 M1467
+		M1448 M1449 M1450 M1451 M1452 M1453 M1454 M1455
+		M1456 M1457 M1458 M1459 M1460 M1461 M1462 M1463
+
 		*/	
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);
 		sprintf(SensorBasic_data_temp,"%d,%d,%d,",SENSOR_ID_PLC_SHESHISUO,ADDRESS_PLC_200,2);	// 2设备定义,分组信息2
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1452,g_mRegister8.mRegister.M1453,
-			g_mRegister8.mRegister.M1454,g_mRegister8.mRegister.M1455,g_mRegister8.mRegister.M1456,g_mRegister8.mRegister.M1457,
-			g_mRegister8.mRegister.M1458,g_mRegister8.mRegister.M1459);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister8.mRegister.M1448,g_mRegister8.mRegister.M1449,
+			g_mRegister8.mRegister.M1450,g_mRegister8.mRegister.M1451,g_mRegister8.mRegister.M1452,g_mRegister8.mRegister.M1453,
+			g_mRegister8.mRegister.M1454,g_mRegister8.mRegister.M1455);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);//  
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1460,g_mRegister8.mRegister.M1461,
-			g_mRegister8.mRegister.M1462,g_mRegister8.mRegister.M1463,g_mRegister8.mRegister.M1464,g_mRegister8.mRegister.M1465,
-			g_mRegister8.mRegister.M1466,g_mRegister8.mRegister.M1467);
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d;",g_mRegister8.mRegister.M1456,g_mRegister8.mRegister.M1457,
+			g_mRegister8.mRegister.M1458,g_mRegister8.mRegister.M1459,g_mRegister8.mRegister.M1460,g_mRegister8.mRegister.M1461,
+			g_mRegister8.mRegister.M1462,g_mRegister8.mRegister.M1463);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		
 		/*3、限位开关数量定义D590 D591 D592 D593 D594 D595			*/
