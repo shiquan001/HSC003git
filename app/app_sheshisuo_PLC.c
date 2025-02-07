@@ -639,42 +639,8 @@ typedef struct PLC_TXDATA_st
 }
 PLC_TXDATA_ST;
 #define NUMBER_TWO 2
-//命令类型	寄存器地址	寄存器数量	数据
-PLC_TXDATA_ST occupied_ADDRESS_VALUE_01[21+1]=
-{
-{0,0,0,0},//null
-{FUNCTION_CODE_05,0,1,0},//M0
-
-{FUNCTION_CODE_15,1,NUMBER_TWO,0},//M1 M2
-
-{FUNCTION_CODE_06,376,1,0},//D376
-{FUNCTION_CODE_06,377,1,0},
-{FUNCTION_CODE_06,0,0,0},
 
 
-{FUNCTION_CODE_15,3,NUMBER_TWO,0},//M3 M4
-
-{FUNCTION_CODE_06,370,1,0},//D370
-{FUNCTION_CODE_06,371,1,0},
-{FUNCTION_CODE_06,372,1,0},
-
-
-{FUNCTION_CODE_15,5,NUMBER_TWO,0},//M5 M6
-
-{FUNCTION_CODE_06,373,1,0},//D373
-{FUNCTION_CODE_06,374,1,0},
-{FUNCTION_CODE_06,375,1,0},
-
-{FUNCTION_CODE_05,7,1,0},//M7
-{FUNCTION_CODE_05,8,1,0},
-{FUNCTION_CODE_05,9,1,0},
-{FUNCTION_CODE_05,10,1,0},
-{FUNCTION_CODE_05,11,1,0},
-{FUNCTION_CODE_05,12,1,0},
-
-{FUNCTION_CODE_05,13,1,0},
-{FUNCTION_CODE_05,14,1,0}//M14
-};
 //命令类型	寄存器地址	寄存器数量	数据
 
 PLC_TXDATA_ST occupied_ADDRESS_VALUE_04[26+1]=
@@ -834,32 +800,11 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 	{
 		case VALUETYPE_01:
 		{
-			memcpy((uint8_t*)&plc_txdata,(uint8_t*)&occupied_ADDRESS_VALUE_01[occupied],sizeof(PLC_TXDATA_ST));
-			if((occupied == 3)||(occupied == 4)||(occupied == 5)||
-				(occupied == 7)||(occupied == 8)||(occupied == 9)||
-				(occupied == 11)||(occupied == 12)||(occupied == 13))
-			{
-				plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>0;
-			}	
-			else if((occupied == 2)||(occupied == 6)||(occupied == 10))
-			{
-				// 特殊处理，保温被子、低通风、顶通风
-				if(value == MOTOR_STATE_positive) value = MOTOR_STATE_reversal;
-				else if(value == MOTOR_STATE_reversal) value = MOTOR_STATE_positive;
-				plc_txdata.data[0] = value>>0;// D 数据高8bit在前；
-			}		
-			else if((occupied == 1))
-			{
-				// 工作模式：1=手动、2=自动
-				if(value == 2) value = 1;
-				else if(value == 1) value = 0;
-				plc_txdata.data[0] = value>>0;// D 数据高8bit在前；
-			}				
-			else
-			{
-				plc_txdata.data[0] = value>>0;// M 数据低8bit在前；				
-			}
+			plc_txdata.function = FUNCTION_CODE_05;//  	
+			plc_txdata.reg_address = 3448 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>0;// M 数据低8bit在前；				
+			
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
 			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
