@@ -811,13 +811,13 @@ typedef struct M_REGISTER_1400_1463_ST
 	uint8_t M1462:1 ;
 	uint8_t M1463:1 ;
 
-}M_REGISTER_1440_1463st;
+}M_REGISTER_1400_1463st;
 
 typedef union M_REGISTER8_UN
 {
 	uint8_t data[8];
 
-	M_REGISTER_1440_1463st mRegister;
+	M_REGISTER_1400_1463st mRegister;
 }M_REGISTER8_un;
 
 #define D0 	(0u)
@@ -949,5 +949,6 @@ extern void App_sheshisuo_PLC_DataReport_SensorExtend(char *SensorBasic_data_tx,
 
 extern void App_sheshisuo_PLC_Dinfo_Data_process(uint8_t pos,char* msg);
 extern void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,int32_t value);
+extern int  App_sheshisuo_getValueFromType(uint8_t valuetype ,uint8_t occupied);//ªÒ»°÷µ
 
 #endif

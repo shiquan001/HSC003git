@@ -3219,7 +3219,12 @@ void App_DeviceState_cmdAsk( CMD_ASK_TYPE_E asktype)
     else if(asktype == CMD_ASK_error)
         sprintf(SensorBasic_data_tx,"error");
     else if(asktype == CMD_ASK_plcwOk)
-        sprintf(SensorBasic_data_tx,"%d,%d,%d,%d",SENSOR_ID_PLC_SHESHISUO2,g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied,g_sheshisuoPLC.rx_value);//(6,)
+    {
+	    int pValue = 0;
+	    pValue = App_sheshisuo_getValueFromType(g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied);
+
+        sprintf(SensorBasic_data_tx,"%d,%d,%d,%d",SENSOR_ID_PLC_SHESHISUO2,g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied,pValue);//(6,)
+    }
     else if(asktype == CMD_ASK_plcwError)
         sprintf(SensorBasic_data_tx,"%d,1,%d,-1",SENSOR_ID_PLC_SHESHISUO2,g_sheshisuoPLC.rx_occupied);//(6,)
 

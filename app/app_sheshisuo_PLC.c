@@ -2233,22 +2233,8 @@ void App_sheshisuo_PLC_Dinfo_Data_process(uint8_t pos,char* msg)
 	
 	for(i=0;i<(count-0);i++)
 	{
-		_CmdCode.occupied  = a[i*NUM_COUNT+2+time_count];
-//		if((_CmdCode.valuetype  == VALUETYPE_05)&&((_CmdCode.occupied >=1)&&(_CmdCode.occupied <=8)))
-//		{
-//			
-//			//NUM_COUNT = 3;// 3一组
-//			_CmdCode.value	   = (((0x0000FFFF&a[i*NUM_COUNT+3+time_count])<<16)|((0x0000FFFF&a[i*NUM_COUNT+4+time_count])<<0));	
-//			
-//			time_count++;//time_count
-//			count= (n-2-time_count)/NUM_COUNT;//重新计算  循环次数
-//			
-//		}
-//		else
-		{
-			_CmdCode.value	   = a[i*NUM_COUNT+3+time_count];
-		}
-		
+		_CmdCode.occupied  = a[i*NUM_COUNT+2+time_count];		
+		_CmdCode.value	   = a[i*NUM_COUNT+3+time_count];			
 		bsp_PutCmd(&_CmdCode);
 	}
 #endif
