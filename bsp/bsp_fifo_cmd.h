@@ -35,7 +35,7 @@ typedef union
 
 
 /* 按键FIFO用到变量 */
-#define Cmd_FIFO_SIZE	72//60//12
+#define Cmd_FIFO_SIZE	90//60//12
 typedef struct
 {
 	RXVALUE_TYPE_ST Buf[Cmd_FIFO_SIZE];		/* 键值缓冲区 */
