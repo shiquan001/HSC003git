@@ -1128,7 +1128,7 @@ void App_sheshisuo_PLC_Loop(void)
 
 						/*fifo没有cmd 了再去查询和应答*/
 						//if((bsp_GetFIFOState_IsNull())||(_CmdLastCode.mid!=_CmdCode.mid))
-						if(_CmdLastCode.mid!=_CmdCode.mid)
+						if(bsp_GetFIFOState_IsNull())
 						{
 							bsp_SetTimer(TMR_ID_sheshisuo_PLC_refresh);//cmd之后，快速查询plc状态
 							//bsp_SetTimer(TMR_ID_sheshisuo_PLC_ask_server);//再发送应答
