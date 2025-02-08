@@ -3483,30 +3483,30 @@ void App_wenshi_Loop(void)
                 p_info("TMR_ID_caiji_gps_cycle  timer out");                
             }
             
-            RXVALUE_TYPE_ST  _CmdCode;                  
-            uint32_t CmdCode = 0;
-            memset((uint8_t *)&_CmdCode,0,sizeof(_CmdCode));
-            if((g_caiji.soil_TH_work_state == CAIJI_PLC_WRITE_COIL)||(g_caiji.soil_TH_work_state == CAIJI_PLC_WRITE_COIL_DELAY))
-            {
-                // 等待 write 结束  再次查询cmd FIFO
-            }
-            else
-            {
-                CmdCode = bsp_GetCmd(& _CmdCode);       
-                if(CmdCode != Cmd_NONE)
-                {
-                    g_caiji.soil_TH_start = TRUE;
-                    g_caiji.soil_TH_work_state = CAIJI_PLC_WRITE_COIL;// 进入write 状态
-                    MX_UART5_Init();//初始化串口5防止死机； 20211007
+            // RXVALUE_TYPE_ST  _CmdCode;                  
+            // uint32_t CmdCode = 0;
+            // memset((uint8_t *)&_CmdCode,0,sizeof(_CmdCode));
+            // if((g_caiji.soil_TH_work_state == CAIJI_PLC_WRITE_COIL)||(g_caiji.soil_TH_work_state == CAIJI_PLC_WRITE_COIL_DELAY))
+            // {
+            //     // 等待 write 结束  再次查询cmd FIFO
+            // }
+            // else
+            // {
+            //     CmdCode = bsp_GetCmd(& _CmdCode);       
+            //     if(CmdCode != Cmd_NONE)
+            //     {
+            //         g_caiji.soil_TH_start = TRUE;
+            //         g_caiji.soil_TH_work_state = CAIJI_PLC_WRITE_COIL;// 进入write 状态
+            //         MX_UART5_Init();//初始化串口5防止死机； 20211007
 
-                    g_sheshisuoPLC.reg_retry_tx_count = 0;// 
-                    g_sheshisuoPLC.rx_valuetype = _CmdCode.valuetype;   
-                    g_sheshisuoPLC.rx_occupied  = _CmdCode.occupied;                    
-                    g_sheshisuoPLC.rx_value     = _CmdCode.value;
-                    g_sheshisuoPLC.tx_mid       = _CmdCode.mid;
-                }
+            //         g_sheshisuoPLC.reg_retry_tx_count = 0;// 
+            //         g_sheshisuoPLC.rx_valuetype = _CmdCode.valuetype;   
+            //         g_sheshisuoPLC.rx_occupied  = _CmdCode.occupied;                    
+            //         g_sheshisuoPLC.rx_value     = _CmdCode.value;
+            //         g_sheshisuoPLC.tx_mid       = _CmdCode.mid;
+            //     }
 
-            }
+            // }//删除 这段代码， 20250208 避免和设施所冲突
 
 
             
