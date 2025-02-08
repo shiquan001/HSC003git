@@ -854,10 +854,10 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 			plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
 			plc_txdata.reg_address = 4686 - 1 + occupied;//  	地址需要根据占位和值确定
 			plc_txdata.reg_num = 1;// 			
-			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-			plc_txdata.data[1] = value>>16;
-			plc_txdata.data[2] = value>>8; 
-			plc_txdata.data[3] = value>>0;
+			plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>0;
+			plc_txdata.data[2] = value>>24; 
+			plc_txdata.data[3] = value>>16;
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
 			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
@@ -868,10 +868,10 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 			plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
 			plc_txdata.reg_address = 4686 - 1 + occupied;//  	地址需要根据占位和值确定
 			plc_txdata.reg_num = 1;// 			
-			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-			plc_txdata.data[1] = value>>16;
-			plc_txdata.data[2] = value>>8; 
-			plc_txdata.data[3] = value>>0;
+			plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>0;
+			plc_txdata.data[2] = value>>24; 
+			plc_txdata.data[3] = value>>16;
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
 			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 
@@ -893,10 +893,10 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 			plc_txdata.function = FUNCTION_CODE_06;//  	
 			plc_txdata.reg_address = 4296 - 1 + occupied;//  	地址需要根据占位和值确定
 			plc_txdata.reg_num = 1;// 			
-			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-			plc_txdata.data[1] = value>>16;
-			plc_txdata.data[2] = value>>8; 
-			plc_txdata.data[3] = value>>0;
+			plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>0;
+			plc_txdata.data[2] = value>>24; 
+			plc_txdata.data[3] = value>>16;
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
 			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
@@ -906,10 +906,10 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 			plc_txdata.function = FUNCTION_CODE_06;//  	
 			plc_txdata.reg_address = 4382 - 1 + occupied;//  	地址需要根据占位和值确定
 			plc_txdata.reg_num = 1;// 			
-			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-			plc_txdata.data[1] = value>>16;
-			plc_txdata.data[2] = value>>8; 
-			plc_txdata.data[3] = value>>0;
+			plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>0;
+			plc_txdata.data[2] = value>>24; 
+			plc_txdata.data[3] = value>>16;
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
 			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
