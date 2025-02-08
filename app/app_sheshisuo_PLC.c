@@ -1524,31 +1524,12 @@ int  App_sheshisuo_getValueFromType(uint8_t valuetype ,uint8_t occupied)
 	{
 		case VALUETYPE_01:
 		{
-			if(occupied == 1){value =  g_statusEquipment.workMode;}
-			
-			if(occupied == 2){value =  g_statusEquipment.insulationCover;}
-			if(occupied == 3){value =  g_statusEquipment.insulationCover_forwardTimer;}
-			if(occupied == 4){value =  g_statusEquipment.insulationCover_reverseTimer;}
-			if(occupied == 5){value =  g_statusEquipment.insulationCover_position;}
-			
-			if(occupied == 6){value =  g_statusEquipment.topVentilation;}
-			if(occupied == 7){value =  g_statusEquipment.topVentilation_forwardTimer;}
-			if(occupied == 8){value =  g_statusEquipment.topVentilation_reverseTimer;}
-			if(occupied == 9){value =  g_statusEquipment.topVentilation_position;}
-			
-			if(occupied == 10){value =	g_statusEquipment.bottomVentilation;}
-			if(occupied == 11){value =	g_statusEquipment.bottomVentilation_forwardTimer;}
-			if(occupied == 12){value =	g_statusEquipment.bottomVentilation_reverseTimer;}
-			if(occupied == 13){value =	g_statusEquipment.bottomVentilation_position;}
-			
-			if(occupied == 14){value =	g_statusEquipment.manureSpreader;}
-			if(occupied == 15){value =	g_statusEquipment.wetSpray;}
-			if(occupied == 16){value =	g_statusEquipment.fan;}
-			if(occupied == 17){value =	g_statusEquipment.wetCurtain;}
-			if(occupied == 18){value =	g_statusEquipment.fillLight;}
-			if(occupied == 19){value =	g_statusEquipment.circulatingFan;}
-			if(occupied == 20){value =	g_statusEquipment.ReserveOne;}
-			if(occupied == 21){value =	g_statusEquipment.ReserveTwo;}			
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;		
+			lCount = occupied/8;
+			lPosition = occupied%8 - 1;
+			value = g_mRegister8.data[lCount]>>lPosition;					
 		}
 			break;
 		case VALUETYPE_04:
