@@ -1529,9 +1529,19 @@ int  App_sheshisuo_getValueFromType(uint8_t valuetype ,uint8_t occupied)
 			uint8_t lPosition = 0;		
 			lCount = occupied/8;
 			lPosition = occupied%8 - 1;
-			value = g_mRegister8.data[lCount]>>lPosition;					
+			value = (g_mRegister8.data[lCount]>>lPosition)&0x01;// 取得是第几位的数据					
 		}
 			break;
+		case VALUETYPE_02:// 需要偏移48
+		{
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;		
+			lCount = (occupied+48)/8;
+			lPosition = (occupied+48)%8 - 1;
+			value = (g_mRegister8.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据					
+		}
+			break;			
 		case VALUETYPE_04:
 		{			
 			if(occupied == 14){value =	g_AbnormalAlarm.HighTemperatureAlarmValue;}
