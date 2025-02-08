@@ -2794,9 +2794,10 @@ void App_caiji_report_Loop(void)
                 else
                 {
                     app_deviceState_eventReport(EVENT_REPORT_GETTIME);//                              
-                    p_info("REPORT_CAIJI_gettime发送数据");                     
+                    p_info("REPORT_CAIJI_gettime发送数据");      
+                                   
                 
-}              
+                }              
             }
             if(g_caiji.timer_server_ask_ok==TRUE)
             {
