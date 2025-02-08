@@ -916,7 +916,7 @@ typedef struct SHESHISUO_PLC_T
 	
 	uint8_t tx_count;//发给服务器的次数 	
 
-	uint8_t rx_valuetype;
+	uint8_t rx_valuetype;// 分组1-12
 	uint8_t rx_occupied;//[NUM_MOTOR];//占位
 	int32_t rx_value;//值
 

@@ -247,7 +247,9 @@ void App_sheshisuoni_dataExchange_statusEquipment(void)
 	if(m_flagCmdAsk == TRUE)
 	{
 		m_flagCmdAsk = FALSE ;
-		App_sheshisuo_PLC_writer_ask();
+		// App_sheshisuo_PLC_writer_ask();
+		App_DeviceState_cmdAsk(CMD_ASK_plcwOk);// ok
+
 		p_info("SHESHISUO_PLC_DELAY ask");							
 		g_sheshisuoPLC.tx_count++;
 
@@ -1114,6 +1116,7 @@ void App_sheshisuo_PLC_Loop(void)
 					CmdCode = bsp_GetCmd(& _CmdCode); 		
 					if(CmdCode != Cmd_NONE)
 					{
+						p_info("cmd mid:%d",_CmdCode.mid);
 						g_sheshisuoPLC.PLC_work_state = SHESHISUO_CMD_PLC_TX;					
 						g_sheshisuoPLC.reg_retry_tx_count = 0;//clear 0
 						
@@ -1684,13 +1687,13 @@ void App_sheshisuo_PLC_writer_ask(void)
 	
 	if((g_sheshisuoPLC.rx_valuetype == VALUETYPE_05)&&(g_sheshisuoPLC.rx_occupied>=1)&&(g_sheshisuoPLC.rx_occupied<=8))
 	{
-		sprintf(&json_buf[lenth+2],"30201,%d,%d,%d:%d",
+		sprintf(&json_buf[lenth+2],"SENSOR_ID_PLC_SHESHISUO2,%d,%d,%d:%d",
 		g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied,pValue>>16,(pValue&0x0000ffff));
 		sensor_data_lenth = strlen(&json_buf[lenth+2]);
 	}
 	else
 	{
-		sprintf(&json_buf[lenth+2],"30201,%d,%d,%d",
+		sprintf(&json_buf[lenth+2],"SENSOR_ID_PLC_SHESHISUO2,%d,%d,%d",
 		g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied,pValue);
 		sensor_data_lenth = strlen(&json_buf[lenth+2]);
 	}
@@ -1707,7 +1710,7 @@ void App_sheshisuo_PLC_writer_ask(void)
 
 	// app_fifo_NB_CoapST_Put(json_buf,&json_len);
     if(gUpdate4G.updateStart == FALSE)//升级过程中，不再发送数据给4g模块
-        app_4G_sendData(json_info.json_buf,&json_info.json_len);	
+    	app_4G_sendData(&json_buf[0],&json_len);
 }
 
 
