@@ -317,7 +317,8 @@ uint8_t app_4G_dataRx_process(int len,char* msg)
                         /* HAL Error */
                         Error_Handler();
                     }   
-
+                    App_sheshisuo_PLC_TimeCalibration(&g_Time,&g_Date);// PLC时间校准
+                    
                     App_DeviceState_cmdAsk(CMD_ASK_setDtime);
                     g_caiji.timer_server_ask_ok =TRUE;
                     p_info("App_DeviceState_gettime_ask发送数据");

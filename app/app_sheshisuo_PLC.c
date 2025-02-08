@@ -1573,4 +1573,113 @@ void App_sheshisuo_PLC_Dinfo_Data_process(uint8_t pos,char* msg)
 #endif
 }
 
+// 4、PLC时间校准
+// 4196	D100	年
+// 4197	D101	月
+// 4198	D102	日
+// 4199	D103	时
+// 4200	D104	分
+// 4201	D105	秒
+// 4202	D106	星期
+// 2559	M511	上升沿设置时间，最后一定要置0
+void App_sheshisuo_PLC_TimeCalibration(RTC_TimeTypeDef *sTime,RTC_DateTypeDef *sDate)
+{
+	PLC_TXDATA_ST plc_txdata;
+	memset(&plc_txdata,0,sizeof(PLC_TXDATA_ST));
+
+	p_info("App_sheshisuo_PLC_TimeCalibration");// 4、PLC时间校准
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4196;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sDate->Year >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sDate->Year>>0;
+	plc_txdata.data[2] = sDate->Year>>24; 
+	plc_txdata.data[3] = sDate->Year>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4197;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sDate->Month >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sDate->Month>>0;
+	plc_txdata.data[2] = sDate->Month>>24; 
+	plc_txdata.data[3] = sDate->Month>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4198;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sDate->Date >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sDate->Date>>0;
+	plc_txdata.data[2] = sDate->Date>>24; 
+	plc_txdata.data[3] = sDate->Date>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);	
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4199;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sTime->Hours >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sTime->Hours>>0;
+	plc_txdata.data[2] = sTime->Hours>>24; 
+	plc_txdata.data[3] = sTime->Hours>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);	
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4200;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sTime->Minutes >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sTime->Minutes>>0;
+	plc_txdata.data[2] = sTime->Minutes>>24; 
+	plc_txdata.data[3] = sTime->Minutes>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4201;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sTime->Seconds >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sTime->Seconds>>0;
+	plc_txdata.data[2] = sTime->Seconds>>24; 
+	plc_txdata.data[3] = sTime->Seconds>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);
+
+	plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+	plc_txdata.reg_address = 4202;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = sDate->WeekDay >>8;// D 数据高8bit在前；
+	plc_txdata.data[1] = sDate->WeekDay>>0;
+	plc_txdata.data[2] = sDate->WeekDay>>24; 
+	plc_txdata.data[3] = sDate->WeekDay>>16;
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);	
+
+	// M511	上升沿设置时间，最后一定要置0
+	plc_txdata.function = FUNCTION_CODE_05;//  	
+	plc_txdata.reg_address = 2559;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = 1;// M 数据低8bit在前；					
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+	bsp_DelayMS(10);	
+
+	plc_txdata.function = FUNCTION_CODE_05;//  	
+	plc_txdata.reg_address = 2559;//  	地址需要根据占位和值确定
+	plc_txdata.reg_num = 1;// 			
+	plc_txdata.data[0] = 0;// M 数据低8bit在前；					
+	App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+	plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+}
 

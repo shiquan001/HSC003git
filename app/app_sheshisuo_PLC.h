@@ -596,5 +596,6 @@ extern void App_sheshisuo_PLC_DataReport_SensorExtend(char *SensorBasic_data_tx,
 extern void App_sheshisuo_PLC_Dinfo_Data_process(uint8_t pos,char* msg);
 extern void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,int32_t value);
 extern int  App_sheshisuo_getValueFromType(uint8_t valuetype ,uint8_t occupied);//ªÒ»°÷µ
+extern void App_sheshisuo_PLC_TimeCalibration(RTC_TimeTypeDef *sTime,RTC_DateTypeDef *sDate);
 
 #endif
