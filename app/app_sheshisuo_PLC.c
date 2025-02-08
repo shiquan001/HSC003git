@@ -1541,59 +1541,93 @@ int  App_sheshisuo_getValueFromType(uint8_t valuetype ,uint8_t occupied)
 			lPosition = (occupied+48)%8 - 1;
 			value = (g_mRegister8.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据					
 		}
-			break;			
-		case VALUETYPE_04:
-		{			
-			if(occupied == 14){value =	g_AbnormalAlarm.HighTemperatureAlarmValue;}
-			if(occupied == 15){value =	g_AbnormalAlarm.LowTemperatureAlarmValue;}
-			if(occupied == 16){value =	g_AbnormalAlarm.HighHumidityAlarmValue;}
-			if(occupied == 17){value =	g_AbnormalAlarm.LowWetAlarmValue;}
-			
-			if(occupied == 18){value =	g_AbnormalAlarm.RainAlarmValue;}
-			if(occupied == 19){value =	g_AbnormalAlarm.StrongWindAlarmValue;}
-			if(occupied == 20){value =	g_AbnormalAlarm.TheCO2ConcentrationIsTooLowAlarmValue;}
-			if(occupied == 21){value =	g_AbnormalAlarm.LightIntensityIsTooLowForTheAlarmValue;}
-			
-			if(occupied == 22){value =	g_AbnormalAlarm.SoilTemperatureAlarmValueIsTooLow;}
-			if(occupied == 23){value =	g_AbnormalAlarm.SoilTemperatureIsTooHighAlarmValue;}
-			if(occupied == 24){value =	g_AbnormalAlarm.SoilMoistureAlarmValueIsTooLow;}
-			if(occupied == 25){value =	g_AbnormalAlarm.TooHighSoilHumidityAlarmValue;}
-			
-			if(occupied == 26){value =	g_AbnormalAlarm.SmokeAlarmValue;}
-		}
-			break;
-		case VALUETYPE_05:
+			break;		
+		case VALUETYPE_03:
 		{
-			if((occupied>=(8*0+1))&&(occupied<=(8*1)))// 时间特殊处理
-			{
-				value =  (g_strategyControl.TimePoint[occupied-(8*0+1)].HH<<16)|(g_strategyControl.TimePoint[occupied-(8*0+1)].MM);
-			}
-			if((occupied>=(8*1+1))&&(occupied<=(8*2)))
-			{
-				value =  g_strategyControl.TemperaturePoint[occupied-(8*1+1)];
-			}
-			if((occupied>=(8*2+1))&&(occupied<=(8*3)))
-			{
-				value =  g_strategyControl.TemperatureErrorPoint[occupied-(8*2+1)];
-			}	
-			if((occupied>=(8*3+1))&&(occupied<=(8*4)))
-			{
-				value =  g_strategyControl.HumidityPoint[occupied-(8*3+1)];
-			}
-			if((occupied>=(8*4+1))&&(occupied<=(8*5)))
-			{
-				value =  g_strategyControl.HumidityErrorPoint[occupied-(8*4+1)];
-			}	
-			if((occupied>=(8*5+1))&&(occupied<=(8*6)))
-			{
-				value =  g_strategyControl.LightStrongPoint[occupied-(8*5+1)];
-			}	
-			if((occupied>=(8*6+1))&&(occupied<=(8*7+7)))// 49-59;  63
-			{
-				value =  g_strategyControl.RelayPointRemoteControl[occupied-(8*6+1)];
-			}							
+			value = g_dRegister590_595.dRegister.D590_595[occupied-1];// 590-595			
+		}
+			break;	
+		case VALUETYPE_04://D100 D101 D102 D103 D104 D105 D106
+		{			
+			value = g_dRegister100_106.dRegister.D100_106[occupied-1];// 100-106
 		}
 			break;
+		case VALUETYPE_05:// 偏移量 457
+		{
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;	
+			uint16_t newCount = 0;
+			newCount = occupied +457;	
+			lCount = (newCount)/8;
+			lPosition = (newCount)%8 - 1;
+			value = (g_mRegister70.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据									
+		}
+			break;
+		case VALUETYPE_06://偏移量 512
+		{
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;	
+			uint16_t newCount = 0;
+			newCount = occupied +512;	
+			lCount = (newCount)/8;
+			lPosition = (newCount)%8 - 1;
+			value = (g_mRegister70.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据									
+		}
+			break; 
+		case VALUETYPE_07://偏移量 0
+		{
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;	
+			uint16_t newCount = 0;
+			newCount = occupied;	
+			lCount = (newCount)/8;
+			lPosition = (newCount)%8 - 1;
+			value = (g_dRegister0_47.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据									
+		}
+			break;
+		case VALUETYPE_08://D0 D47
+		{
+			value = g_dRegister0_47.dRegister.D0_47[occupied-1];// 0-47
+		}
+			break;
+		case VALUETYPE_09://D200 D285
+		{
+			value = g_dRegister200_285.dRegister.D200_285[occupied-1];// 200-285
+		}
+			break;
+		case VALUETYPE_10://D286 D297
+		{
+			value = g_dRegister286_297.dRegister.D286_297[occupied-1];// 286-297
+		}
+			break;
+		case VALUETYPE_11://偏移量 100
+		{
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;	
+			uint16_t newCount = 0;
+			newCount = occupied +100;	
+			lCount = (newCount)/8;
+			lPosition = (newCount)%8 - 1;
+			value = (g_mRegister70.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据									
+		}
+			break;
+		case VALUETYPE_12://偏移量 147
+		{
+			//返回8bit宽度的数据，位置为0-7
+			uint8_t lCount = 0;
+			uint8_t lPosition = 0;	
+			uint16_t newCount = 0;
+			newCount = occupied +147;	
+			lCount = (newCount)/8;
+			lPosition = (newCount)%8 - 1;
+			value = (g_mRegister70.data[lCount]>>lPosition)&0x01; // 取得是第几位的数据									
+		}
+			break;
+		
 		default:
 			break;
 	}
