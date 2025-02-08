@@ -3,6 +3,18 @@
 #include "bsp.h"
 
 #include "app.h"
+// 1、传感器定义	M寄存器	3448	读写
+// 2、设备定义	M寄存器	3496	读写
+// 3、限位开关数量定义	D寄存器	4686	读写
+// 4、PLC时间校准	D寄存器	4196	读写
+// 5、设备开关量反馈	M寄存器	2505	只读
+// 6、设备控制	M寄存器	2560	读写
+// 7、限位开关反馈	M寄存器	2048	只读
+// 8、传感器数据	D寄存器	4096	只读
+// 9、设备控制参数	D寄存器	4296	读写
+// 10、报警值设置	D寄存器	4382	读写
+// 11、设备报警	M寄存器	2148	只读
+// 12、传感器值报警	M寄存器	2195	只读
 
 typedef enum VALUETYPE_EM
 {
@@ -11,7 +23,13 @@ typedef enum VALUETYPE_EM
 	VALUETYPE_03 ,
 	VALUETYPE_04 ,
 	VALUETYPE_05,
-	VALUETYPE_06 // 定制给plc的 保温被和顶通风使用
+	VALUETYPE_06, // 定制给plc的 保温被和顶通风使用
+	VALUETYPE_07,
+	VALUETYPE_08,
+	VALUETYPE_09,
+	VALUETYPE_10,
+	VALUETYPE_11,	
+	VALUETYPE_12
 }VALUETYPE_em;
 
 typedef enum INDEX_EM
@@ -795,6 +813,15 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 {
 	PLC_TXDATA_ST plc_txdata;
 	memset(&plc_txdata,0,sizeof(PLC_TXDATA_ST));
+// 1、传感器定义	M寄存器	3448	读写
+// 2、设备定义		M寄存器	3496	读写
+// 3、限位开关数量定义	D寄存器	4686	读写
+// 4、PLC时间校准		D寄存器	4196	读写
+
+// 6、设备控制		M寄存器	2560	读写
+
+// 9、设备控制参数	D寄存器	4296	读写
+// 10、报警值设置	D寄存器	4382	读写
 	
 	switch(valuetype)
 	{
@@ -809,146 +836,83 @@ void PLC_TypeOccupiedValue_convertToAddress(uint8_t valuetype,uint8_t occupied,i
 			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
 			break;
+		case VALUETYPE_02:
+		{
+			plc_txdata.function = FUNCTION_CODE_05;//  	
+			plc_txdata.reg_address = 3496 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>0;// M 数据低8bit在前；				
+			
+			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+		}
+			break;
+		case VALUETYPE_03:
+		{
+			plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+			plc_txdata.reg_address = 4686 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>16;
+			plc_txdata.data[2] = value>>8; 
+			plc_txdata.data[3] = value>>0;
+			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+		}
+			break;
+
 		case VALUETYPE_04:
 		{
-			memcpy((uint8_t*)&plc_txdata,(uint8_t*)&occupied_ADDRESS_VALUE_04[occupied],sizeof(PLC_TXDATA_ST));
-			if((occupied == 21))//21	光强过低报警值
-			{
-#if 0
-				plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>16;
-				plc_txdata.data[2] = value>>8; 
-				plc_txdata.data[3] = value>>0;
-#else
-				plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>0;
-				plc_txdata.data[2] = value>>24; 
-				plc_txdata.data[3] = value>>16;
-#endif
+			plc_txdata.function = FUNCTION_CODE_06;// 写入D寄存器 	
+			plc_txdata.reg_address = 4686 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>16;
+			plc_txdata.data[2] = value>>8; 
+			plc_txdata.data[3] = value>>0;
+			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 
-			}	
-			else
-			{
-				plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>0;
-			}			
-			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
-			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);			
 		}
 			break;
-		case VALUETYPE_05:
+		case VALUETYPE_06:
 		{
-			memcpy((uint8_t*)&plc_txdata,(uint8_t*)&occupied_ADDRESS_VALUE_05[occupied],sizeof(PLC_TXDATA_ST));
-			if(((occupied >=1)&&(occupied <=8)))//时间点1（HH:MM）
-			{
-				plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>16;
-				plc_txdata.data[2] = value>>8; 
-				plc_txdata.data[3] = value>>0;
-			}	
-			else if ((occupied >=41)&&(occupied <=48))//光强点1
-			{
-				#if 0
-				plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>16;
-				plc_txdata.data[2] = value>>8; 
-				plc_txdata.data[3] = value>>0;
-				#else
-				plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>0;
-				plc_txdata.data[2] = value>>24; 
-				plc_txdata.data[3] = value>>16;
-				#endif
-			}			
-			else if ((occupied >= 49)&&(occupied <= 62))//62
-			{
-				plc_txdata.data[0] = value>>0;// M 数据低8bit在前；				
-			}
-			else if ((occupied == 63))//63
-			{
-				if(value == 2)
-					plc_txdata.data[0] = 0; //常开0为    2自动				
-				else 
-					plc_txdata.data[0] = 1;//常闭1为1手动 								
-			}			
-			else if ((occupied >= 9)&&(occupied <= 40))
-			{
-				plc_txdata.data[0] = value>>8;// D 数据高8bit在前；
-				plc_txdata.data[1] = value>>0;
-			}				
+			plc_txdata.function = FUNCTION_CODE_05;//  	
+			plc_txdata.reg_address = 2560 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>0;// M 数据低8bit在前；				
+			
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
-			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);			
+			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
 			break;
-		case VALUETYPE_06://特殊定制的 
+		case VALUETYPE_09:
 		{
-			memcpy((uint8_t*)&plc_txdata,(uint8_t*)&occupied_ADDRESS_VALUE_06[occupied],sizeof(PLC_TXDATA_ST));
-            /* 保温被开启  00     线圈    保温被停止 01       线圈  保温被关闭      02    线圈 */
-			if ((occupied  == Equipment_Insulation_TYPE))//保温被
-			{
-			    if(value == Equipment_Stopped_CMD)
-                {         
-    			    plc_txdata.function = FUNCTION_CODE_05;
-                    plc_txdata.reg_address = 0x01;
-    				plc_txdata.reg_num = 0x01;
-                    plc_txdata.data[0] = 1;plc_txdata.data[1] = 0;
-                    plc_txdata.data[2] = 0;plc_txdata.data[3] = 0;
-                }
-                else if(value == Equipment_Opened_CMD)
-                {         
-                    plc_txdata.function = FUNCTION_CODE_05;
-                    plc_txdata.reg_address = 0x00;
-                    plc_txdata.reg_num = 0x01;
-                    plc_txdata.data[0] = 1;plc_txdata.data[1] = 0;
-                    plc_txdata.data[2] = 0;plc_txdata.data[3] = 0;
-                }
-                else if(value == Equipment_Closed_CMD)
-                {         
-                    plc_txdata.function = FUNCTION_CODE_05;
-                    plc_txdata.reg_address = 0x02;
-                    plc_txdata.reg_num = 0x01;
-                    plc_txdata.data[0] = 1;plc_txdata.data[1] = 0;
-                    plc_txdata.data[2] = 0;plc_txdata.data[3] = 0;
-                }
-			}
-            /* 顶通风开启  03       顶通风停止 04         顶通风关闭 05 */
-			if ((occupied  == Equipment_RoofVentilation_TYPE))//  顶通风
-			{
-			    if(value == Equipment_Stopped_CMD)
-                {         
-    			    plc_txdata.function = FUNCTION_CODE_05;
-                    plc_txdata.reg_address = 0x04;
-    				plc_txdata.reg_num = 0x01;
-                    plc_txdata.data[0] = 1;plc_txdata.data[1] = 0;
-                    plc_txdata.data[2] = 0;plc_txdata.data[3] = 0;
-                }
-                else if(value == Equipment_Opened_CMD)
-                {         
-                    plc_txdata.function = FUNCTION_CODE_05;
-                    plc_txdata.reg_address = 0x03;
-                    plc_txdata.reg_num = 0x01;
-                    plc_txdata.data[0] = 1;plc_txdata.data[1] = 0;
-                    plc_txdata.data[2] = 0;plc_txdata.data[3] = 0;
-                }
-                else if(value == Equipment_Closed_CMD)
-                {         
-                    plc_txdata.function = FUNCTION_CODE_05;
-                    plc_txdata.reg_address = 0x05;
-                    plc_txdata.reg_num = 0x01;
-                    plc_txdata.data[0] = 1;plc_txdata.data[1] = 0;
-                    plc_txdata.data[2] = 0;plc_txdata.data[3] = 0;
-                }
-			}
-            
+			plc_txdata.function = FUNCTION_CODE_06;//  	
+			plc_txdata.reg_address = 4296 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>16;
+			plc_txdata.data[2] = value>>8; 
+			plc_txdata.data[3] = value>>0;
 			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
-			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);			
-            				
-            gModbus.address = ADDRESS_PLC_DISPLAY;
-            gModbus.function = plc_txdata.function;
-            gModbus.dataAddress= plc_txdata.reg_address;
-            gModbus.dataLen = plc_txdata.reg_num;
+			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
 		}
 			break;
+		case VALUETYPE_10:
+		{
+			plc_txdata.function = FUNCTION_CODE_06;//  	
+			plc_txdata.reg_address = 4382 - 1 + occupied;//  	地址需要根据占位和值确定
+			plc_txdata.reg_num = 1;// 			
+			plc_txdata.data[0] = value>>24;// D 数据高8bit在前；
+			plc_txdata.data[1] = value>>16;
+			plc_txdata.data[2] = value>>8; 
+			plc_txdata.data[3] = value>>0;
+			App_sheshisuo_tx_PLC_write_cmd(ADDRESS_PLC_200,plc_txdata.function,
+			plc_txdata.reg_address,plc_txdata.reg_num,plc_txdata.data);
+		}
+			break;
+		
         
 		default:
 			break;
