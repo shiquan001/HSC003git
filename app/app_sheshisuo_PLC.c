@@ -64,10 +64,7 @@ D200_285_REGISTER_un g_dRegister200_285;
 D286_297_REGISTER_un g_dRegister286_297;
 D590_595_REGISTER_un g_dRegister590_595;
 
-#if 0
-M_REGISTER70_un g_mRegisterCopy;
-D_REGISTER_un g_dRegisterCopy;
-#endif
+
 static uint8_t buffer[16];
 
 uint8_t m_flagCmdAsk = FALSE;//调整cmd应答的优先级，先应答命令，在回答数据
@@ -364,148 +361,6 @@ typedef struct PLC_TXDATA_st
 PLC_TXDATA_ST;
 #define NUMBER_TWO 2
 
-
-//命令类型	寄存器地址	寄存器数量	数据
-
-PLC_TXDATA_ST occupied_ADDRESS_VALUE_04[26+1]=
-{
-	{0,0,0,0},//0
-	{0,0,0,0},//01
-	{0,0,0,0},//02
-	{0,0,0,0},//03
-	{0,0,0,0},//04
-	{0,0,0,0},//05
-	{0,0,0,0},//06
-	{0,0,0,0},//07
-	{0,0,0,0},//08
-	{0,0,0,0},//09
-	{0,0,0,0},//10
-	{0,0,0,0},//11
-	{0,0,0,0},//12
-	{0,0,0,0},//13
-
-	{FUNCTION_CODE_06,350,1,0},//D350
-	{FUNCTION_CODE_06,351,1,0},
-	{FUNCTION_CODE_06,352,1,0},
-	{FUNCTION_CODE_06,353,1,0},
-	{FUNCTION_CODE_06,354,1,0},
-	{FUNCTION_CODE_06,355,1,0},
-	{FUNCTION_CODE_06,356,1,0},
-
-	{FUNCTION_CODE_10,357,NUMBER_TWO,0},//D357  D358
-		
-	{FUNCTION_CODE_06,359,1,0},//D359
-	{FUNCTION_CODE_06,360,1,0},
-	{FUNCTION_CODE_06,361,1,0},
-	{FUNCTION_CODE_06,362,1,0},
-	{FUNCTION_CODE_06,363,1,0}
-};
-//命令类型	寄存器地址	寄存器数量	数据
-
-PLC_TXDATA_ST occupied_ADDRESS_VALUE_05[63+1]=
-{
-	{0,0,0,0},//0
-
-	{FUNCTION_CODE_10,180,NUMBER_TWO,0},//D180
-	{FUNCTION_CODE_10,182,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,184,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,186,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,188,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,190,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,192,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,194,NUMBER_TWO,0},
-	
-	{FUNCTION_CODE_06,196,1,0},//D196
-	{FUNCTION_CODE_06,197,1,0},
-	{FUNCTION_CODE_06,198,1,0},
-	{FUNCTION_CODE_06,199,1,0},
-	{FUNCTION_CODE_06,200,1,0},
-	{FUNCTION_CODE_06,201,1,0},
-	{FUNCTION_CODE_06,202,1,0},
-	{FUNCTION_CODE_06,203,1,0},
-
-	{FUNCTION_CODE_06,204,1,0},
-	{FUNCTION_CODE_06,205,1,0},
-	{FUNCTION_CODE_06,206,1,0},
-	{FUNCTION_CODE_06,207,1,0},
-	{FUNCTION_CODE_06,208,1,0},
-	{FUNCTION_CODE_06,209,1,0},
-	{FUNCTION_CODE_06,210,1,0},
-	{FUNCTION_CODE_06,211,1,0},
-
-	{FUNCTION_CODE_06,212,1,0},
-	{FUNCTION_CODE_06,213,1,0},
-	{FUNCTION_CODE_06,214,1,0},
-	{FUNCTION_CODE_06,215,1,0},
-	{FUNCTION_CODE_06,216,1,0},
-	{FUNCTION_CODE_06,217,1,0},
-	{FUNCTION_CODE_06,218,1,0},
-	{FUNCTION_CODE_06,219,1,0},	
-
-	{FUNCTION_CODE_06,220,1,0},
-	{FUNCTION_CODE_06,221,1,0},
-	{FUNCTION_CODE_06,222,1,0},
-	{FUNCTION_CODE_06,223,1,0},
-	{FUNCTION_CODE_06,224,1,0},
-	{FUNCTION_CODE_06,225,1,0},
-	{FUNCTION_CODE_06,226,1,0},
-	{FUNCTION_CODE_06,227,1,0},	
-
-	{FUNCTION_CODE_10,228,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,230,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,232,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,234,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,236,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,238,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,240,NUMBER_TWO,0},
-	{FUNCTION_CODE_10,242,NUMBER_TWO,0},	
-
-/*
-(1)保温被开 ：手动远程控制的继电器点1（m30）
-(2)保温被关：手动远程控制的继电器点2（m31）
-(3)顶通风打开：手动远程控制的继电器点3（m32）
-(4)顶通风闭合：手动远程控制的继电器点4（m33）
-(5)底通风打开：手动远程控制的继电器点5（m34）
-(6)底通风闭合：手动远程控制的继电器点6（m35）
-(7)施肥机：手动远程控制的继电器点7（m36）
-(8)加湿喷雾：手动远程控制的继电器点8（m37）
-(9)风机：手动远程控制的继电器点9（m38）
-(10)湿帘：手动远程控制的继电器点10（m39）
-(11)补光灯：手动远程控制的继电器点11（m40）
-(12)循环风机：手动远程控制的继电器点12（m41）
-(13)预留一：手动远程控制的继电器点13（m42）
-(14)预留二：手动远程控制的继电器点14（m43）
-页面右上角控制柜的模式应该可以切换（m400，常闭为手动，常开为自动）
-
-*/
-	{FUNCTION_CODE_05,30,1,0},//M30
-	{FUNCTION_CODE_05,31,1,0},
-	{FUNCTION_CODE_05,32,1,0},
-	{FUNCTION_CODE_05,33,1,0},
-	{FUNCTION_CODE_05,34,1,0},
-	{FUNCTION_CODE_05,35,1,0},	
-	{FUNCTION_CODE_05,36,1,0},
-	{FUNCTION_CODE_05,37,1,0},
-	{FUNCTION_CODE_05,38,1,0},
-	{FUNCTION_CODE_05,39,1,0},
-	{FUNCTION_CODE_05,40,1,0}, //M40
-	
-	{FUNCTION_CODE_05,41,1,0},//M41
-	{FUNCTION_CODE_05,42,1,0},
-	{FUNCTION_CODE_05,43,1,0}, //M43
-	{FUNCTION_CODE_05,400,1,0} //M400
-
-	
-};
-
-
-PLC_TXDATA_ST occupied_ADDRESS_VALUE_06[6+1]=
-{
-	{0,0,0,0},//0
-
-	{FUNCTION_CODE_05,0,1,0},// 线圈 00
-	{FUNCTION_CODE_05,1,1,0},// 线圈 01
-};
 
 /*
 *********************************************************************************************************
@@ -949,20 +804,6 @@ void App_sheshisuo_PLC_Loop(void)
 					{
 						memcpy(&g_mRegister70,&rx_data_PLC[start_index+3],rxByters[g_sheshisuoPLC.PLC_indexState]);
 					}						
-					#endif
-					#if 0
-					/* 对比数据是否有变化 */
-					if(NULL != memcmp(&g_sheshisuoPLC,&g_sheshisuoPLC_copy,M_REGISTER_NUM_all))
-					{										
-		
-						if((g_tConfig.report_changed))
-						{
-							App_caiji_report_start();//
-							p_info("g_sheshisuo plc 数据变化上报"); 			
-						}
-						g_sheshisuoPLC.tx_count++;
-					}
-					memcpy(&g_sheshisuoPLC_copy,&g_sheshisuoPLC,sizeof(g_sheshisuoPLC)); //备份		
 					#endif
 				}
 				else
