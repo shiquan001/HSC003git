@@ -52,25 +52,11 @@ typedef enum INDEX_EM
 
 SHESHISUO_PLC_t g_sheshisuoPLC;
 //SHESHISUO_PLC_t g_sheshisuoPLC_copy;
-STATUS_OF_EQUIPMENT_st g_statusEquipment;
-FacilitiesAccumulateData_st g_FacilitiesAccumulateData;
-SensorRealTimeData_st g_SensorRealTimeData ;
-AbnormalAlarm_st g_AbnormalAlarm;
-strategyControl_st g_strategyControl;
-
-STATUS_OF_EQUIPMENT_st g_statusEquipmentCopy;
-FacilitiesAccumulateData_st g_FacilitiesAccumulateDataCopy;
-SensorRealTimeData_st g_SensorRealTimeDataCopy ;
-AbnormalAlarm_st g_AbnormalAlarmCopy;
-strategyControl_st g_strategyControlCopy;
 
 static uint8_t rx_data_PLC[PLC_RX_DATA_LENTH];
 
-uint8_t g_m400Register;
 M_REGISTER70_un g_mRegister70;//70个字节
 M_REGISTER8_un g_mRegister8;//8个字节
-
-D_REGISTER_un g_dRegister;
 
 D0_47_REGISTER_un 	 g_dRegister0_47;
 D100_106_REGISTER_un g_dRegister100_106;
@@ -95,11 +81,6 @@ uint16_t startAddress[READ_COUNT]=
 {3448,4296,4382,4686,4196,4096,2048};
 //10.页面右上角控制柜的模式应该可以切换（m400，常闭为手动，常开为自动）
 
-#define NUM32 (32u)
-#define NUM33 (33u)
-#define NUM116 (116u)
-#define NUM28 (28u)
-#define NUM29 (29u)
 // NUM86 NUM12  NUM6  NUM7  NUM48  NUM64
 #define NUM86 (86u)
 #define NUM12 (12u)
@@ -114,7 +95,6 @@ uint16_t txByters[READ_COUNT]=
 uint8_t rxByters[READ_COUNT]=
 {8,NUM86*2,NUM12*2,NUM6*2,NUM7*2,NUM48*2,70};
 
-void App_sheshisuo_PLC_writer_ask(void);
 
 /*
 *********************************************************************************************************
@@ -128,10 +108,8 @@ void App_sheshisuo_PLC_Init_Var(void)
 {	
 	memset(&g_sheshisuoPLC,0,sizeof(g_sheshisuoPLC));	
 
-	
 	g_sheshisuoPLC.PLC_start = TRUE;
 	g_sheshisuoPLC.PLC_work_state = SHESHISUO_PLC_OPEN;
-
 
 	memset(&g_mRegister8,0,sizeof(g_mRegister8));	//8个字节初始化M寄存器
 	memset(&g_mRegister70,0,sizeof(g_mRegister70));	//70个字节初始化M寄存器
@@ -141,15 +119,6 @@ void App_sheshisuo_PLC_Init_Var(void)
 	memset(&g_dRegister200_285,0,sizeof(g_dRegister200_285));	//D200-D285	 设备控制参数初始化
 	memset(&g_dRegister286_297,0,sizeof(g_dRegister286_297));	//D286-D297x  报警值设置初始化
 	memset(&g_dRegister590_595,0,sizeof(g_dRegister590_595));	//D590-D595  限位开关数量定义初始化
-
-	memset(&g_dRegister,0,sizeof(g_dRegister)); //D寄存器初始化
-	#if 0
-	memcpy(&g_mRegisterCopy,&g_mRegister70,sizeof(g_mRegister70));	
-	memcpy(&g_dRegisterCopy,&g_dRegister,sizeof(g_dRegister));	
-	#endif
-
-	g_m400Register = 0;
-
 }
 
 /*
@@ -164,62 +133,18 @@ void App_sheshisuoni_dataExchange_statusEquipment(void)
 {	
 	/* 对比数据是否有变化 */
 	uint8_t res = FALSE;
-	#if 0
-	if(NULL != memcmp(&g_mRegister70,&g_mRegisterCopy,sizeof(g_mRegister70)))
-	{										
-		
-		res = TRUE;
-	}
-	memcpy(&g_mRegisterCopy,&g_mRegister70,sizeof(g_mRegister70)); 
-	
-	/* 对比数据是否有变化 */
-	if(NULL != memcmp(&g_dRegister,&g_dRegisterCopy,sizeof(g_dRegister)))
-	{										
-		
-		res = TRUE;
-	}	
-	memcpy(&g_dRegisterCopy,&g_dRegister,sizeof(g_dRegister)); 
-	#endif
-	if(NULL != memcmp(&g_statusEquipment,&g_statusEquipmentCopy,sizeof(g_statusEquipment)))
-	{										
-		
-		res = TRUE;
-	}
-	memcpy(&g_statusEquipmentCopy,&g_statusEquipment,sizeof(g_statusEquipment)); 
 
-	if(NULL != memcmp(&g_FacilitiesAccumulateData,&g_FacilitiesAccumulateDataCopy,sizeof(g_FacilitiesAccumulateData)))
-	{										
+	// if(NULL != memcmp(&g_strategyControl,&g_strategyControlCopy,sizeof(g_strategyControl)))
+	// {										
 		
-		res = TRUE;
-	}
-	memcpy(&g_FacilitiesAccumulateDataCopy,&g_FacilitiesAccumulateData,sizeof(g_FacilitiesAccumulateData)); 
-	
-	if(NULL != memcmp(&g_SensorRealTimeData,&g_SensorRealTimeDataCopy,sizeof(g_SensorRealTimeData)))
-	{										
-		
-		res = TRUE;
-	}
-	memcpy(&g_SensorRealTimeDataCopy,&g_SensorRealTimeData,sizeof(g_SensorRealTimeData)); 
-
-	if(NULL != memcmp(&g_AbnormalAlarm,&g_AbnormalAlarmCopy,sizeof(g_AbnormalAlarm)))
-	{										
-		
-		res = TRUE;
-	}
-	memcpy(&g_AbnormalAlarmCopy,&g_AbnormalAlarm,sizeof(g_AbnormalAlarm)); 
-
-	if(NULL != memcmp(&g_strategyControl,&g_strategyControlCopy,sizeof(g_strategyControl)))
-	{										
-		
-		res = TRUE;
-	}
-	memcpy(&g_strategyControlCopy,&g_strategyControl,sizeof(g_strategyControl)); 
+	// 	res = TRUE;
+	// }
+	// memcpy(&g_strategyControlCopy,&g_strategyControl,sizeof(g_strategyControl)); 
 						
 	/* 强制进行命令的应答 ，、延时10s执行*/
 	if(m_flagCmdAsk == TRUE)
 	{
 		m_flagCmdAsk = FALSE ;
-		// App_sheshisuo_PLC_writer_ask();
 		App_DeviceState_cmdAsk(CMD_ASK_plcwOk);// ok
 
 		p_info("SHESHISUO_PLC_DELAY ask");							
@@ -803,7 +728,7 @@ void App_sheshisuo_PLC_rxIndexLoop(void)
 		#if ENABLE_WATCHDOG	
 		HAL_IWDG_Refresh(&hiwdg) ;/* --- 喂狗 */
 		#endif		
-		
+
 		#endif
 		App_sheshisuoni_dataExchange_statusEquipment();//
 		g_sheshisuoPLC.PLC_work_state = SHESHISUO_PLC_DELAY;
@@ -868,12 +793,6 @@ void App_sheshisuo_PLC_Loop(void)
 			}
 			else
 			{								
-				/* 5S	发送一次 */
-				//if(bsp_CheckTimer(TMR_ID_sheshisuo_PLC_ask_server))
-				//{
-				//	App_sheshisuo_PLC_writer_ask();
-				//	p_info("SHESHISUO_PLC_DELAY ask");				
-				//}	
 				/* 10mS	定时查询，控制节奏 */
 				if(bsp_CheckTimer(TMR_ID_sheshisuo_PLC_cmd_chaxun))
 				{
@@ -1284,110 +1203,6 @@ int  App_sheshisuo_getValueFromType(uint8_t valuetype ,uint8_t occupied)
 			break;
 	}
 	return value;
-}
-
-/*
-*********************************************************************************************************
-*	函 数 名: App_sheshisuo_PLC_writer_ask
-*	功能说明: 
-*	形	  参：无
-*	返 回 值: 无
-*********************************************************************************************************
-*/
-void App_sheshisuo_PLC_writer_ask(void)
-{
-	if((g_wenshi.m_sensor_TXflag&SENSOR_TX_SERVER_PLC_SHESHISUO) != SENSOR_TX_SERVER_PLC_SHESHISUO)
-	{
-		p_err("App_sheshisuo_PLC_writer_ask 掉线");	
-		return;///不在线，不应答
-	}
-	u16 lenth = 0;
-	u16 sensor_data_lenth = 0;
-	
-	unsigned long l_long = 0;
-	unsigned long l_long_s = 0;
-	
-	char json_buf[JSON_BUF_LEN];  //用于存放json格式数据
-	uint16_t json_len  =0;
-
-
-	/* 数据组帧*/
-	memset(&json_buf,'0',sizeof(json_buf));
-	json_len = 0;
-	
-	json_buf[lenth] = messageId_DEVICE_STATE_ask>>8;//基础传感器	SensorBasic 0x0002
-	lenth= lenth + 1;
-	json_buf[lenth] = (u8)messageId_DEVICE_STATE_ask;
-	lenth= lenth + 1;
-	
-	//设备执行完命令，命令执行结果上报中的mid要与收到命令中的mid保持一致，这样平台才能刷新对应命令的状态
-	json_buf[lenth] = g_sheshisuoPLC.tx_mid>>8;//mid	2
-	lenth= lenth + 1;
-	json_buf[lenth] = (u8)g_sheshisuoPLC.tx_mid;
-	lenth= lenth + 1;	
- 
-	json_buf[lenth] = 0x00;//errcode	1
-	lenth= lenth + 1;
-	
-	/*时间*/
-	l_long = mktime_second(g_Date.Year,g_Date.Month,g_Date.Date,g_Time.Hours,g_Time.Minutes,g_Time.Seconds);
-	l_long_s = mktime_second(18,1,1,0,0,0);
-	if(l_long>=l_long_s)
-	{
-		json_buf[lenth] = (l_long-l_long_s)>>24;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-		json_buf[lenth] = (l_long-l_long_s)>>16;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-		json_buf[lenth] = (l_long-l_long_s)>>8;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-		json_buf[lenth] = (l_long-l_long_s)>>0;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-	}
-	else
-	{
-		json_buf[lenth] = (0)>>24;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-		json_buf[lenth] = (0)>>16;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-		json_buf[lenth] = (0)>>8;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-		json_buf[lenth] = (0)>>0;// 高字节在低位地址；大端模式；
-		lenth= lenth + 1;
-	}
-
-	/*sensor_data_lenth*/
-	//lenth= lenth + 1;
-	//lenth= lenth + 1;
-#if 1
-	int pValue = 0;
-	pValue = App_sheshisuo_getValueFromType(g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied);
-	
-	if((g_sheshisuoPLC.rx_valuetype == VALUETYPE_05)&&(g_sheshisuoPLC.rx_occupied>=1)&&(g_sheshisuoPLC.rx_occupied<=8))
-	{
-		sprintf(&json_buf[lenth+2],"SENSOR_ID_PLC_SHESHISUO2,%d,%d,%d:%d",
-		g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied,pValue>>16,(pValue&0x0000ffff));
-		sensor_data_lenth = strlen(&json_buf[lenth+2]);
-	}
-	else
-	{
-		sprintf(&json_buf[lenth+2],"SENSOR_ID_PLC_SHESHISUO2,%d,%d,%d",
-		g_sheshisuoPLC.rx_valuetype,g_sheshisuoPLC.rx_occupied,pValue);
-		sensor_data_lenth = strlen(&json_buf[lenth+2]);
-	}
-#endif	
-
-	json_buf[lenth] =sensor_data_lenth>>8;// 高字节在低位地址；大端模式；
-	lenth= lenth + 1;
-	json_buf[lenth] = sensor_data_lenth;// 高字节在低位地址；大端模式；
-	lenth= lenth + 1;
-
-	lenth= lenth + sensor_data_lenth;
-	
-	json_len = lenth;
-
-	// app_fifo_NB_CoapST_Put(json_buf,&json_len);
-    if(gUpdate4G.updateStart == FALSE)//升级过程中，不再发送数据给4g模块
-    	app_4G_sendData(&json_buf[0],&json_len);
 }
 
 
