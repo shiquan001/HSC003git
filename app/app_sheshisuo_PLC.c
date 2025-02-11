@@ -1448,7 +1448,7 @@ void App_sheshisuo_PLC_DataReport_SensorExtend(char *SensorBasic_data_tx, char *
 			g_mRegister70.mRegister.m128_183.M130,g_mRegister70.mRegister.m128_183.M131);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
 		memset(SensorBasic_data_temp,0,LENTH_TEMP);//
-		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d",g_mRegister70.mRegister.m128_183.M132,g_mRegister70.mRegister.m128_183.M133,
+		sprintf(SensorBasic_data_temp,"%d,%d,%d,%d,%d,%d,%d,%d,",g_mRegister70.mRegister.m128_183.M132,g_mRegister70.mRegister.m128_183.M133,
 			g_mRegister70.mRegister.m128_183.M134,g_mRegister70.mRegister.m128_183.M135,g_mRegister70.mRegister.m128_183.M136,g_mRegister70.mRegister.m128_183.M137,
 			g_mRegister70.mRegister.m128_183.M138,g_mRegister70.mRegister.m128_183.M139);
 		strcat(SensorBasic_data_tx,SensorBasic_data_temp);
